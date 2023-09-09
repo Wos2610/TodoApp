@@ -45,6 +45,9 @@ class TaskFragment : Fragment() {
         taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
             tasks.let { allTaskAdapter.tasks = it }
         }
+
+        val task = Task(0, "Task 1", "11/02/2022", "11:00", "11:30", 1, 1, 1, "Description")
+        taskViewModel.insertTask(task)
         Log.d("abcd", "TaskViewModel: " + taskViewModel.allTasks.value)
     }
 

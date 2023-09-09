@@ -17,8 +17,6 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     init{
         taskRepository = TaskRepository.getInstance(context)
         allTasks = taskRepository.allTask
-        val task = Task(0, "Task 1", "11/02/2022", "11:00", "11:30", 1, 1, 1, "Description")
-        insertTask(task)
     }
 
     fun insertTask(task : Task){
