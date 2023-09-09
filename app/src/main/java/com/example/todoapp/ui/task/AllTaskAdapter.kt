@@ -45,4 +45,6 @@ class AllTaskAdapter : RecyclerView.Adapter<AllTaskAdapter.AllTaskViewHolder>() 
         holder.bind(currentTask)
         Log.d("abcde", "onBindViewHolder")
     }
+
+
 }
