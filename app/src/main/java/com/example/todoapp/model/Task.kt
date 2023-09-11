@@ -13,6 +13,6 @@ data class Task(
     @ColumnInfo val timeStart : String,
     @ColumnInfo val timeEnd : String,
     @ColumnInfo val categoryId : Int,
-    @ColumnInfo val status : Int,
-    @ColumnInfo val priority : Int,
+    @ColumnInfo var status : Int,
+    @ColumnInfo var priority : Int,
     @ColumnInfo val description : String)

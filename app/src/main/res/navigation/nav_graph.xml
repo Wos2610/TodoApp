@@ -20,4 +20,24 @@
         android:name="com.example.todoapp.ui.calendar.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.example.todoapp.ui.task.newTask.NewTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
+
+    <fragment
+        android:id="@+id/editTaskFragment"
+        android:name="com.example.todoapp.ui.task.editTask.EditTaskFragment"
+        android:label="fragment_edit_task"
+        tools:layout="@layout/fragment_edit_task" />
+
+    <action
+        android:id="@+id/action_taskFragment_to_newTaskFragment"
+        app:destination="@id/newTaskFragment" />
+
+    <action
+        android:id="@+id/action_taskFragment_to_editTaskFragment"
+        app:destination="@id/editTaskFragment" />
+
 </navigation>

@@ -10,7 +10,7 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTaskBinding
 import com.example.todoapp.model.Task
 
-class AllTaskAdapter : RecyclerView.Adapter<AllTaskAdapter.AllTaskViewHolder>() {
+class AllTaskAdapter(val update: (Task) -> Unit, val delete: (Task) -> Unit) : RecyclerView.Adapter<AllTaskViewHolder>() {
     var tasks: List<Task> = listOf()
         get() {
             return field
@@ -21,14 +21,6 @@ class AllTaskAdapter : RecyclerView.Adapter<AllTaskAdapter.AllTaskViewHolder>() 
             notifyDataSetChanged()
         }
 
-    inner class AllTaskViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        private val itemBinding : ItemTaskBinding = ItemTaskBinding.bind(view)
-        fun bind(task : Task){
-            itemBinding.apply {
-                itemTitle.text = task.title
-            }
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllTaskViewHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -43,7 +35,9 @@ class AllTaskAdapter : RecyclerView.Adapter<AllTaskAdapter.AllTaskViewHolder>() 
     override fun onBindViewHolder(holder: AllTaskViewHolder, position: Int) {
         val currentTask = tasks[position]
         holder.bind(currentTask)
-        Log.d("abcde", "onBindViewHolder")
+        holder.itemView.setOnClickListener{
+            update(currentTask)
+        }
     }
 
 

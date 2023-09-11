@@ -6,17 +6,17 @@
     tools:context=".ui.task.TaskFragment"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/task_list_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:listitem="@layout/item_task"/>
-
     <ImageView
+        android:id="@+id/add_task_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_add_24"
         android:layout_gravity="right"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/task_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_task"/>
 
 </LinearLayout>
