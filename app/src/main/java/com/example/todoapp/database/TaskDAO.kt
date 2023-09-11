@@ -20,4 +20,7 @@ interface TaskDAO {
     @Delete
     suspend fun deleteTask(task : Task)
 
+    @Query("SELECT * FROM TASK_TABLE WHERE status = :status ORDER BY id ASC")
+    fun getTaskByStatus(status : Int) : LiveData<List<Task>>
+
 }

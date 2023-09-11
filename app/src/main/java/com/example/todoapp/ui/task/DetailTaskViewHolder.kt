@@ -12,12 +12,6 @@ enum class PriorityType(val value : Int, val description : String){
     HIGH(3, "High")
 }
 
-enum class StatusType(val value : Int, val description: String){
-    NULL(0, "Null"),
-    TODO(1, "Todo"),
-    ON_PROGRESS(2, "On Progress"),
-    DONE(3, "Done")
-}
 class AllTaskViewHolder(view : View) : RecyclerView.ViewHolder(view){
     private val itemBinding : ItemTaskBinding = ItemTaskBinding.bind(view)
     fun bind(task : Task){

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentEditTaskBinding
 import com.example.todoapp.model.Task
@@ -31,14 +33,7 @@ class EditTaskFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        taskViewModel.newTaskStatus.observe(viewLifecycleOwner){ status ->
-            binding.statusTextView.text = status.toString()
-        }
-
-        taskViewModel.newTaskPriority.observe(viewLifecycleOwner){ priority ->
-            binding.priorityTextView.text = priority.toString()
-        }
-
+        changeStatusAndPriority()
         binding.apply {
             taskViewModel.editTask?.let {
                 nameEditText.setText(it.title)
@@ -82,7 +77,7 @@ class EditTaskFragment : Fragment() {
                 val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
 
                 val timePickerDialog = TimePickerDialog(
-                    requireContext(),
+                    context,
                     { _, hourOfDay, minute ->
                         startTimeEditText.setText(String.format("%02d:%02d", hourOfDay, minute))
                     },
@@ -100,7 +95,7 @@ class EditTaskFragment : Fragment() {
                 val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
 
                 val timePickerDialog = TimePickerDialog(
-                    requireContext(),
+                    context,
                     { _, hourOfDay, minute ->
                         endTimeEditText.setText(String.format("%02d:%02d", hourOfDay, minute))
                     },
@@ -111,48 +106,6 @@ class EditTaskFragment : Fragment() {
                 timePickerDialog.setTitle("Select End Time")
                 timePickerDialog.show()
             })
-
-            todoTextView.setOnClickListener {
-                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                binding.onProgressTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.doneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                taskViewModel.setNewTaskStatus(1)
-            }
-
-            onProgressTextView.setOnClickListener {
-                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.onProgressTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                binding.doneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                taskViewModel.setNewTaskStatus(2)
-            }
-
-            doneTextView.setOnClickListener {
-                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.onProgressTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.doneTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                taskViewModel.setNewTaskStatus(3)
-            }
-
-            lowTextView.setOnClickListener {
-                binding.lowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                binding.midTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.highTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                taskViewModel.setNewTaskPriority(1)
-            }
-
-            midTextView.setOnClickListener {
-                binding.lowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.midTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                binding.highTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                taskViewModel.setNewTaskPriority(2)
-            }
-
-            highTextView.setOnClickListener {
-                binding.lowTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.midTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                binding.highTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
-                taskViewModel.setNewTaskPriority(3)
-            }
 
             changeButton.setOnClickListener {
                 taskViewModel.setEditTask(
@@ -175,6 +128,172 @@ class EditTaskFragment : Fragment() {
                     )
                 }
                 parentFragmentManager.popBackStack()
+            }
+        }
+    }
+
+    private fun changeStatusAndPriority(){
+        taskViewModel.newTaskStatus.observe(viewLifecycleOwner){ status ->
+            binding.statusTextView.text = status.toString()
+
+            when(status){
+                1 -> {
+                    binding.todoTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
+                        )
+                    )
+                    binding.onProgressTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    binding.doneTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                }
+
+                2 -> {
+                    binding.todoTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    binding.onProgressTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
+                        )
+                    )
+                    binding.doneTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                }
+
+                3 -> {
+                    binding.todoTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    binding.onProgressTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    binding.doneTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
+                        )
+                    )
+                }
+            }
+        }
+
+        taskViewModel.newTaskPriority.observe(viewLifecycleOwner){ priority ->
+            binding.priorityTextView.text = priority.toString()
+
+            when(priority){
+                1 -> {
+                    binding.lowTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
+                        )
+                    )
+                    binding.midTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    binding.highTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                }
+
+                2 -> {
+                    binding.lowTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    binding.midTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
+                        )
+                    )
+                    binding.highTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                }
+
+                3 -> {
+                    binding.lowTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    binding.midTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    binding.highTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue
+                        )
+                    )
+                }
+            }
+
+            binding.apply {
+                todoTextView.setOnClickListener {
+                    taskViewModel.setNewTaskStatus(1)
+                }
+
+                onProgressTextView.setOnClickListener {
+                    taskViewModel.setNewTaskStatus(2)
+                }
+
+                doneTextView.setOnClickListener {
+                    taskViewModel.setNewTaskStatus(3)
+                }
+
+                lowTextView.setOnClickListener {
+                    taskViewModel.setNewTaskPriority(1)
+                }
+
+                midTextView.setOnClickListener {
+                    taskViewModel.setNewTaskPriority(2)
+                }
+
+                highTextView.setOnClickListener {
+                    taskViewModel.setNewTaskPriority(3)
+                }
             }
         }
     }

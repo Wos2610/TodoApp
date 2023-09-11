@@ -22,19 +22,15 @@ class TaskRepository(context : Application){
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertTask(task: Task){
-        taskDAO.insertTask(task)
-    }
+    suspend fun insertTask(task: Task) = taskDAO.insertTask(task)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun updateTask(task: Task){
-        taskDAO.updateTask(task)
-    }
+    suspend fun updateTask(task: Task) = taskDAO.updateTask(task)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun deleteTask(task: Task){
-        taskDAO.deleteTask(task)
-    }
+    suspend fun deleteTask(task: Task) = taskDAO.deleteTask(task)
+
+    fun getTaskByStatus(status : Int) = taskDAO.getTaskByStatus(status)
 }

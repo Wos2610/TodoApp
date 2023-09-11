@@ -14,24 +14,15 @@ import kotlinx.coroutines.launch
 class TaskViewModel(context : Application) : AndroidViewModel(context){
     private val taskRepository : TaskRepository
     val allTasks : LiveData<List<Task>>
+    var listTasksByStatus : LiveData<List<Task>>
     private val _insertTaskCallback = MutableLiveData<(Task) -> Unit>()
     private val _updateTaskCallback = MutableLiveData<(Task) -> Unit>()
     private lateinit var _editTask : Task
     private var _newTaskStatus : MutableLiveData<Int> = MutableLiveData(0)
     private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(0)
 
-    val newTaskStatus : LiveData<Int>
-        get() = _newTaskStatus
-
-    fun setNewTaskStatus(status : Int){
-        _newTaskStatus.value = status
-    }
-
-    val newTaskPriority : LiveData<Int>
-        get() = _newTaskPriority
-
-    fun setNewTaskPriority(priority : Int){
-        _newTaskPriority.value = priority
+    fun setListTasksByStatus(status: Int) {
+        listTasksByStatus = taskRepository.getTaskByStatus(status)
     }
     val insertTaskCallback: LiveData<(Task) -> Unit>
         get() = _insertTaskCallback
@@ -53,10 +44,25 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     fun setEditTask(task: Task) {
         _editTask = task
     }
+    val newTaskStatus : LiveData<Int>
+        get() = _newTaskStatus
+
+    fun setNewTaskStatus(status : Int){
+        _newTaskStatus.value = status
+    }
+
+    val newTaskPriority : LiveData<Int>
+        get() = _newTaskPriority
+
+    fun setNewTaskPriority(priority : Int){
+        _newTaskPriority.value = priority
+    }
+
 
     init{
         taskRepository = TaskRepository.getInstance(context)
         allTasks = taskRepository.allTask
+        listTasksByStatus = taskRepository.getTaskByStatus(1)
     }
 
     fun insertTask(task : Task){
