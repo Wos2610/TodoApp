@@ -17,7 +17,22 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     private val _insertTaskCallback = MutableLiveData<(Task) -> Unit>()
     private val _updateTaskCallback = MutableLiveData<(Task) -> Unit>()
     private lateinit var _editTask : Task
+    private var _newTaskStatus : MutableLiveData<Int> = MutableLiveData(0)
+    private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(0)
 
+    val newTaskStatus : LiveData<Int>
+        get() = _newTaskStatus
+
+    fun setNewTaskStatus(status : Int){
+        _newTaskStatus.value = status
+    }
+
+    val newTaskPriority : LiveData<Int>
+        get() = _newTaskPriority
+
+    fun setNewTaskPriority(priority : Int){
+        _newTaskPriority.value = priority
+    }
     val insertTaskCallback: LiveData<(Task) -> Unit>
         get() = _insertTaskCallback
 

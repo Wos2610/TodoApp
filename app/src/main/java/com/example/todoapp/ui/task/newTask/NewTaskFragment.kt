@@ -2,12 +2,15 @@ package com.example.todoapp.ui.task.newTask
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.ui.task.TaskViewModel
@@ -17,8 +20,6 @@ import java.util.Calendar
 //class NewTaskFragment(private val insert : (Task) -> Unit) : Fragment() {
 class NewTaskFragment : Fragment() {
     private lateinit var binding : FragmentAddTaskBinding
-    private var newTaskPriority  = 0
-    private var newTaskStatus  = 0
     private  val taskViewModel: TaskViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,14 @@ class NewTaskFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        taskViewModel.newTaskStatus.observe(viewLifecycleOwner){ status ->
+            binding.statusTextView.text = status.toString()
+        }
+
+        taskViewModel.newTaskPriority.observe(viewLifecycleOwner){ priority ->
+            binding.priorityTextView.text = priority.toString()
+        }
+
         binding.apply {
             dateTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
@@ -95,28 +104,34 @@ class NewTaskFragment : Fragment() {
                 timePickerDialog.show()
             })
 
-            todoTextView.setOnClickListener{
-                newTaskStatus = 1
+            todoTextView.setOnClickListener {
+                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                taskViewModel.setNewTaskStatus(1)
             }
 
-            onProgressTextView.setOnClickListener{
-                newTaskStatus = 2
+            onProgressTextView.setOnClickListener {
+                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                taskViewModel.setNewTaskStatus(2)
             }
 
-            doneTextView.setOnClickListener{
-                newTaskStatus = 3
+            doneTextView.setOnClickListener {
+                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                taskViewModel.setNewTaskStatus(3)
             }
 
-            lowTextView.setOnClickListener{
-                newTaskPriority = 1
+            lowTextView.setOnClickListener {
+                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                taskViewModel.setNewTaskPriority(1)
             }
 
-            midTextView.setOnClickListener{
-                newTaskPriority = 2
+            midTextView.setOnClickListener {
+                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                taskViewModel.setNewTaskPriority(2)
             }
 
-            highTextView.setOnClickListener{
-                newTaskPriority = 3
+            highTextView.setOnClickListener {
+                binding.todoTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                taskViewModel.setNewTaskPriority(3)
             }
 
             creatButton.setOnClickListener {
@@ -128,8 +143,8 @@ class NewTaskFragment : Fragment() {
                         startTimeEditText.text.toString(),
                         endTimeEditText.text.toString(),
                         1,
-                        newTaskStatus,
-                        newTaskPriority,
+                        taskViewModel.newTaskStatus.value!!,
+                        taskViewModel.newTaskPriority.value!!,
                         descriptionEditText.text.toString()
                     ))
                 }

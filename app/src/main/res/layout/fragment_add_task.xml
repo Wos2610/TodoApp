@@ -32,10 +32,15 @@
         app:errorIconDrawable="@drawable/baseline_error_24"
         >
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date"/>
+        <TextView
             android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:hint="@string/date"/>
+
     </com.google.android.material.textfield.TextInputLayout>>
 
     <LinearLayout

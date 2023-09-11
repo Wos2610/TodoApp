@@ -11,6 +11,7 @@ import com.example.todoapp.databinding.ItemTaskBinding
 import com.example.todoapp.model.Task
 
 class AllTaskAdapter(val update: (Task) -> Unit, val delete: (Task) -> Unit) : RecyclerView.Adapter<AllTaskViewHolder>() {
+    private lateinit var itemBinding: ItemTaskBinding
     var tasks: List<Task> = listOf()
         get() {
             return field
@@ -33,12 +34,15 @@ class AllTaskAdapter(val update: (Task) -> Unit, val delete: (Task) -> Unit) : R
     }
 
     override fun onBindViewHolder(holder: AllTaskViewHolder, position: Int) {
+        itemBinding = ItemTaskBinding.bind(holder.itemView)
+
         val currentTask = tasks[position]
         holder.bind(currentTask)
-        holder.itemView.setOnClickListener{
+        itemBinding.dragItem.setOnClickListener{
             update(currentTask)
         }
+        itemBinding.deleteButton.setOnClickListener{
+            delete(currentTask)
+        }
     }
-
-
 }

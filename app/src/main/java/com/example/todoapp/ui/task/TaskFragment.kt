@@ -12,12 +12,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentTaskBinding
+import com.example.todoapp.databinding.ItemTaskBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.ui.task.editTask.EditTaskFragment
 import com.example.todoapp.ui.task.newTask.NewTaskFragment
 
 class TaskFragment : Fragment() {
-    private lateinit var binding : FragmentTaskBinding
+    private lateinit var taskBinding : FragmentTaskBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
     private lateinit var allTaskAdapter: AllTaskAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,11 +30,13 @@ class TaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentTaskBinding.inflate(inflater, container, false)
+        taskBinding = FragmentTaskBinding.inflate(inflater, container, false)
         allTaskAdapter = AllTaskAdapter(
             update = { task ->
                 // De thong tin trong EditTaskFragment duoc truyen vao
                 taskViewModel.setEditTask(task)
+                taskViewModel.setNewTaskStatus(task.status)
+                taskViewModel.setNewTaskPriority(task.priority)
                 taskViewModel.setUpdateTaskCallback {task ->
                     taskViewModel.updateTask(task)
                 }
@@ -43,40 +46,28 @@ class TaskFragment : Fragment() {
                 taskViewModel.deleteTask(task)
             }
         )
-        binding.apply {
+        taskBinding.apply {
             taskListRecyclerView.layoutManager = LinearLayoutManager(context)
             taskListRecyclerView.adapter = allTaskAdapter
         }
-        return binding.root
+        return  taskBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentTaskBinding.bind(view)
+        taskBinding = FragmentTaskBinding.bind(view)
         taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
             tasks.let { allTaskAdapter.tasks = it }
         }
 
-        //val task = Task(10, "Task 2", "11/02/2022", "11:00", "11:30", 1, 1, 1, "Description")
-//        taskViewModel.insertTask(task)
-        //taskViewModel.deleteTask(task)
-        Log.d("abcd", "TaskViewModel: " + taskViewModel.allTasks.value)
-
-//        binding.addTaskButton.setOnClickListener{
-//            val transaction = parentFragmentManager.beginTransaction()
-//                .replace(R.id.nav_host_fragment, NewTaskFragment{task : Task ->
-//                    taskViewModel.insertTask(task)})
-//                .addToBackStack(null)
-//                .commit()
-//        }
-
-        binding.addTaskButton.setOnClickListener {
+        taskBinding.addTaskButton.setOnClickListener {
             taskViewModel.setInsertTaskCallback {task : Task ->
                 taskViewModel.insertTask(task)
             }
             findNavController().navigate(R.id.action_taskFragment_to_newTaskFragment)
         }
+
     }
 
 }
