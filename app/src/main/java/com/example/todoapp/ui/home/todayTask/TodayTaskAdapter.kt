@@ -11,7 +11,7 @@ import com.example.todoapp.model.Task
 import com.example.todoapp.ui.task.tabTask.TabTaskViewHolder
 
 class TodayTaskAdapter(val update : (Task) -> Unit) : RecyclerView.Adapter<TodayTaskViewHolder>() {
-   private lateinit var itemBinding : ItemTodayTaskBinding
+    private lateinit var itemBinding : ItemTodayTaskBinding
     var tasks: List<Task> = listOf()
         get() {
             return field

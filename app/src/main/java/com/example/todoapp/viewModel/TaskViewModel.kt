@@ -42,7 +42,7 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     }
 
     fun setTodayListTasks(todayDate: String) {
-        listTasksByStatus = taskRepository.getTasksByDate(todayDate)
+        todayListTasks = taskRepository.getTasksByDate(todayDate)
     }
     val insertTaskCallback: LiveData<(Task) -> Unit>
         get() = _insertTaskCallback

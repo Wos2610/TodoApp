@@ -13,23 +13,10 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentDetailTabBinding
 import com.example.todoapp.viewModel.TaskViewModel
 
-class TabTaskFragment(private val status : Int) : Fragment() {
-    private var text = ""
+abstract class TabTaskFragment(private val status : Int) : Fragment() {
     private lateinit var taskBinding: FragmentDetailTabBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
     private lateinit var taskAdapter: TabTaskAdapter
-
-    companion object {
-        @JvmStatic
-        fun newInstance(status: Int, newText: String) =
-            TabTaskFragment(status).apply {
-                val args = Bundle()
-                val fragment = TabTaskFragment(status)
-                fragment.text = newText
-                fragment.arguments = args;
-                return fragment
-            }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

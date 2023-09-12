@@ -32,15 +32,15 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
         todayTaskAdapter = TodayTaskAdapter {
-            task: Task ->
-                // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
-                taskViewModel.setEditTask(task)
-                taskViewModel.setNewTaskStatus(task.status)
-                taskViewModel.setNewTaskPriority(task.priority)
-                taskViewModel.setUpdateTaskCallback { task ->
-                    taskViewModel.updateTask(task)
-                }
-                findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
+                task: Task ->
+            // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
+            taskViewModel.setEditTask(task)
+            taskViewModel.setNewTaskStatus(task.status)
+            taskViewModel.setNewTaskPriority(task.priority)
+            taskViewModel.setUpdateTaskCallback { task ->
+                taskViewModel.updateTask(task)
+            }
+            findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
         }
 
         binding.apply {
