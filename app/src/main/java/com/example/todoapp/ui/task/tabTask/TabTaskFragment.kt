@@ -13,7 +13,7 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentDetailTabBinding
 import com.example.todoapp.viewModel.TaskViewModel
 
-class TabTaskFragment(private val status: Int) : Fragment() {
+class TabTaskFragment(private val status : Int) : Fragment() {
     private var text = ""
     private lateinit var taskBinding: FragmentDetailTabBinding
     private val taskViewModel: TaskViewModel by activityViewModels()

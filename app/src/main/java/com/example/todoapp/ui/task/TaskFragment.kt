@@ -24,6 +24,11 @@ class TaskFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
     private val taskViewModel: TaskViewModel by activityViewModels()
+    private val fragments = listOf(
+        TabTaskFragment.newInstance(StatusType.TODO.value, StatusType.TODO.description),
+        TabTaskFragment.newInstance(StatusType.ON_PROGRESS.value, StatusType.ON_PROGRESS.description),
+        TabTaskFragment.newInstance(StatusType.DONE.value, StatusType.DONE.description)
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -55,11 +60,6 @@ class TaskFragment : Fragment() {
             findNavController().navigate(R.id.action_taskFragment_to_newTaskFragment)
         }
 
-        val fragments = listOf(
-            TabTaskFragment.newInstance(StatusType.TODO.value, StatusType.TODO.description),
-            TabTaskFragment.newInstance(StatusType.ON_PROGRESS.value, StatusType.ON_PROGRESS.description),
-            TabTaskFragment.newInstance(StatusType.DONE.value, StatusType.DONE.description)
-        )
         taskAdapter = TaskAdapter(childFragmentManager, lifecycle, fragments)
         tabLayout = taskBinding.tabLayout
         viewPager = taskBinding.viewPager2

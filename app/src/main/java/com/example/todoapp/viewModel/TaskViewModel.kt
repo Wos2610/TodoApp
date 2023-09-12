@@ -8,6 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.todoapp.database.TaskRepository
 import com.example.todoapp.model.Task
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 
 class TaskViewModel(context : Application) : AndroidViewModel(context){
     private val taskRepository : TaskRepository
@@ -16,6 +19,7 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     var listTasksByStatusAndNameOrder : LiveData<List<Task>>
     var listTasksByStatusAndPriorityOrder : LiveData<List<Task>>
     var listTasksByStatusAndDateOrder : LiveData<List<Task>>
+    var todayListTasks : LiveData<List<Task>>
     private val _insertTaskCallback = MutableLiveData<(Task) -> Unit>()
     private val _updateTaskCallback = MutableLiveData<(Task) -> Unit>()
     private lateinit var _editTask : Task
@@ -35,6 +39,10 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
 
     fun setListTasksByStatusAndDateOrder(status: Int, isASC : Boolean) {
         listTasksByStatusAndDateOrder = taskRepository.getTasksByStatusAndDateOrder(status, isASC)
+    }
+
+    fun setTodayListTasks(todayDate: String) {
+        listTasksByStatus = taskRepository.getTasksByDate(todayDate)
     }
     val insertTaskCallback: LiveData<(Task) -> Unit>
         get() = _insertTaskCallback
@@ -78,7 +86,8 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
         listTasksByStatusAndNameOrder = taskRepository.getTasksByStatusAndNameOrder(1, false)
         listTasksByStatusAndPriorityOrder = taskRepository.getTasksByStatusAndPriorityOrder(1, false)
         listTasksByStatusAndDateOrder = taskRepository.getTasksByStatusAndDateOrder(1, false)
-
+        val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
+        todayListTasks = taskRepository.getTasksByDate(dateFormat.format(Calendar.getInstance().time))
     }
 
     fun insertTask(task : Task){

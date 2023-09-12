@@ -13,6 +13,8 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.viewModel.TaskViewModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.Calendar
 class NewTaskFragment : Fragment() {
     private lateinit var binding : FragmentAddTaskBinding
@@ -45,10 +47,11 @@ class NewTaskFragment : Fragment() {
                     "July", "August", "September", "October", "November", "December"
                 )
 
+                val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
                     { _, selectedYear, selectedMonth, selectedDay->
-                        dateTextView.text = "${monthNames[selectedMonth]} $selectedDay $selectedYear"
+                        dateTextView.text = dateFormat.format(calendar.time)
                     },
                     year,
                     month,

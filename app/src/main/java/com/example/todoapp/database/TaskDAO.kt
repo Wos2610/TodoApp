@@ -37,4 +37,6 @@ interface TaskDAO {
             "CASE WHEN NOT :isASC THEN dueDate END DESC")
     fun getTasksByStatusAndDateOrder(status : Int, isASC : Boolean) : LiveData<List<Task>>
 
+    @Query("SELECT * FROM TASK_TABLE WHERE dueDate = :date")
+    fun getTasksByDate(date : String) : LiveData<List<Task>>
 }

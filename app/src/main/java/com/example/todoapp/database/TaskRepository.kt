@@ -35,4 +35,5 @@ class TaskRepository(context : Application){
     fun getTasksByStatusAndNameOrder(status : Int, isASC : Boolean) = taskDAO.getTasksByStatusAndNameOrder(status, isASC)
     fun getTasksByStatusAndPriorityOrder(status : Int, isASC : Boolean) = taskDAO.getTasksByStatusAndPriorityOrder(status, isASC)
     fun getTasksByStatusAndDateOrder(status : Int, isASC : Boolean) = taskDAO.getTasksByStatusAndDateOrder(status, isASC)
+    fun getTasksByDate(date : String) = taskDAO.getTasksByDate(date)
 }

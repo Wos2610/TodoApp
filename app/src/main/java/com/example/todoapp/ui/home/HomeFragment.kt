@@ -13,11 +13,14 @@ import com.example.todoapp.databinding.FragmentHomeBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.ui.home.todayTask.TodayTaskAdapter
 import com.example.todoapp.viewModel.TaskViewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
     private val taskViewModel : TaskViewModel by activityViewModels()
     private lateinit var todayTaskAdapter: TodayTaskAdapter
+    private val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -48,8 +51,11 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        taskViewModel.apply {
+            setTodayListTasks(dateFormat.format(Calendar.getInstance().time))
+            todayListTasks.observe(viewLifecycleOwner) { tasks ->
+                tasks.let { todayTaskAdapter.tasks = it }
+            }
+        }
     }
-
-
 }
