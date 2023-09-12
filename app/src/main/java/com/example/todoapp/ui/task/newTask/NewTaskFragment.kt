@@ -2,7 +2,6 @@ package com.example.todoapp.ui.task.newTask
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.example.todoapp.model.Task
-import com.example.todoapp.ui.task.TaskViewModel
+import com.example.todoapp.viewModel.TaskViewModel
 import java.util.Calendar
 class NewTaskFragment : Fragment() {
     private lateinit var binding : FragmentAddTaskBinding

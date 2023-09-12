@@ -11,7 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentTaskBinding
+import com.example.todoapp.model.Task
+import com.example.todoapp.ui.task.enums.StatusType
 import com.example.todoapp.ui.task.tabTask.DetailTabFragment
+import com.example.todoapp.viewModel.TaskViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -20,6 +23,7 @@ class TaskFragment : Fragment() {
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
+    private val taskViewModel: TaskViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -30,25 +34,6 @@ class TaskFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         taskBinding = FragmentTaskBinding.inflate(inflater, container, false)
-//        taskAdapter = DetailTaskAdapter(
-//            update = { task ->
-//                // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
-//                taskViewModel.setEditTask(task)
-//                taskViewModel.setNewTaskStatus(task.status)
-//                taskViewModel.setNewTaskPriority(task.priority)
-//                taskViewModel.setUpdateTaskCallback {task ->
-//                    taskViewModel.updateTask(task)
-//                }
-//                findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
-//            },
-//            delete = { task ->
-//                taskViewModel.deleteTask(task)
-//            }
-//        )
-//        taskBinding.apply {
-//            taskListRecyclerView.layoutManager = LinearLayoutManager(context)
-//            taskListRecyclerView.adapter = taskAdapter
-//        }
         return taskBinding.root
     }
 
@@ -59,19 +44,20 @@ class TaskFragment : Fragment() {
 //        taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
 //            tasks.let { taskAdapter.tasks = it }
 //        }
-//
-//        taskBinding.addTaskButton.setOnClickListener {
-//            taskViewModel.setInsertTaskCallback {task : Task ->
-//                taskViewModel.insertTask(task)
-//            }
-//            findNavController().navigate(R.id.action_taskFragment_to_newTaskFragment)
-//        }
+
+        taskBinding.addTaskButton.setOnClickListener {
+            // default : status = 1, priority = 1
+            taskViewModel.setNewTaskStatus(1)
+            taskViewModel.setNewTaskPriority(1)
+            taskViewModel.setInsertTaskCallback {task : Task ->
+                taskViewModel.insertTask(task)
+            }
+            findNavController().navigate(R.id.action_taskFragment_to_newTaskFragment)
+        }
+
         val fragments = listOf(
             DetailTabFragment.newInstance(StatusType.TODO.value, StatusType.TODO.description),
-            DetailTabFragment.newInstance(
-                StatusType.ON_PROGRESS.value,
-                StatusType.ON_PROGRESS.description
-            ),
+            DetailTabFragment.newInstance(StatusType.ON_PROGRESS.value, StatusType.ON_PROGRESS.description),
             DetailTabFragment.newInstance(StatusType.DONE.value, StatusType.DONE.description)
         )
         taskAdapter = TaskAdapter(childFragmentManager, lifecycle, fragments)

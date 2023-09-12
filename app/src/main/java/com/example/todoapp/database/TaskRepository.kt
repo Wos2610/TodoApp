@@ -18,7 +18,7 @@ class TaskRepository(context : Application){
 
     private val taskDatabase = TaskRoomDatabase.getDatabase(context)
     private val taskDAO = taskDatabase.taskDAO()
-    val allTask = taskDAO.getAllTask()
+    val allTask = taskDAO.getAllTasks()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
@@ -31,6 +31,8 @@ class TaskRepository(context : Application){
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun deleteTask(task: Task) = taskDAO.deleteTask(task)
-
-    fun getTaskByStatus(status : Int) = taskDAO.getTaskByStatus(status)
+    fun getTasksByStatus(status : Int) = taskDAO.getTasksByStatus(status)
+    fun getTasksByStatusAndNameOrder(status : Int, isASC : Boolean) = taskDAO.getTasksByStatusAndNameOrder(status, isASC)
+    fun getTasksByStatusAndPriorityOrder(status : Int, isASC : Boolean) = taskDAO.getTasksByStatusAndPriorityOrder(status, isASC)
+    fun getTasksByStatusAndDateOrder(status : Int, isASC : Boolean) = taskDAO.getTasksByStatusAndDateOrder(status, isASC)
 }

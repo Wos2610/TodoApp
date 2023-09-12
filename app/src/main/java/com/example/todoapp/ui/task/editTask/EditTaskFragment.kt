@@ -9,12 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentEditTaskBinding
 import com.example.todoapp.model.Task
-import com.example.todoapp.ui.task.TaskViewModel
+import com.example.todoapp.viewModel.TaskViewModel
 import java.util.Calendar
 
 class EditTaskFragment : Fragment() {

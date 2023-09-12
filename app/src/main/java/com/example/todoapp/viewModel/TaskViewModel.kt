@@ -1,13 +1,11 @@
-package com.example.todoapp.ui.task
+package com.example.todoapp.viewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todoapp.database.TaskRepository
-import com.example.todoapp.database.TaskRoomDatabase
 import com.example.todoapp.model.Task
 import kotlinx.coroutines.launch
 
@@ -15,14 +13,28 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     private val taskRepository : TaskRepository
     val allTasks : LiveData<List<Task>>
     var listTasksByStatus : LiveData<List<Task>>
+    var listTasksByStatusAndNameOrder : LiveData<List<Task>>
+    var listTasksByStatusAndPriorityOrder : LiveData<List<Task>>
+    var listTasksByStatusAndDateOrder : LiveData<List<Task>>
     private val _insertTaskCallback = MutableLiveData<(Task) -> Unit>()
     private val _updateTaskCallback = MutableLiveData<(Task) -> Unit>()
     private lateinit var _editTask : Task
-    private var _newTaskStatus : MutableLiveData<Int> = MutableLiveData(0)
-    private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(0)
+    private var _newTaskStatus : MutableLiveData<Int> = MutableLiveData(1)
+    private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(1)
 
     fun setListTasksByStatus(status: Int) {
-        listTasksByStatus = taskRepository.getTaskByStatus(status)
+        listTasksByStatus = taskRepository.getTasksByStatus(status)
+    }
+    fun setListTasksByStatusAndNameOrder(status: Int, isASC : Boolean) {
+        listTasksByStatusAndNameOrder = taskRepository.getTasksByStatusAndNameOrder(status, isASC)
+    }
+
+    fun setListTasksByStatusAndPriorityOrder(status: Int, isASC : Boolean) {
+        listTasksByStatusAndPriorityOrder = taskRepository.getTasksByStatusAndPriorityOrder(status, isASC)
+    }
+
+    fun setListTasksByStatusAndDateOrder(status: Int, isASC : Boolean) {
+        listTasksByStatusAndDateOrder = taskRepository.getTasksByStatusAndDateOrder(status, isASC)
     }
     val insertTaskCallback: LiveData<(Task) -> Unit>
         get() = _insertTaskCallback
@@ -62,7 +74,11 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     init{
         taskRepository = TaskRepository.getInstance(context)
         allTasks = taskRepository.allTask
-        listTasksByStatus = taskRepository.getTaskByStatus(1)
+        listTasksByStatus = taskRepository.getTasksByStatus(1)
+        listTasksByStatusAndNameOrder = taskRepository.getTasksByStatusAndNameOrder(1, false)
+        listTasksByStatusAndPriorityOrder = taskRepository.getTasksByStatusAndPriorityOrder(1, false)
+        listTasksByStatusAndDateOrder = taskRepository.getTasksByStatusAndDateOrder(1, false)
+
     }
 
     fun insertTask(task : Task){

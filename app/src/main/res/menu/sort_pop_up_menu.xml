@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/name_ascending"
+        android:title="Name ascending" />
+
+    <item
+        android:id="@+id/name_descending"
+        android:title="Name descending" />
+
+    <item
+        android:id="@+id/priority_ascending"
+        android:title="Priority ascending" />
+
+    <item
+        android:id="@+id/priority_descending"
+        android:title="Priority descending" />
+
+    <item
+        android:id="@+id/date_ascending"
+        android:title="Date ascending" />
+
+    <item
+        android:id="@+id/date_descending"
+        android:title="Date descending" />
+
+</menu>

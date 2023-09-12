@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.task
+package com.example.todoapp.ui.task.tabTask
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.task
+package com.example.todoapp.ui.task.enums
 
 enum class StatusType(val value : Int, val description: String){
     NULL(0, "Null"),
