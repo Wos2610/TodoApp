@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTodayTaskBinding
 import com.example.todoapp.model.Task
-import com.example.todoapp.ui.task.tabTask.TabTaskViewHolder
 
 class TodayTaskAdapter(val update : (Task) -> Unit) : RecyclerView.Adapter<TodayTaskViewHolder>() {
     private lateinit var itemBinding : ItemTodayTaskBinding
