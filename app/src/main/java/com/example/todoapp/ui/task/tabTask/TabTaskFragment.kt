@@ -3,8 +3,6 @@ package com.example.todoapp.ui.task.tabTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.MenuItem.OnMenuItemClickListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -15,18 +13,18 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentDetailTabBinding
 import com.example.todoapp.viewModel.TaskViewModel
 
-class DetailTabFragment(private val status: Int) : Fragment() {
+class TabTaskFragment(private val status: Int) : Fragment() {
     private var text = ""
     private lateinit var taskBinding: FragmentDetailTabBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
-    private lateinit var taskAdapter: DetailTaskAdapter
+    private lateinit var taskAdapter: TabTaskAdapter
 
     companion object {
         @JvmStatic
         fun newInstance(status: Int, newText: String) =
-            DetailTabFragment(status).apply {
+            TabTaskFragment(status).apply {
                 val args = Bundle()
-                val fragment = DetailTabFragment(status)
+                val fragment = TabTaskFragment(status)
                 fragment.text = newText
                 fragment.arguments = args;
                 return fragment
@@ -43,7 +41,7 @@ class DetailTabFragment(private val status: Int) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         taskBinding = FragmentDetailTabBinding.inflate(inflater, container, false)
-        taskAdapter = DetailTaskAdapter(
+        taskAdapter = TabTaskAdapter(
             update = { task ->
                 // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
                 taskViewModel.setEditTask(task)

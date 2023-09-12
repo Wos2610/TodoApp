@@ -9,7 +9,7 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTaskBinding
 import com.example.todoapp.model.Task
 
-class DetailTaskAdapter(val update: (Task) -> Unit, val delete: (Task) -> Unit) : RecyclerView.Adapter<AllTaskViewHolder>() {
+class TabTaskAdapter(val update: (Task) -> Unit, val delete: (Task) -> Unit) : RecyclerView.Adapter<TabTaskViewHolder>() {
     private lateinit var itemBinding: ItemTaskBinding
     var tasks: List<Task> = listOf()
         get() {
@@ -22,17 +22,17 @@ class DetailTaskAdapter(val update: (Task) -> Unit, val delete: (Task) -> Unit) 
         }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllTaskViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabTaskViewHolder {
         val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_task, parent, false)
-        return AllTaskViewHolder(view)
+        return TabTaskViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return tasks.size
     }
 
-    override fun onBindViewHolder(holder: AllTaskViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TabTaskViewHolder, position: Int) {
         itemBinding = ItemTaskBinding.bind(holder.itemView)
         val currentTask = tasks[position]
         holder.bind(currentTask)

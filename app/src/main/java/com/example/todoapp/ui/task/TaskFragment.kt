@@ -13,7 +13,7 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentTaskBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.ui.task.enums.StatusType
-import com.example.todoapp.ui.task.tabTask.DetailTabFragment
+import com.example.todoapp.ui.task.tabTask.TabTaskFragment
 import com.example.todoapp.viewModel.TaskViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -56,9 +56,9 @@ class TaskFragment : Fragment() {
         }
 
         val fragments = listOf(
-            DetailTabFragment.newInstance(StatusType.TODO.value, StatusType.TODO.description),
-            DetailTabFragment.newInstance(StatusType.ON_PROGRESS.value, StatusType.ON_PROGRESS.description),
-            DetailTabFragment.newInstance(StatusType.DONE.value, StatusType.DONE.description)
+            TabTaskFragment.newInstance(StatusType.TODO.value, StatusType.TODO.description),
+            TabTaskFragment.newInstance(StatusType.ON_PROGRESS.value, StatusType.ON_PROGRESS.description),
+            TabTaskFragment.newInstance(StatusType.DONE.value, StatusType.DONE.description)
         )
         taskAdapter = TaskAdapter(childFragmentManager, lifecycle, fragments)
         tabLayout = taskBinding.tabLayout

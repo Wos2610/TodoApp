@@ -8,7 +8,7 @@ import com.example.todoapp.ui.task.enums.StatusType
 import com.example.todoapp.ui.task.enums.PriorityType
 
 
-class AllTaskViewHolder(view : View) : RecyclerView.ViewHolder(view){
+class TabTaskViewHolder(view : View) : RecyclerView.ViewHolder(view){
     private val itemBinding : ItemTaskBinding = ItemTaskBinding.bind(view)
     fun bind(task : Task){
         itemBinding.apply {
