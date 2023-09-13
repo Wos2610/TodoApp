@@ -19,24 +19,27 @@ interface TaskDAO {
     @Delete
     suspend fun deleteTask(task : Task)
 
-    @Query("SELECT * FROM TASK_TABLE WHERE status = :status ORDER BY id ASC")
+    @Query("SELECT * FROM TASK_TABLE WHERE status = :status AND isArchive = 0 ORDER BY id ASC")
     fun getTasksByStatus(status : Int) : LiveData<List<Task>>
 
-    @Query("SELECT * FROM TASK_TABLE WHERE status = :status ORDER BY " +
+    @Query("SELECT * FROM TASK_TABLE WHERE status = :status AND isArchive = 0 ORDER BY " +
             "CASE WHEN :isASC THEN title END ASC, " +
             "CASE WHEN NOT :isASC THEN title END DESC")
     fun getTasksByStatusAndNameOrder(status : Int, isASC : Boolean) : LiveData<List<Task>>
 
-    @Query("SELECT * FROM TASK_TABLE WHERE status = :status ORDER BY " +
+    @Query("SELECT * FROM TASK_TABLE WHERE status = :status AND isArchive = 0 ORDER BY " +
             "CASE WHEN :isASC THEN priority END ASC, " +
             "CASE WHEN NOT :isASC THEN priority END DESC")
     fun getTasksByStatusAndPriorityOrder(status : Int, isASC : Boolean) : LiveData<List<Task>>
 
-    @Query("SELECT * FROM TASK_TABLE WHERE status = :status ORDER BY " +
+    @Query("SELECT * FROM TASK_TABLE WHERE status = :status AND isArchive = 0 ORDER BY " +
             "CASE WHEN :isASC THEN dueDate END ASC, " +
             "CASE WHEN NOT :isASC THEN dueDate END DESC")
     fun getTasksByStatusAndDateOrder(status : Int, isASC : Boolean) : LiveData<List<Task>>
 
-    @Query("SELECT * FROM TASK_TABLE WHERE dueDate = :date")
+    @Query("SELECT * FROM TASK_TABLE WHERE dueDate = :date AND isArchive = 0")
     fun getTasksByDate(date : String) : LiveData<List<Task>>
+
+    @Query("SELECT * FROM TASK_TABLE WHERE isArchive = 1")
+    fun getArchiveTasks() : LiveData<List<Task>>
 }

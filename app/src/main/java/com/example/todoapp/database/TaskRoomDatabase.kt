@@ -9,7 +9,7 @@ import com.example.todoapp.model.Task
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Task::class], version = 1, exportSchema = false)
+@Database(entities = [Task::class], version = 2, exportSchema = false)
 public abstract class TaskRoomDatabase : RoomDatabase(){
     abstract fun taskDAO() : TaskDAO
 
@@ -20,7 +20,7 @@ public abstract class TaskRoomDatabase : RoomDatabase(){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TaskRoomDatabase::class.java,
-                    "word_database"
+                    "task_database"
                 )
                     .build()
                 INSTANCE = instance

@@ -108,7 +108,8 @@ class NewTaskFragment : Fragment() {
                         1,
                         taskViewModel.newTaskStatus.value!!,
                         taskViewModel.newTaskPriority.value!!,
-                        descriptionEditText.text.toString()
+                        descriptionEditText.text.toString(),
+                        true
                     ))
                 }
                 parentFragmentManager.popBackStack()

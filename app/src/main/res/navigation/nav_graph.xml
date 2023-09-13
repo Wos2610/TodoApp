@@ -32,6 +32,12 @@
         android:label="fragment_edit_task"
         tools:layout="@layout/fragment_edit_task" />
 
+    <fragment
+        android:id="@+id/archiveFragment2"
+        android:name="com.example.todoapp.ui.archive.ArchiveFragment"
+        android:label="fragment_archive"
+        tools:layout="@layout/fragment_archive" />
+
     <action
         android:id="@+id/action_taskFragment_to_newTaskFragment"
         app:destination="@id/newTaskFragment" />

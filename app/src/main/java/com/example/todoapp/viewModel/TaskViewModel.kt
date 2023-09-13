@@ -14,17 +14,19 @@ import java.util.Date
 
 class TaskViewModel(context : Application) : AndroidViewModel(context){
     private val taskRepository : TaskRepository
-    val allTasks : LiveData<List<Task>>
+    private val allTasks : LiveData<List<Task>>
     var listTasksByStatus : LiveData<List<Task>>
     var listTasksByStatusAndNameOrder : LiveData<List<Task>>
     var listTasksByStatusAndPriorityOrder : LiveData<List<Task>>
     var listTasksByStatusAndDateOrder : LiveData<List<Task>>
     var todayListTasks : LiveData<List<Task>>
+    var archiveListTasks : LiveData<List<Task>>
     private val _insertTaskCallback = MutableLiveData<(Task) -> Unit>()
     private val _updateTaskCallback = MutableLiveData<(Task) -> Unit>()
     private lateinit var _editTask : Task
     private var _newTaskStatus : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(1)
+    private var _newTaskIsArchive : MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun setListTasksByStatus(status: Int) {
         listTasksByStatus = taskRepository.getTasksByStatus(status)
@@ -43,6 +45,10 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
 
     fun setTodayListTasks(todayDate: String) {
         todayListTasks = taskRepository.getTasksByDate(todayDate)
+    }
+
+    fun setArchiveListTasks(isArchive: Boolean) {
+        archiveListTasks = taskRepository.getArchiveTasks()
     }
     val insertTaskCallback: LiveData<(Task) -> Unit>
         get() = _insertTaskCallback
@@ -77,6 +83,12 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     fun setNewTaskPriority(priority : Int){
         _newTaskPriority.value = priority
     }
+    val newTaskIsArchive : LiveData<Boolean>
+        get() = _newTaskIsArchive
+
+    fun setNewTaskIsArchive(isArchive : Boolean){
+        _newTaskIsArchive.value = isArchive
+    }
 
 
     init{
@@ -88,6 +100,7 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
         listTasksByStatusAndDateOrder = taskRepository.getTasksByStatusAndDateOrder(1, false)
         val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
         todayListTasks = taskRepository.getTasksByDate(dateFormat.format(Calendar.getInstance().time))
+        archiveListTasks = taskRepository.getArchiveTasks()
     }
 
     fun insertTask(task : Task){

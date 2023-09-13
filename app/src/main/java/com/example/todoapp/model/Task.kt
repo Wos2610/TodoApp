@@ -15,4 +15,5 @@ data class Task(
     @ColumnInfo val categoryId : Int,
     @ColumnInfo var status : Int,
     @ColumnInfo var priority : Int,
-    @ColumnInfo val description : String)
+    @ColumnInfo val description : String,
+    @ColumnInfo var isArchive : Boolean)
