@@ -41,6 +41,7 @@ class TabTaskAdapter(val update: (Task) -> Unit, val archive: (Task) -> Unit) : 
         }
         itemBinding.archiveButton.setOnClickListener{
             archive(currentTask)
+            itemBinding
         }
     }
 }

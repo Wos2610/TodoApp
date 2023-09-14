@@ -47,7 +47,7 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
         todayListTasks = taskRepository.getTasksByDate(todayDate)
     }
 
-    fun setArchiveListTasks(isArchive: Boolean) {
+    fun setArchiveListTasks() {
         archiveListTasks = taskRepository.getArchiveTasks()
     }
     val insertTaskCallback: LiveData<(Task) -> Unit>

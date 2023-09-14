@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentDetailTabBinding
+import com.example.todoapp.model.Task
 import com.example.todoapp.viewModel.TaskViewModel
 
 abstract class TabTaskFragment(private val status : Int) : Fragment() {
@@ -43,11 +44,19 @@ abstract class TabTaskFragment(private val status : Int) : Fragment() {
             },
             archive = { task ->
                 taskViewModel.apply {
-                    setEditTask(task)
-                    setNewTaskIsArchive(true)
-                    setUpdateTaskCallback { task ->
-                        taskViewModel.updateTask(task)
-                    }
+                    val newTask = Task(
+                        task.id,
+                        task.title,
+                        task.dueDate,
+                        task.timeStart,
+                        task.timeEnd,
+                        task.categoryId,
+                        task.status,
+                        task.priority,
+                        task.description,
+                        true
+                    )
+                    updateTask(newTask)
                 }
             }
         )

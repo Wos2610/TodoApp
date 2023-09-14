@@ -33,7 +33,7 @@
         tools:layout="@layout/fragment_edit_task" />
 
     <fragment
-        android:id="@+id/archiveFragment2"
+        android:id="@+id/archiveFragment"
         android:name="com.example.todoapp.ui.archive.ArchiveFragment"
         android:label="fragment_archive"
         tools:layout="@layout/fragment_archive" />
@@ -45,5 +45,6 @@
     <action
         android:id="@+id/action_taskFragment_to_editTaskFragment"
         app:destination="@id/editTaskFragment" />
+
 
 </navigation>

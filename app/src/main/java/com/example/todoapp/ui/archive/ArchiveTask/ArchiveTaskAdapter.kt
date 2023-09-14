@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
+import com.example.todoapp.databinding.ItemArchivedTaskBinding
 import com.example.todoapp.databinding.ItemTaskBinding
 import com.example.todoapp.model.Task
 
 class ArchiveTaskAdapter() : RecyclerView.Adapter<ArchiveTaskViewHolder>() {
-    private lateinit var itemBinding : ItemTaskBinding
+    private lateinit var itemBinding : ItemArchivedTaskBinding
     var tasks: List<Task> = listOf()
         get() {
             return field
@@ -22,7 +23,7 @@ class ArchiveTaskAdapter() : RecyclerView.Adapter<ArchiveTaskViewHolder>() {
         }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArchiveTaskViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_today_task, parent, false)
+            .inflate(R.layout.item_archived_task, parent, false)
         return ArchiveTaskViewHolder(view)
     }
 
@@ -31,7 +32,7 @@ class ArchiveTaskAdapter() : RecyclerView.Adapter<ArchiveTaskViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ArchiveTaskViewHolder, position: Int) {
-        itemBinding = ItemTaskBinding.bind(holder.itemView)
+        itemBinding = ItemArchivedTaskBinding.bind(holder.itemView)
         val currentTask = tasks[position]
         holder.bind(currentTask)
     }

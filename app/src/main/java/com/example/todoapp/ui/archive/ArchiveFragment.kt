@@ -34,7 +34,7 @@ class ArchiveFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         taskViewModel.apply {
-            setArchiveListTasks(true)
+            setArchiveListTasks()
             archiveListTasks.observe(viewLifecycleOwner) { tasks ->
                 tasks.let { adapter.tasks = it }
             }
