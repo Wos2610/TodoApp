@@ -14,7 +14,7 @@ import java.util.Date
 
 class TaskViewModel(context : Application) : AndroidViewModel(context){
     private val taskRepository : TaskRepository
-    private val allTasks : LiveData<List<Task>>
+    val allTasks : LiveData<List<Task>>
     var listTasksByStatus : LiveData<List<Task>>
     var listTasksByStatusAndNameOrder : LiveData<List<Task>>
     var listTasksByStatusAndPriorityOrder : LiveData<List<Task>>

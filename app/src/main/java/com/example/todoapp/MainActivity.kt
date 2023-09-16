@@ -23,5 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         val navView = binding.bottomNavigationBarView
         navView.setupWithNavController(navController)
+        navView.itemIconTintList = null
     }
 }

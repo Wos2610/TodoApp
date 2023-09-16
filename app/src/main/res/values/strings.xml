@@ -19,5 +19,6 @@
     <string name="mid">Mid</string>
     <string name="high">High</string>
     <string name="change">Change</string>
-    <string name="my_task">My Task</string>
+    <string name="today_task">Today Task</string>
+    <string name="find_your_task">Find your task</string>
 </resources>

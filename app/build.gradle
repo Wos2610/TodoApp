@@ -14,7 +14,6 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -80,4 +79,7 @@ dependencies {
 
     // Third library to customize your RecyclerView's ItemTouchHelper.SimpleCallback.onChildDraw behavior, when ItemTouchHelper.ACTION_STATE_SWIPE is triggered.
     implementation 'com.github.zerobranch:SwipeLayout:1.3.1'
+
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
 }

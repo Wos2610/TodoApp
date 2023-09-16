@@ -118,7 +118,7 @@ class EditTaskFragment : Fragment() {
                         taskViewModel.newTaskStatus.value!!,
                         taskViewModel.newTaskPriority.value!!,
                         descriptionEditText.text.toString(),
-                        true
+                        false
                     )
                 )
 

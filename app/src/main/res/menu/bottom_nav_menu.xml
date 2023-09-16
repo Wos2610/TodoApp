@@ -3,18 +3,18 @@
     <item
         android:id="@+id/homeFragment"
         android:title=""
-        android:icon="@drawable/ic_android_black_24dp"/>
+        android:icon="@drawable/home_selector"/>
     <item
         android:id="@+id/taskFragment"
         android:title=""
-        android:icon="@drawable/ic_android_black_24dp"/>
+        android:icon="@drawable/task_selector"/>
     <item
         android:id="@+id/calendarFragment"
         android:title=""
-        android:icon="@drawable/ic_android_black_24dp"/>
+        android:icon="@drawable/calendar_selector"/>
 
     <item
         android:id="@+id/archiveFragment"
         android:title=""
-        android:icon="@drawable/ic_android_black_24dp"/>
+        android:icon="@drawable/garbage_bin_selector"/>
 </menu>

@@ -3,6 +3,7 @@ package com.example.todoapp.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 
 @Entity(tableName = "TASK_TABLE")
 data class Task(

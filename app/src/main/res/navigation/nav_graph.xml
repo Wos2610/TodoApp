@@ -38,6 +38,12 @@
         android:label="fragment_archive"
         tools:layout="@layout/fragment_archive" />
 
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.todoapp.ui.home.searchTask.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+
     <action
         android:id="@+id/action_taskFragment_to_newTaskFragment"
         app:destination="@id/newTaskFragment" />
@@ -46,5 +52,8 @@
         android:id="@+id/action_taskFragment_to_editTaskFragment"
         app:destination="@id/editTaskFragment" />
 
+    <action
+        android:id="@+id/action_homeFragment_to_searchFragment"
+        app:destination="@id/searchFragment" />
 
 </navigation>
