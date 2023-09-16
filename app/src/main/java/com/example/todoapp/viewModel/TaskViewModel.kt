@@ -24,6 +24,7 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     private val _insertTaskCallback = MutableLiveData<(Task) -> Unit>()
     private val _updateTaskCallback = MutableLiveData<(Task) -> Unit>()
     private lateinit var _editTask : Task
+    private lateinit var _viewTask : Task
     private var _newTaskStatus : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskIsArchive : MutableLiveData<Boolean> = MutableLiveData(false)
@@ -69,6 +70,13 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
 
     fun setEditTask(task: Task) {
         _editTask = task
+    }
+
+    val viewTask: Task
+        get() = _viewTask
+
+    fun setViewTask(task: Task) {
+        _viewTask = task
     }
     val newTaskStatus : LiveData<Int>
         get() = _newTaskStatus

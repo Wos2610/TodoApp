@@ -107,21 +107,20 @@ class EditTaskFragment : Fragment() {
             })
 
             changeButton.setOnClickListener {
-                taskViewModel.setEditTask(
-                    Task(
-                        taskViewModel.editTask.id,
-                        nameEditText.text.toString(),
-                        dateTextView.text.toString(),
-                        startTimeEditText.text.toString(),
-                        endTimeEditText.text.toString(),
-                        1,
-                        taskViewModel.newTaskStatus.value!!,
-                        taskViewModel.newTaskPriority.value!!,
-                        descriptionEditText.text.toString(),
-                        false
-                    )
+                val newTask = Task(
+                    taskViewModel.editTask.id,
+                    nameEditText.text.toString(),
+                    dateTextView.text.toString(),
+                    startTimeEditText.text.toString(),
+                    endTimeEditText.text.toString(),
+                    1,
+                    taskViewModel.newTaskStatus.value!!,
+                    taskViewModel.newTaskPriority.value!!,
+                    descriptionEditText.text.toString(),
+                    false
                 )
-
+                taskViewModel.setEditTask(newTask)
+                taskViewModel.setViewTask(newTask)
                 taskViewModel.updateTaskCallback.observe(viewLifecycleOwner) { callback ->
                     callback.invoke(
                         taskViewModel.editTask

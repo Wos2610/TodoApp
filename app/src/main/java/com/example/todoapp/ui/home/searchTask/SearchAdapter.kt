@@ -31,6 +31,9 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+        itemBinding = ItemTodayTaskBinding.bind(holder.itemView)
+        val currentTask = tasks[position]
+
 
     }
 }

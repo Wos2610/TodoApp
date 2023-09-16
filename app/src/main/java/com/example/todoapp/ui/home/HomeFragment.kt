@@ -63,38 +63,48 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.floatingSearchView.setOnQueryChangeListener{ oldQuery, newQuery ->
-            if (oldQuery == "" && newQuery == "") {
-                binding.floatingSearchView.clearSuggestions()
-            } else {
-                binding.floatingSearchView.showProgress()
-                binding.floatingSearchView.swapSuggestions(getSuggestion(newQuery));
-                binding.floatingSearchView.hideProgress()
+        binding.floatingSearchView.apply {
+            setOnQueryChangeListener{ oldQuery, newQuery ->
+                if (oldQuery == "" && newQuery == "") {
+                    binding.floatingSearchView.clearSuggestions()
+                } else {
+                    binding.floatingSearchView.showProgress()
+                    binding.floatingSearchView.swapSuggestions(getSuggestion(newQuery))
+                    binding.floatingSearchView.hideProgress()
+                }
             }
+
+            setOnFocusChangeListener(object : FloatingSearchView.OnFocusChangeListener{
+                override fun onFocus(){
+                    binding.floatingSearchView.showProgress()
+                    binding.floatingSearchView.swapSuggestions(getSuggestion(binding.floatingSearchView.query))
+                    binding.floatingSearchView.hideProgress()
+                }
+
+                override fun onFocusCleared() {
+                    binding.floatingSearchView.clearSuggestions()
+
+                }
+            })
+
+            setOnSearchListener(object :
+                FloatingSearchView.OnSearchListener {
+                override fun onSuggestionClicked(searchSuggestion: SearchSuggestion) {
+                    taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
+                        tasks.forEach {
+                            if (TaskSearchSuggestion(it.title).body == searchSuggestion.body) {
+                                taskViewModel.setViewTask(it)
+                                findNavController().navigate(R.id.action_homeFragment_to_viewTaskFragment)
+                            }
+                        }
+                    }
+
+                }
+                override fun onSearchAction(currentQuery: String?) {
+
+                }
+            })
         }
-
-        binding.floatingSearchView.setOnFocusChangeListener(object : FloatingSearchView.OnFocusChangeListener{
-            override fun onFocus(){
-                binding.floatingSearchView.showProgress()
-                binding.floatingSearchView.swapSuggestions(getSuggestion(binding.floatingSearchView.query));
-                binding.floatingSearchView.hideProgress()
-            }
-
-            override fun onFocusCleared() {
-                binding.floatingSearchView.clearSuggestions()
-
-            }
-        })
-
-        binding.floatingSearchView.setOnSearchListener(object :
-            FloatingSearchView.OnSearchListener {
-            override fun onSuggestionClicked(searchSuggestion: SearchSuggestion) {
-
-            }
-            override fun onSearchAction(currentQuery: String?) {
-
-            }
-        })
     }
 
     private fun getSuggestion(query: String): List<SearchSuggestion> {

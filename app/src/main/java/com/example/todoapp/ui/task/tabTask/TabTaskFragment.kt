@@ -32,15 +32,16 @@ abstract class TabTaskFragment(private val status : Int) : Fragment() {
         taskAdapter = TabTaskAdapter(
             update = { task ->
                 // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
-                taskViewModel.apply {
-                    setEditTask(task)
-                    setNewTaskStatus(task.status)
-                    setNewTaskPriority(task.priority)
-                    setUpdateTaskCallback { task ->
-                        taskViewModel.updateTask(task)
-                    }
-                }
-                findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
+//                taskViewModel.apply {
+//                    setEditTask(task)
+//                    setNewTaskStatus(task.status)
+//                    setNewTaskPriority(task.priority)
+//                    setUpdateTaskCallback { task ->
+//                        taskViewModel.updateTask(task)
+//                    }
+//                }
+                taskViewModel.setViewTask(task)
+                findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
             },
             archive = { task ->
                 taskViewModel.apply {
