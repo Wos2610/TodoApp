@@ -14,7 +14,7 @@ import com.example.todoapp.model.Category
 import com.example.todoapp.viewModel.CategoryViewModel
 
 
-class ListPopupWindowAdapter(private val categories : LiveData<List<Category>>, activity: Activity?) : BaseAdapter() {
+class ListPopupWindowAdapter(private val categories : LiveData<List<Category>>, activity: Activity?, private val callback : (Int) -> Unit) : BaseAdapter() {
     private var mActivity: Activity? = null
     private var mDataSource: List<String> = ArrayList()
     private var layoutInflater: LayoutInflater? = null
@@ -63,6 +63,9 @@ class ListPopupWindowAdapter(private val categories : LiveData<List<Category>>, 
 
         // Now you can bind your data to the view holder.
         holder.title?.text = getItem(position).title
+        listItemView.setOnClickListener(View.OnClickListener {
+            callback.invoke(position)
+        })
         return listItemView
     }
 

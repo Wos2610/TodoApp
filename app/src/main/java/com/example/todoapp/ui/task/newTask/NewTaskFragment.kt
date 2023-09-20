@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListPopupWindow
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,9 +21,9 @@ import java.util.Calendar
 
 
 class NewTaskFragment : Fragment() {
-    private lateinit var binding : FragmentAddTaskBinding
-    private  val taskViewModel: TaskViewModel by activityViewModels()
-    private  val categoryViewModel: CategoryViewModel by activityViewModels()
+    private lateinit var binding: FragmentAddTaskBinding
+    private val taskViewModel: TaskViewModel by activityViewModels()
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -56,8 +55,10 @@ class NewTaskFragment : Fragment() {
                 val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
-                    { _, selectedYear, selectedMonth, selectedDay->
-                        dateTextView.text = dateFormat.format(calendar.time)
+                    { _, selectedYear, selectedMonth, selectedDay ->
+                        val selectedDate = Calendar.getInstance()
+                        selectedDate.set(selectedYear, selectedMonth, selectedDay)
+                        dateTextView.text = dateFormat.format(selectedDate.time)
                     },
                     year,
                     month,
@@ -67,7 +68,7 @@ class NewTaskFragment : Fragment() {
                 datePickerDialog.show()
             })
 
-            startTimeEditText.setOnClickListener(View.OnClickListener {
+            startTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
                 val minute: Int = calendar.get(Calendar.MINUTE)
                 val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
@@ -75,7 +76,7 @@ class NewTaskFragment : Fragment() {
                 val timePickerDialog = TimePickerDialog(
                     context,
                     { _, hourOfDay, minute ->
-                        startTimeEditText.setText(String.format("%02d:%02d", hourOfDay, minute))
+                        startTimeTextView.text = String.format("%02d:%02d", hourOfDay, minute)
                     },
                     hour,
                     minute,
@@ -85,7 +86,7 @@ class NewTaskFragment : Fragment() {
                 timePickerDialog.show()
             })
 
-            endTimeEditText.setOnClickListener(View.OnClickListener {
+            endTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
                 val minute: Int = calendar.get(Calendar.MINUTE)
                 val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
@@ -93,7 +94,7 @@ class NewTaskFragment : Fragment() {
                 val timePickerDialog = TimePickerDialog(
                     context,
                     { _, hourOfDay, minute ->
-                        endTimeEditText.setText(String.format("%02d:%02d", hourOfDay, minute))
+                        endTimeTextView.text = String.format("%02d:%02d", hourOfDay, minute)
                     },
                     hour,
                     minute,
@@ -107,31 +108,33 @@ class NewTaskFragment : Fragment() {
                 showListPopupWindow(it)
             }
 
-            creatButton.setOnClickListener {
+            createButton.setOnClickListener {
                 taskViewModel.insertTaskCallback.observe(viewLifecycleOwner) { callback ->
-                    callback.invoke(Task(
-                        0,
-                        nameEditText.text.toString(),
-                        dateTextView.text.toString(),
-                        startTimeEditText.text.toString(),
-                        endTimeEditText.text.toString(),
-                        1,
-                        taskViewModel.newTaskStatus.value!!,
-                        taskViewModel.newTaskPriority.value!!,
-                        descriptionEditText.text.toString(),
-                        false
-                    ))
+                    callback.invoke(
+                        Task(
+                            0,
+                            nameEditText.text.toString(),
+                            dateTextView.text.toString(),
+                            startTimeTextView.text.toString(),
+                            endTimeTextView.text.toString(),
+                            taskViewModel.newTaskCategoryId.value!!,
+                            taskViewModel.newTaskStatus.value!!,
+                            taskViewModel.newTaskPriority.value!!,
+                            descriptionEditText.text.toString(),
+                            false
+                        )
+                    )
                 }
                 parentFragmentManager.popBackStack()
             }
         }
     }
 
-    private fun changeStatusAndPriority(){
-        taskViewModel.newTaskStatus.observe(viewLifecycleOwner){ status ->
-            binding.statusTextView.text = status.toString()
+    private fun changeStatusAndPriority() {
+        taskViewModel.newTaskStatus.observe(viewLifecycleOwner) { status ->
+            //binding.statusTextView.text = status.toString()
 
-            when(status){
+            when (status) {
                 1 -> {
                     binding.todoTextView.setTextColor(
                         ContextCompat.getColor(
@@ -197,9 +200,9 @@ class NewTaskFragment : Fragment() {
             }
         }
 
-        taskViewModel.newTaskPriority.observe(viewLifecycleOwner){ priority ->
-            binding.priorityTextView.text = priority.toString()
-            when(priority){
+        taskViewModel.newTaskPriority.observe(viewLifecycleOwner) { priority ->
+            //binding.priorityTextView.text = priority.toString()
+            when (priority) {
                 1 -> {
                     binding.lowTextView.setTextColor(
                         ContextCompat.getColor(
@@ -291,12 +294,22 @@ class NewTaskFragment : Fragment() {
             }
         }
     }
-    private fun showListPopupWindow(anchorView: View) {
+
+    fun showListPopupWindow(anchorView: View) {
         val listPopupWindow = ListPopupWindow(anchorView.context)
         listPopupWindow.anchorView = anchorView
         listPopupWindow.width = 500
-        val listPopupWindowAdapter =
-            ListPopupWindowAdapter(categoryViewModel.allCategories, activity)
+        val listPopupWindowAdapter = ListPopupWindowAdapter(
+            categoryViewModel.allCategories, activity,
+            callback = { position ->
+                taskViewModel.setNewTaskCategoryId(position)
+                taskViewModel.newTaskCategoryId.observe(viewLifecycleOwner) { id ->
+                    binding.categoryTextView.text = categoryViewModel.allCategories.value?.get(id)?.title
+                }
+                listPopupWindow.dismiss()
+            }
+        )
+
         listPopupWindow.setAdapter(listPopupWindowAdapter)
         categoryViewModel.allCategories.observe(viewLifecycleOwner) { categories ->
             // Update the adapter's data when LiveData changes
@@ -304,5 +317,6 @@ class NewTaskFragment : Fragment() {
         }
         listPopupWindow.show()
     }
+
 }
 

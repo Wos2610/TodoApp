@@ -37,8 +37,8 @@ class EditTaskFragment : Fragment() {
             taskViewModel.editTask?.let {
                 nameEditText.setText(it.title)
                 dateTextView.text = it.dueDate
-                startTimeEditText.setText(it.timeStart)
-                endTimeEditText.setText(it.timeEnd)
+                startTimeTextView.text = it.timeStart
+                endTimeTextView.text = it.timeEnd
                 categoryTextView.text = it.categoryId.toString()
                 priorityTextView.text = it.priority.toString()
                 statusTextView.text = it.status.toString()
@@ -60,7 +60,9 @@ class EditTaskFragment : Fragment() {
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
                     { _, selectedYear, selectedMonth, selectedDay->
-                        dateTextView.text = dateFormat.format(calendar.time)
+                        val selectedDate = Calendar.getInstance()
+                        selectedDate.set(selectedYear, selectedMonth, selectedDay)
+                        dateTextView.text = dateFormat.format(selectedDate.time)
                     },
                     year,
                     month,
@@ -70,7 +72,7 @@ class EditTaskFragment : Fragment() {
                 datePickerDialog.show()
             })
 
-            startTimeEditText.setOnClickListener(View.OnClickListener {
+            startTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
                 val minute: Int = calendar.get(Calendar.MINUTE)
                 val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
@@ -78,7 +80,7 @@ class EditTaskFragment : Fragment() {
                 val timePickerDialog = TimePickerDialog(
                     context,
                     { _, hourOfDay, minute ->
-                        startTimeEditText.setText(String.format("%02d:%02d", hourOfDay, minute))
+                        startTimeTextView.setText(String.format("%02d:%02d", hourOfDay, minute))
                     },
                     hour,
                     minute,
@@ -88,7 +90,7 @@ class EditTaskFragment : Fragment() {
                 timePickerDialog.show()
             })
 
-            endTimeEditText.setOnClickListener(View.OnClickListener {
+            endTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
                 val minute: Int = calendar.get(Calendar.MINUTE)
                 val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
@@ -96,7 +98,7 @@ class EditTaskFragment : Fragment() {
                 val timePickerDialog = TimePickerDialog(
                     context,
                     { _, hourOfDay, minute ->
-                        endTimeEditText.setText(String.format("%02d:%02d", hourOfDay, minute))
+                        endTimeTextView.setText(String.format("%02d:%02d", hourOfDay, minute))
                     },
                     hour,
                     minute,
@@ -111,8 +113,8 @@ class EditTaskFragment : Fragment() {
                     taskViewModel.editTask.id,
                     nameEditText.text.toString(),
                     dateTextView.text.toString(),
-                    startTimeEditText.text.toString(),
-                    endTimeEditText.text.toString(),
+                    startTimeTextView.text.toString(),
+                    endTimeTextView.text.toString(),
                     1,
                     taskViewModel.newTaskStatus.value!!,
                     taskViewModel.newTaskPriority.value!!,
@@ -133,7 +135,7 @@ class EditTaskFragment : Fragment() {
 
     private fun changeStatusAndPriority(){
         taskViewModel.newTaskStatus.observe(viewLifecycleOwner){ status ->
-            binding.statusTextView.text = status.toString()
+//            binding.statusTextView.text = status.toString()
 
             when(status){
                 1 -> {
@@ -202,7 +204,7 @@ class EditTaskFragment : Fragment() {
         }
 
         taskViewModel.newTaskPriority.observe(viewLifecycleOwner){ priority ->
-            binding.priorityTextView.text = priority.toString()
+//            binding.priorityTextView.text = priority.toString()
 
             when(priority){
                 1 -> {

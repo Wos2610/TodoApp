@@ -5,43 +5,78 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.task.newTask.NewTaskFragment"
+    android:layout_marginTop="8dp"
+    android:layout_marginHorizontal="16dp"
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_task"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_name"
+        style="@style/task_element_title"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/task_name"
-        app:errorIconDrawable="@drawable/baseline_error_24"
-        >
+        app:errorIconDrawable="@drawable/baseline_error_24">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            style="@style/task_element" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        style="@style/task_element_title"/>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dateTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/date"
-        app:errorIconDrawable="@drawable/baseline_error_24"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/date"/>
+        app:errorIconDrawable="@drawable/baseline_error_24">
         <TextView
             android:id="@+id/dateTextView"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:hint="@string/date"/>
-
+            android:layout_height="wrap_content"
+            style="@style/task_element"/>
     </com.google.android.material.textfield.TextInputLayout>>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start_time"
+            android:layout_weight="1"
+            style="@style/task_element_title"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/end_time"
+            android:layout_weight="1"
+            style="@style/task_element_title"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,67 +86,65 @@
             android:id="@+id/startTimeTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/start_time"
             app:errorIconDrawable="@drawable/baseline_error_24"
             android:layout_weight="1"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/startTimeEditText"
+            android:layout_marginEnd="8dp">
+            <TextView
+                android:id="@+id/startTimeTextView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                style="@style/task_element"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/endTimeTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/end_time"
             app:errorIconDrawable="@drawable/baseline_error_24"
             android:layout_weight="1"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/endTimeEditText"
+            android:layout_marginStart="8dp">
+            <TextView
+                android:id="@+id/endTimeTextView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                style="@style/task_element"/>
         </com.google.android.material.textfield.TextInputLayout>
-
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        style="@style/task_element_title"/>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/descriptionTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/description"
-        app:errorIconDrawable="@drawable/baseline_error_24"
-        >
+        app:errorIconDrawable="@drawable/baseline_error_24">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/descriptionEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            style="@style/task_element"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/category"/>
+        android:text="@string/category"
+        style="@style/task_element_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/category"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/categoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/choose_category"/>
+            android:hint="@string/choose_category"
+            style="@style/task_element"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -123,7 +156,8 @@
         android:id="@+id/statusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/status"/>
+        android:text="@string/status"
+        style="@style/task_element_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -134,27 +168,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/todo"
-            android:layout_weight="1"/>
+            style="@style/task_element"
+            android:layout_marginEnd="16dp"/>
         <TextView
             android:id="@+id/onProgressTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/on_progress"
-            android:layout_weight="1"/>
+            style="@style/task_element"
+            android:layout_marginEnd="16dp"/>
 
         <TextView
             android:id="@+id/doneTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/done"
-            android:layout_weight="1"/>
+            style="@style/task_element"
+            android:layout_marginEnd="16dp"/>
     </LinearLayout>
 
     <TextView
         android:id="@+id/priorityTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/priority"/>
+        android:text="@string/priority"
+        style="@style/task_element_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -165,26 +203,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/low"
-            android:layout_weight="1"/>
+            style="@style/task_element"
+            android:layout_marginEnd="16dp"/>
         <TextView
             android:id="@+id/midTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mid"
-            android:layout_weight="1"/>
+            style="@style/task_element"
+            android:layout_marginEnd="16dp"/>
 
         <TextView
             android:id="@+id/highTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/high"
-            android:layout_weight="1"/>
+            style="@style/task_element"
+            android:layout_marginEnd="16dp"/>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/creatButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/createButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:background="@color/deep_blue"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:gravity="center"/>
 </LinearLayout>

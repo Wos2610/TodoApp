@@ -27,6 +27,7 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     private lateinit var _viewTask : Task
     private var _newTaskStatus : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(1)
+    private var _newTaskCategoryId : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskIsArchive : MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun setListTasksByStatus(status: Int) {
@@ -90,6 +91,13 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
 
     fun setNewTaskPriority(priority : Int){
         _newTaskPriority.value = priority
+    }
+
+    val newTaskCategoryId : LiveData<Int>
+        get() = _newTaskCategoryId
+
+    fun setNewTaskCategoryId(id : Int){
+        _newTaskCategoryId.value = id
     }
     val newTaskIsArchive : LiveData<Boolean>
         get() = _newTaskIsArchive

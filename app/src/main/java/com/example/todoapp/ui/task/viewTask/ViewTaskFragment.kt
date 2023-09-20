@@ -40,7 +40,7 @@ class ViewTaskFragment : Fragment() {
             endTimeTextView.text = task.timeEnd
             categoryTextView.text = task.categoryId.toString()
             changeStatusAndPriority(task.status, task.priority)
-            descriptionEditText.text = task.description
+            descriptionTextView.text = task.description
         }
 
         binding.editButton.setOnClickListener{
