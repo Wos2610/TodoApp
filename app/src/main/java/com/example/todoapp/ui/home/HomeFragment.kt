@@ -3,6 +3,7 @@ package com.example.todoapp.ui.home
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +17,14 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentHomeBinding
 import com.example.todoapp.model.Task
+import com.example.todoapp.ui.home.category.CategoryAdapter
 import com.example.todoapp.ui.home.todayTask.TodayTaskAdapter
+import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
+import com.google.android.material.search.SearchView
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 
 
 class HomeFragment : Fragment() {
@@ -27,6 +32,8 @@ class HomeFragment : Fragment() {
     private val taskViewModel: TaskViewModel by activityViewModels()
     private lateinit var todayTaskAdapter: TodayTaskAdapter
     private val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
+    private val categoryViewModel : CategoryViewModel by activityViewModels()
+    private lateinit var categoryAdapter: CategoryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -39,19 +46,27 @@ class HomeFragment : Fragment() {
 
         todayTaskAdapter = TodayTaskAdapter { task: Task ->
             // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
-            taskViewModel.setEditTask(task)
-            taskViewModel.setNewTaskStatus(task.status)
-            taskViewModel.setNewTaskPriority(task.priority)
-            taskViewModel.setUpdateTaskCallback { task ->
-                taskViewModel.updateTask(task)
-            }
-            findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
+//            taskViewModel.setEditTask(task)
+//            taskViewModel.setNewTaskStatus(task.status)
+//            taskViewModel.setNewTaskPriority(task.priority)
+//            taskViewModel.setUpdateTaskCallback { task ->
+//                taskViewModel.updateTask(task)
+//            }
+//            findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
+            taskViewModel.setViewTask(task)
+            findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
         }
+
+        categoryAdapter = CategoryAdapter()
 
         binding.apply {
             todayTaskListRecyclerView.adapter = todayTaskAdapter
             todayTaskListRecyclerView.layoutManager = LinearLayoutManager(context)
+            categoryRecyclerView.adapter = categoryAdapter
+            categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
+
+//        binding.searchView.setupWithSearchBar(binding.searchBar)
         return binding.root
     }
 
@@ -61,6 +76,11 @@ class HomeFragment : Fragment() {
             todayListTasks.observe(viewLifecycleOwner) { tasks ->
                 tasks.let { todayTaskAdapter.tasks = it }
             }
+        }
+
+        categoryViewModel.allCategories.observe(viewLifecycleOwner){ categories ->
+            categories.let{ categoryAdapter.categories = it}
+            Log.d("HomeFragment", "onViewCreated: ${categoryAdapter.categories}")
         }
 
         binding.floatingSearchView.apply {
@@ -105,6 +125,19 @@ class HomeFragment : Fragment() {
                 }
             })
         }
+
+//        binding.searchView.setOnQ(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                val queryText = query.toString()
+//                binding.searchView.clearFocus()
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                val queryText = newText.toString()
+//                return false
+//            }
+//        })
     }
 
     private fun getSuggestion(query: String): List<SearchSuggestion> {

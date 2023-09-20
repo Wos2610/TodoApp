@@ -75,11 +75,12 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 
     implementation "androidx.activity:activity-ktx:1.7.2"
-    implementation "androidx.fragment:fragment-ktx:1.5.7"
+    implementation "androidx.fragment:fragment-ktx:1.6.1"
 
     // Third library to customize your RecyclerView's ItemTouchHelper.SimpleCallback.onChildDraw behavior, when ItemTouchHelper.ACTION_STATE_SWIPE is triggered.
     implementation 'com.github.zerobranch:SwipeLayout:1.3.1'
 
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.google.android.material:material:1.10.0-alpha06'
 }

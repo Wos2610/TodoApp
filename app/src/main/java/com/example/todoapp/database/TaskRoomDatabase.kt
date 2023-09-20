@@ -21,12 +21,23 @@ public abstract class TaskRoomDatabase : RoomDatabase(){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TaskRoomDatabase::class.java,
-                    "tasks_database"
+                    "task_database"
                 )
+                    .addCallback(this.RoomCallback)
                     .build()
+
                 INSTANCE = instance
                 // return instance
                 instance
+            }
+        }
+
+        private val RoomCallback = object : Callback() {
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
+                db.execSQL("INSERT INTO CATEGORY_TABLE (title, imageName, completedPercentage) VALUES ('Default', 'null', 0.0)")
+                db.execSQL("INSERT INTO CATEGORY_TABLE (title, imageName, completedPercentage) VALUES ('Work', 'null', 0.0)")
+                db.execSQL("INSERT INTO CATEGORY_TABLE (title, imageName, completedPercentage) VALUES ('Study', 'null', 0.0)")
             }
         }
     }

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:layout_marginStart="18dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,30 +13,37 @@
         android:orientation="vertical">
         <View
             android:layout_width="match_parent"
-            android:layout_height="72dp"/>
+            android:layout_height="72dp"
+            android:layout_marginEnd="16dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/category"/>
+            android:text="@string/category"
+            android:layout_marginEnd="16dp"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scrollbars="horizontal"
             tools:listitem="@layout/item_today_task" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/today_task"/>
+            android:text="@string/today_task"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/today_task_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_today_task" />
+            tools:listitem="@layout/item_today_task"
+            android:layout_marginEnd="16dp"/>
     </LinearLayout>
 
     <com.arlib.floatingsearchview.FloatingSearchView
@@ -50,4 +58,28 @@
         app:floatingSearch_close_search_on_keyboard_dismiss="true"
         android:visibility="visible">
     </com.arlib.floatingsearchview.FloatingSearchView>
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <com.google.android.material.search.SearchBar-->
+<!--            android:id="@+id/search_bar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="@string/find_your_task" />-->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    <com.google.android.material.search.SearchView-->
+<!--        android:id="@+id/search_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:hint="@string/find_your_task"-->
+<!--        app:layout_anchor="@id/search_bar">-->
+<!--        &lt;!&ndash; Search suggestions/results go here (ScrollView, RecyclerView, etc.). &ndash;&gt;-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/search_view_recycler_view"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:listitem="@layout/item_today_task"/>-->
+<!--    </com.google.android.material.search.SearchView>-->
 </FrameLayout>

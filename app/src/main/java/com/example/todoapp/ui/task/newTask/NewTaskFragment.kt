@@ -6,19 +6,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListPopupWindow
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.example.todoapp.model.Task
+import com.example.todoapp.ui.task.tabTask.ListPopupWindowAdapter
+import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
+
+
 class NewTaskFragment : Fragment() {
     private lateinit var binding : FragmentAddTaskBinding
     private  val taskViewModel: TaskViewModel by activityViewModels()
+    private  val categoryViewModel: CategoryViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -96,6 +102,10 @@ class NewTaskFragment : Fragment() {
                 timePickerDialog.setTitle("Select End Time")
                 timePickerDialog.show()
             })
+
+            categoryTextView.setOnClickListener {
+                showListPopupWindow(it)
+            }
 
             creatButton.setOnClickListener {
                 taskViewModel.insertTaskCallback.observe(viewLifecycleOwner) { callback ->
@@ -281,4 +291,18 @@ class NewTaskFragment : Fragment() {
             }
         }
     }
+    private fun showListPopupWindow(anchorView: View) {
+        val listPopupWindow = ListPopupWindow(anchorView.context)
+        listPopupWindow.anchorView = anchorView
+        listPopupWindow.width = 500
+        val listPopupWindowAdapter =
+            ListPopupWindowAdapter(categoryViewModel.allCategories, activity)
+        listPopupWindow.setAdapter(listPopupWindowAdapter)
+        categoryViewModel.allCategories.observe(viewLifecycleOwner) { categories ->
+            // Update the adapter's data when LiveData changes
+            listPopupWindowAdapter.notifyDataSetChanged()
+        }
+        listPopupWindow.show()
+    }
 }
+

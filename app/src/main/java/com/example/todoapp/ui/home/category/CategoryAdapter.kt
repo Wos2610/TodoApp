@@ -1,6 +1,7 @@
 package com.example.todoapp.ui.home.category
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-
+        val currentCategory = categories[position]
+        holder.bind(currentCategory)
     }
 }

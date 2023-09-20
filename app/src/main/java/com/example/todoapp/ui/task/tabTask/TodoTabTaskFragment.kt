@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.R
-import com.example.todoapp.databinding.FragmentABinding
 import com.example.todoapp.viewModel.TaskViewModel
 
 class TodoTabTaskFragment() : TabTaskFragment(1) {

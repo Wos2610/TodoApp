@@ -34,10 +34,10 @@ class ViewTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         task = taskViewModel.viewTask
         binding.apply {
-            nameEditText.text = task.title
+            nameTextView.text = task.title
             dateTextView.text = task.dueDate
-            startTimeEditText.text = task.timeStart
-            endTimeEditText.text = task.timeEnd
+            startTimeTextView.text = task.timeStart
+            endTimeTextView.text = task.timeEnd
             categoryTextView.text = task.categoryId.toString()
             changeStatusAndPriority(task.status, task.priority)
             descriptionEditText.text = task.description
