@@ -61,7 +61,7 @@ class TaskFragment : Fragment() {
                     task.timeStart,
                     task.timeEnd,
                     task.categoryId,
-                    categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.title.toString(),
+                    categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.category?.title.toString(),
                     task.status,
                     task.priority,
                     task.description,

@@ -2,7 +2,9 @@ package com.example.todoapp.database
 
 import android.app.Application
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import com.example.todoapp.model.Category
+import com.example.todoapp.model.CategoryWithTasks
 
 class CategoryRepository(context: Application) {
     companion object {
@@ -18,7 +20,7 @@ class CategoryRepository(context: Application) {
 
     private val taskDatabase = TaskRoomDatabase.getDatabase(context)
     private val categoryDAO = taskDatabase.categoryDAO()
-    val allCategory = categoryDAO.getAllCategories()
+    val allCategory : LiveData<List<CategoryWithTasks>> = categoryDAO.getAllCategories()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

@@ -54,7 +54,7 @@ class EditTaskFragment : Fragment() {
                 categoryViewModel.getCategoryById(it.categoryId).observe(viewLifecycleOwner) { category ->
                     if (category != null) {
                         // Handle the category data here
-                        categoryTextView.text = category.title
+                        categoryTextView.text = category.category.title
                     } else {
                         // Handle the case where the category is null (not found)
                         categoryTextView.text = "Category Not Found"
@@ -139,7 +139,7 @@ class EditTaskFragment : Fragment() {
                     endTimeTextView.text.toString(),
                     taskViewModel.newTaskCategoryId.value!!,
                     //category_id from 1 but index (allCategories) from 0
-                    categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.title.toString(),
+                    categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.category?.title.toString(),
                     taskViewModel.newTaskStatus.value!!,
                     taskViewModel.newTaskPriority.value!!,
                     descriptionEditText.text.toString(),
@@ -345,7 +345,7 @@ class EditTaskFragment : Fragment() {
             callback = { position ->
                 taskViewModel.setNewTaskCategoryId(position + 1)
                 taskViewModel.newTaskCategoryId.observe(viewLifecycleOwner) { id ->
-                    binding.categoryTextView.text = categoryViewModel.allCategories.value?.get(id - 1)?.title.toString()
+                    binding.categoryTextView.text = categoryViewModel.allCategories.value?.get(id - 1)?.category?.title.toString()
                 }
                 listPopupWindow.dismiss()
             }

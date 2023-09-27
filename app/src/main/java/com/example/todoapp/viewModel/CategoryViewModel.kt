@@ -6,16 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todoapp.database.CategoryRepository
 import com.example.todoapp.model.Category
+import com.example.todoapp.model.CategoryWithTasks
 import kotlinx.coroutines.launch
 
 class CategoryViewModel : ViewModel() {
-    private val categoryRepository : CategoryRepository
-    val allCategories : LiveData<List<Category>>
+    private val categoryRepository : CategoryRepository = CategoryRepository.getInstance(context = Application())
+    val allCategories : LiveData<List<CategoryWithTasks>> = categoryRepository.allCategory
 
-    init {
-        categoryRepository = CategoryRepository.getInstance(context = Application())
-        allCategories = categoryRepository.allCategory
-    }
     fun insert(category: Category){
         viewModelScope.launch {
             categoryRepository.insertCategory(category)
@@ -32,7 +29,7 @@ class CategoryViewModel : ViewModel() {
         }
     }
 
-    fun getCategoryById(id : Int) : LiveData<Category>{
+    fun getCategoryById(id : Int) : LiveData<CategoryWithTasks>{
         return categoryRepository.getCategoryById(id)
     }
 

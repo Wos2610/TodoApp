@@ -50,4 +50,7 @@ class TaskRepository(context : Application){
 
     fun getArchiveTasks(): LiveData<List<TaskWithCategoryTitle>> =
         taskDAO.getArchiveTasks()
+
+    fun getDoneTasksByCategoryId(categoryId : Int) : LiveData<List<Task>> =
+        taskDAO.getDoneTasksByCategoryId(categoryId)
 }

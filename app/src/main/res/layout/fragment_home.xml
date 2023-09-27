@@ -25,19 +25,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/category"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:textStyle="bold"
                 android:textSize="24sp"/>
             <TextView
                 android:id="@+id/category_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/category_view_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/view_all" />
+                android:text="@string/view_all"
+                android:textColor="@color/light_blue"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -45,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="horizontal"
-            tools:listitem="@layout/item_today_task" />
+            tools:listitem="@layout/item_category" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,17 +58,21 @@
                 android:layout_height="wrap_content"
                 android:text="@string/today_task"
                 android:textStyle="bold"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                android:layout_marginEnd="8dp"/>
             <TextView
                 android:id="@+id/task_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/task_view_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/view_all" />
+                android:text="@string/view_all"
+                android:textColor="@color/light_blue"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -21,6 +21,7 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     var listTasksByStatusAndNameOrder : LiveData<List<TaskWithCategoryTitle>>
     var listTasksByStatusAndPriorityOrder : LiveData<List<TaskWithCategoryTitle>>
     var listTasksByStatusAndDateOrder : LiveData<List<TaskWithCategoryTitle>>
+    var listDoneTasksByCategoryId : LiveData<List<Task>>
 
     var todayListTasks : LiveData<List<TaskWithCategoryTitle>>
     var archiveListTasks : LiveData<List<TaskWithCategoryTitle>>
@@ -57,6 +58,9 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
 
     fun setArchiveListTasks() {
         archiveListTasks = taskRepository.getArchiveTasks()
+    }
+    fun setListDoneTasksByCategoryId(categoryId : Int) {
+        listDoneTasksByCategoryId = taskRepository.getDoneTasksByCategoryId(categoryId)
     }
     val insertTaskCallback: LiveData<(Task) -> Unit>
         get() = _insertTaskCallback
@@ -120,6 +124,8 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
         listTasksByStatusAndNameOrder = taskRepository.getTasksByStatusAndNameOrder(1, false)
         listTasksByStatusAndPriorityOrder = taskRepository.getTasksByStatusAndPriorityOrder(1, false)
         listTasksByStatusAndDateOrder = taskRepository.getTasksByStatusAndDateOrder(1, false)
+        listDoneTasksByCategoryId = taskRepository.getDoneTasksByCategoryId(1)
+
         val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
         todayListTasks = taskRepository.getTasksByDate(dateFormat.format(Calendar.getInstance().time))
         archiveListTasks = taskRepository.getArchiveTasks()

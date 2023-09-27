@@ -25,6 +25,8 @@ import com.google.android.material.search.SearchView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import com.example.todoapp.model.Category
+import com.example.todoapp.model.CategoryWithTasks
 import com.example.todoapp.model.TaskWithCategoryTitle
 
 
@@ -84,7 +86,6 @@ class HomeFragment : Fragment() {
 
         categoryViewModel.allCategories.observe(viewLifecycleOwner) { categories ->
             categories.let { categoryAdapter.categories = it }
-            Log.d("HomeFragment", "onViewCreated: ${categoryAdapter.categories}")
         }
 
         binding.floatingSearchView.apply {
@@ -132,10 +133,19 @@ class HomeFragment : Fragment() {
         }
 
         binding.apply {
-            categoryNumber.text = categoryViewModel.allCategories.value?.size.toString()
-            taskNumber.text = taskViewModel.todayListTasks.value?.size.toString()
+            categoryViewModel.allCategories.observe(viewLifecycleOwner) { categories ->
+                categoryNumber.text = categories.size.toString()
+            }
+            taskViewModel.todayListTasks.observe(viewLifecycleOwner) { tasks ->
+                taskNumber.text = tasks.size.toString()
+            }
+
             taskViewAll.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_allTasksFragment)
+            }
+
+            categoryViewAll.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_allCategoriesFragment)
             }
         }
     }

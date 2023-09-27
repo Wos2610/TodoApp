@@ -8,7 +8,7 @@ data class CategoryWithTasks(
     @Relation(
         entity = Task::class,
         parentColumn = "category_id",
-        entityColumn = "task_id"
+        entityColumn = "categoryId"
     )
     val tasks : List<Task>
 )

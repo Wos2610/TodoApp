@@ -21,7 +21,7 @@ public abstract class TaskRoomDatabase : RoomDatabase(){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TaskRoomDatabase::class.java,
-                    "task_database"
+                    "tasks_database"
                 )
                     .addCallback(this.RoomCallback)
                     .build()

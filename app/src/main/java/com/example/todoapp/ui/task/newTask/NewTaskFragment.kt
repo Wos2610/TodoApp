@@ -310,7 +310,7 @@ class NewTaskFragment : Fragment() {
                 taskViewModel.setNewTaskCategoryId(position + 1)
                 taskViewModel.newTaskCategoryId.observe(viewLifecycleOwner) { id ->
                     // category_id from 1 but allCategories index from 0
-                    binding.categoryTextView.text = categoryViewModel.allCategories.value?.get(id - 1)?.title
+                    binding.categoryTextView.text = categoryViewModel.allCategories.value?.get(id - 1)?.category?.title
                 }
                 listPopupWindow.dismiss()
             }

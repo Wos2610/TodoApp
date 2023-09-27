@@ -10,4 +10,4 @@ data class Category(
     @ColumnInfo(name = "category_id") val id : Int,
     @ColumnInfo(name = "categoryTitle") val title : String,
     @ColumnInfo val imageName : String,
-    @ColumnInfo val completedPercentage : Float)
+    @ColumnInfo var completedPercentage : Int)

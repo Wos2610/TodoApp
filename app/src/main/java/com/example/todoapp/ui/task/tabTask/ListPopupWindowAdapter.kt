@@ -11,10 +11,11 @@ import androidx.lifecycle.LiveData
 import com.example.todoapp.databinding.ItemCategoryBinding
 import com.example.todoapp.databinding.ItemCategoryListPopupWindowBinding
 import com.example.todoapp.model.Category
+import com.example.todoapp.model.CategoryWithTasks
 import com.example.todoapp.viewModel.CategoryViewModel
 
 
-class ListPopupWindowAdapter(private val categories : LiveData<List<Category>>, activity: Activity?, private val callback : (Int) -> Unit) : BaseAdapter() {
+class ListPopupWindowAdapter(private val categories : LiveData<List<CategoryWithTasks>>, activity: Activity?, private val callback : (Int) -> Unit) : BaseAdapter() {
     private var mActivity: Activity? = null
     private var mDataSource: List<String> = ArrayList()
     private var layoutInflater: LayoutInflater? = null
@@ -30,7 +31,7 @@ class ListPopupWindowAdapter(private val categories : LiveData<List<Category>>, 
         return categories.value?.size!!
     }
 
-    override fun getItem(p0: Int): Category {
+    override fun getItem(p0: Int): CategoryWithTasks {
         return categories.value?.get(p0)!!
     }
 
@@ -62,7 +63,7 @@ class ListPopupWindowAdapter(private val categories : LiveData<List<Category>>, 
         }
 
         // Now you can bind your data to the view holder.
-        holder.title?.text = getItem(position).title
+        holder.title?.text = getItem(position).category.title
         listItemView.setOnClickListener(View.OnClickListener {
             callback.invoke(position)
         })

@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.task.allTasks
+package com.example.todoapp.ui.home.allTasks
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,14 +12,12 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAllTasksBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.ui.task.tabTask.TabTaskAdapter
-import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 
 class AllTasksFragment : Fragment() {
     private lateinit var taskBinding: FragmentAllTasksBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
-    private val categoryViewModel: CategoryViewModel by activityViewModels()
-    private lateinit var allTasksAdapter: AllTasksAdapter
+    private lateinit var allTasksAdapter: TabTaskAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -29,7 +27,7 @@ class AllTasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         taskBinding = FragmentAllTasksBinding.inflate(inflater, container, false)
-        allTasksAdapter = AllTasksAdapter(
+        allTasksAdapter = TabTaskAdapter(
             update = { task ->
                 // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
 //                taskViewModel.apply {
@@ -67,6 +65,18 @@ class AllTasksFragment : Fragment() {
             taskListRecyclerView.adapter = allTasksAdapter
         }
         return taskBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        taskViewModel.apply {
+            allTasks.observe(viewLifecycleOwner) { tasks ->
+                tasks.let { allTasksAdapter.tasks = it }
+            }
+        }
+
+        taskBinding.backButton.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
     }
 
 }

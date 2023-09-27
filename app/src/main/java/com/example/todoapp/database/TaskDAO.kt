@@ -13,7 +13,7 @@ import com.example.todoapp.model.TaskWithCategoryTitle
 
 @Dao
 interface TaskDAO {
-    @Query("SELECT t.*, c.categoryTitle FROM TASK_TABLE t INNER JOIN CATEGORY_TABLE c ON t.categoryId = c.category_id ORDER BY taskId ASC")
+    @Query("SELECT t.*, c.categoryTitle FROM TASK_TABLE t INNER JOIN CATEGORY_TABLE c ON t.categoryId = c.category_id WHERE isArchive = 0 ORDER BY taskId ASC")
     fun getAllTasks() : LiveData<List<TaskWithCategoryTitle>>
     @Insert
     suspend fun insertTask(task : Task)
@@ -52,4 +52,7 @@ interface TaskDAO {
     @Query("SELECT t.*, c.categoryTitle FROM TASK_TABLE t INNER JOIN CATEGORY_TABLE c ON t.categoryId = c.category_id WHERE isArchive = 1")
     @Transaction
     fun getArchiveTasks() : LiveData<List<TaskWithCategoryTitle>>
+
+    @Query("SELECT * FROM TASK_TABLE WHERE categoryId = :categoryId AND isArchive = 0 AND status = 2")
+    fun getDoneTasksByCategoryId(categoryId : Int) : LiveData<List<Task>>
 }
