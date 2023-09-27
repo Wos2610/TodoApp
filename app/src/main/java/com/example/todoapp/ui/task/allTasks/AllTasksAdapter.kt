@@ -1,18 +1,16 @@
-package com.example.todoapp.ui.task.tabTask
+package com.example.todoapp.ui.task.allTasks
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTaskBinding
-import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
-import com.example.todoapp.viewModel.CategoryViewModel
+import com.example.todoapp.ui.task.tabTask.TabTaskViewHolder
 
-class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit, private val archive: (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<TabTaskViewHolder>() {
+class AllTasksAdapter(private val update: (TaskWithCategoryTitle) -> Unit, private val archive: (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<AllTasksViewHolder>() {
     private lateinit var itemBinding: ItemTaskBinding
     var tasks: List<TaskWithCategoryTitle> = listOf()
         get() {
@@ -25,17 +23,13 @@ class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit, privat
         }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabTaskViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllTasksViewHolder {
         val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_task, parent, false)
-        return TabTaskViewHolder(view)
+        return AllTasksViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return tasks.size
-    }
-
-    override fun onBindViewHolder(holder: TabTaskViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AllTasksViewHolder, position: Int) {
         itemBinding = ItemTaskBinding.bind(holder.itemView)
         val currentTask = tasks[position]
 
@@ -46,5 +40,9 @@ class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit, privat
         itemBinding.archiveButton.setOnClickListener{
             archive(currentTask)
         }
+    }
+
+    override fun getItemCount(): Int {
+        return tasks.size
     }
 }

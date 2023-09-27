@@ -11,8 +11,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentTaskBinding
 import com.example.todoapp.model.Task
+import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.enums.StatusType
 import com.example.todoapp.ui.task.tabTask.TabTaskFragment
+import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,6 +25,7 @@ class TaskFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
     private val taskViewModel: TaskViewModel by activityViewModels()
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +54,20 @@ class TaskFragment : Fragment() {
             taskViewModel.setNewTaskPriority(1)
             taskViewModel.setInsertTaskCallback {task : Task ->
                 taskViewModel.insertTask(task)
+                val newTask = TaskWithCategoryTitle(
+                    task.id,
+                    task.title,
+                    task.dueDate,
+                    task.timeStart,
+                    task.timeEnd,
+                    task.categoryId,
+                    categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.title.toString(),
+                    task.status,
+                    task.priority,
+                    task.description,
+                    task.isArchive
+                )
+                taskViewModel.setViewTask(newTask)
             }
             findNavController().navigate(R.id.action_taskFragment_to_newTaskFragment)
         }

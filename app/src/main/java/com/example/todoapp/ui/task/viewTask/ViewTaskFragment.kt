@@ -1,24 +1,26 @@
 package com.example.todoapp.ui.task.viewTask
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentViewTaskBinding
 import com.example.todoapp.model.Task
+import com.example.todoapp.model.CategoryWithTasks
+import com.example.todoapp.model.TaskWithCategoryTitle
+import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 
 class ViewTaskFragment : Fragment() {
     private lateinit var binding : FragmentViewTaskBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
-    private lateinit var task : Task
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -32,13 +34,15 @@ class ViewTaskFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        task = taskViewModel.viewTask
+        val task = taskViewModel.viewTask
+        Log.d("ViewTaskFragment", task.toString())
+
         binding.apply {
-            nameTextView.text = task.title
+            nameTextView.text = task.taskTitle
             dateTextView.text = task.dueDate
             startTimeTextView.text = task.timeStart
             endTimeTextView.text = task.timeEnd
-            categoryTextView.text = task.categoryId.toString()
+            categoryTextView.text = task.categoryTitle
             changeStatusAndPriority(task.status, task.priority)
             descriptionTextView.text = task.description
         }

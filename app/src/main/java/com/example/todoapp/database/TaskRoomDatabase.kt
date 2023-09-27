@@ -35,9 +35,9 @@ public abstract class TaskRoomDatabase : RoomDatabase(){
         private val RoomCallback = object : Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                db.execSQL("INSERT INTO CATEGORY_TABLE (title, imageName, completedPercentage) VALUES ('Default', 'null', 0.0)")
-                db.execSQL("INSERT INTO CATEGORY_TABLE (title, imageName, completedPercentage) VALUES ('Work', 'null', 0.0)")
-                db.execSQL("INSERT INTO CATEGORY_TABLE (title, imageName, completedPercentage) VALUES ('Study', 'null', 0.0)")
+                db.execSQL("INSERT INTO CATEGORY_TABLE (categoryTitle, imageName, completedPercentage) VALUES ('Default', 'null', 0.0)")
+                db.execSQL("INSERT INTO CATEGORY_TABLE (categoryTitle, imageName, completedPercentage) VALUES ('Work', 'null', 0.0)")
+                db.execSQL("INSERT INTO CATEGORY_TABLE (categoryTitle, imageName, completedPercentage) VALUES ('Study', 'null', 0.0)")
             }
         }
     }

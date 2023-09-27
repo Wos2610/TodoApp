@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todoapp.database.TaskRepository
 import com.example.todoapp.model.Task
+import com.example.todoapp.model.TaskWithCategoryTitle
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -14,17 +15,22 @@ import java.util.Date
 
 class TaskViewModel(context : Application) : AndroidViewModel(context){
     private val taskRepository : TaskRepository
-    val allTasks : LiveData<List<Task>>
-    var listTasksByStatus : LiveData<List<Task>>
-    var listTasksByStatusAndNameOrder : LiveData<List<Task>>
-    var listTasksByStatusAndPriorityOrder : LiveData<List<Task>>
-    var listTasksByStatusAndDateOrder : LiveData<List<Task>>
-    var todayListTasks : LiveData<List<Task>>
-    var archiveListTasks : LiveData<List<Task>>
+    val allTasks : LiveData<List<TaskWithCategoryTitle>>
+
+    var listTasksByStatus : LiveData<List<TaskWithCategoryTitle>>
+    var listTasksByStatusAndNameOrder : LiveData<List<TaskWithCategoryTitle>>
+    var listTasksByStatusAndPriorityOrder : LiveData<List<TaskWithCategoryTitle>>
+    var listTasksByStatusAndDateOrder : LiveData<List<TaskWithCategoryTitle>>
+
+    var todayListTasks : LiveData<List<TaskWithCategoryTitle>>
+    var archiveListTasks : LiveData<List<TaskWithCategoryTitle>>
+
     private val _insertTaskCallback = MutableLiveData<(Task) -> Unit>()
     private val _updateTaskCallback = MutableLiveData<(Task) -> Unit>()
-    private lateinit var _editTask : Task
-    private lateinit var _viewTask : Task
+
+    private lateinit var _editTask : TaskWithCategoryTitle
+    private lateinit var _viewTask : TaskWithCategoryTitle
+
     private var _newTaskStatus : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskCategoryId : MutableLiveData<Int> = MutableLiveData(1)
@@ -66,17 +72,17 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
         _updateTaskCallback.value = callback
     }
 
-    val editTask: Task
+    val editTask: TaskWithCategoryTitle
         get() = _editTask
 
-    fun setEditTask(task: Task) {
+    fun setEditTask(task: TaskWithCategoryTitle) {
         _editTask = task
     }
 
-    val viewTask: Task
+    val viewTask: TaskWithCategoryTitle
         get() = _viewTask
 
-    fun setViewTask(task: Task) {
+    fun setViewTask(task: TaskWithCategoryTitle) {
         _viewTask = task
     }
     val newTaskStatus : LiveData<Int>

@@ -31,4 +31,12 @@ class CategoryViewModel : ViewModel() {
             categoryRepository.deleteCategory(category)
         }
     }
+
+    fun getCategoryById(id : Int) : LiveData<Category>{
+        return categoryRepository.getCategoryById(id)
+    }
+
+    suspend fun getCategoryTitleByTaskId(taskId: Int) : String?{
+        return categoryRepository.getCategoryTitleByTaskId(taskId)
+    }
 }

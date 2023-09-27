@@ -44,6 +44,12 @@
         android:label="fragment_view_task"
         tools:layout="@layout/fragment_view_task" />
 
+    <fragment
+        android:id="@+id/allTasksFragment"
+        android:name="com.example.todoapp.ui.task.allTasks.AllTasksFragment"
+        android:label="fragment_all_tasks"
+        tools:layout="@layout/fragment_all_tasks" />
+
     <action
         android:id="@+id/action_taskFragment_to_newTaskFragment"
         app:destination="@id/newTaskFragment" />
@@ -63,5 +69,10 @@
     <action
         android:id="@+id/action_taskFragment_to_viewTaskFragment"
         app:destination="@id/viewTaskFragment" />
+
+    <action
+        android:id="@+id/action_homeFragment_to_allTasksFragment"
+        app:destination="@id/allTasksFragment" />
+
 
 </navigation>

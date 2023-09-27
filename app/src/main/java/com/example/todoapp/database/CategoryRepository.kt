@@ -31,4 +31,8 @@ class CategoryRepository(context: Application) {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun deleteCategory(category: Category) = categoryDAO.deleteCategory(category)
+
+    fun getCategoryById(id : Int) = categoryDAO.getCategoryById(id)
+
+    suspend fun getCategoryTitleByTaskId(taskId: Int) = categoryDAO.getCategoryTitleByTaskId(taskId)
 }

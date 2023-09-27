@@ -25,14 +25,15 @@ import com.google.android.material.search.SearchView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import com.example.todoapp.model.TaskWithCategoryTitle
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
     private lateinit var todayTaskAdapter: TodayTaskAdapter
     private val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
-    private val categoryViewModel : CategoryViewModel by activityViewModels()
     private lateinit var categoryAdapter: CategoryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +45,9 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
-        todayTaskAdapter = TodayTaskAdapter { task: Task ->
-            // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
+        todayTaskAdapter = TodayTaskAdapter(
+            view = { task ->
+                // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
 //            taskViewModel.setEditTask(task)
 //            taskViewModel.setNewTaskStatus(task.status)
 //            taskViewModel.setNewTaskPriority(task.priority)
@@ -53,9 +55,10 @@ class HomeFragment : Fragment() {
 //                taskViewModel.updateTask(task)
 //            }
 //            findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
-            taskViewModel.setViewTask(task)
-            findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
-        }
+                taskViewModel.setViewTask(task)
+                findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
+            },
+        )
 
         categoryAdapter = CategoryAdapter()
 
@@ -63,7 +66,8 @@ class HomeFragment : Fragment() {
             todayTaskListRecyclerView.adapter = todayTaskAdapter
             todayTaskListRecyclerView.layoutManager = LinearLayoutManager(context)
             categoryRecyclerView.adapter = categoryAdapter
-            categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            categoryRecyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
 //        binding.searchView.setupWithSearchBar(binding.searchBar)
@@ -78,13 +82,13 @@ class HomeFragment : Fragment() {
             }
         }
 
-        categoryViewModel.allCategories.observe(viewLifecycleOwner){ categories ->
-            categories.let{ categoryAdapter.categories = it}
+        categoryViewModel.allCategories.observe(viewLifecycleOwner) { categories ->
+            categories.let { categoryAdapter.categories = it }
             Log.d("HomeFragment", "onViewCreated: ${categoryAdapter.categories}")
         }
 
         binding.floatingSearchView.apply {
-            setOnQueryChangeListener{ oldQuery, newQuery ->
+            setOnQueryChangeListener { oldQuery, newQuery ->
                 if (oldQuery == "" && newQuery == "") {
                     binding.floatingSearchView.clearSuggestions()
                 } else {
@@ -94,8 +98,8 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            setOnFocusChangeListener(object : FloatingSearchView.OnFocusChangeListener{
-                override fun onFocus(){
+            setOnFocusChangeListener(object : FloatingSearchView.OnFocusChangeListener {
+                override fun onFocus() {
                     binding.floatingSearchView.showProgress()
                     binding.floatingSearchView.swapSuggestions(getSuggestion(binding.floatingSearchView.query))
                     binding.floatingSearchView.hideProgress()
@@ -112,7 +116,7 @@ class HomeFragment : Fragment() {
                 override fun onSuggestionClicked(searchSuggestion: SearchSuggestion) {
                     taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
                         tasks.forEach {
-                            if (TaskSearchSuggestion(it.title).body == searchSuggestion.body) {
+                            if (TaskSearchSuggestion(it.taskTitle).body == searchSuggestion.body) {
                                 taskViewModel.setViewTask(it)
                                 findNavController().navigate(R.id.action_homeFragment_to_viewTaskFragment)
                             }
@@ -120,32 +124,28 @@ class HomeFragment : Fragment() {
                     }
 
                 }
+
                 override fun onSearchAction(currentQuery: String?) {
 
                 }
             })
         }
 
-//        binding.searchView.setOnQ(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                val queryText = query.toString()
-//                binding.searchView.clearFocus()
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                val queryText = newText.toString()
-//                return false
-//            }
-//        })
+        binding.apply {
+            categoryNumber.text = categoryViewModel.allCategories.value?.size.toString()
+            taskNumber.text = taskViewModel.todayListTasks.value?.size.toString()
+            taskViewAll.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_allTasksFragment)
+            }
+        }
     }
 
     private fun getSuggestion(query: String): List<SearchSuggestion> {
         val list = mutableListOf<SearchSuggestion>()
         taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
             tasks.forEach {
-                if (it.title.contains(query, true)) {
-                    val suggestion = TaskSearchSuggestion(it.title)
+                if (it.taskTitle.contains(query, true)) {
+                    val suggestion = TaskSearchSuggestion(it.taskTitle)
                     list.add(suggestion)
                 }
             }

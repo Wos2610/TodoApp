@@ -9,10 +9,11 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemArchivedTaskBinding
 import com.example.todoapp.databinding.ItemTaskBinding
 import com.example.todoapp.model.Task
+import com.example.todoapp.model.TaskWithCategoryTitle
 
 class ArchiveTaskAdapter(private val delete : (Task) -> Unit, private val restore : (Task) -> Unit) : RecyclerView.Adapter<ArchiveTaskViewHolder>() {
     private lateinit var itemBinding : ItemArchivedTaskBinding
-    var tasks: List<Task> = listOf()
+    var tasks: List<TaskWithCategoryTitle> = listOf()
         get() {
             return field
         }
@@ -34,14 +35,32 @@ class ArchiveTaskAdapter(private val delete : (Task) -> Unit, private val restor
     override fun onBindViewHolder(holder: ArchiveTaskViewHolder, position: Int) {
         itemBinding = ItemArchivedTaskBinding.bind(holder.itemView)
         val currentTask = tasks[position]
+
         holder.bind(currentTask)
 
-        itemBinding.deleteButton.setOnClickListener{
-            delete(currentTask)
-        }
+        itemBinding.apply {
+            dragItem.setOnClickListener{
 
-        itemBinding.restoreButton.setOnClickListener{
-            restore(currentTask)
+            }
+            val task = Task(
+                currentTask.taskId,
+                currentTask.taskTitle,
+                currentTask.dueDate,
+                currentTask.timeStart,
+                currentTask.timeEnd,
+                currentTask.categoryId,
+                currentTask.status,
+                currentTask.priority,
+                currentTask.description,
+                currentTask.isArchive
+            )
+            deleteButton.setOnClickListener{
+                delete(task)
+            }
+            restoreButton.setOnClickListener{
+                restore(task)
+            }
+
         }
     }
 }

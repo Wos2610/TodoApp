@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "CATEGORY_TABLE")
 data class Category(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo val id : Int,
-    @ColumnInfo val title : String,
+    @ColumnInfo(name = "category_id") val id : Int,
+    @ColumnInfo(name = "categoryTitle") val title : String,
     @ColumnInfo val imageName : String,
     @ColumnInfo val completedPercentage : Float)

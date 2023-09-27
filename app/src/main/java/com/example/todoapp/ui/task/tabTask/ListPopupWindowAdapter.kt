@@ -18,7 +18,7 @@ class ListPopupWindowAdapter(private val categories : LiveData<List<Category>>, 
     private var mActivity: Activity? = null
     private var mDataSource: List<String> = ArrayList()
     private var layoutInflater: LayoutInflater? = null
-//    private var clickDeleteButtonListener: OnClickDeleteButtonListener? = null
+    //    private var clickDeleteButtonListener: OnClickDeleteButtonListener? = null
     private lateinit var binding : ItemCategoryListPopupWindowBinding
     init {
         mActivity = activity

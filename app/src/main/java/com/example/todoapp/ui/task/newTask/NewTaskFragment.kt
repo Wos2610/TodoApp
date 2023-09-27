@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.example.todoapp.model.Task
+import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.tabTask.ListPopupWindowAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
@@ -41,6 +42,9 @@ class NewTaskFragment : Fragment() {
         changeStatusAndPriority()
 
         binding.apply {
+            backButton.setOnClickListener{
+                parentFragmentManager.popBackStack()
+            }
             dateTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
                 val year: Int = calendar.get(Calendar.YEAR)
@@ -295,16 +299,18 @@ class NewTaskFragment : Fragment() {
         }
     }
 
-    fun showListPopupWindow(anchorView: View) {
+    private fun showListPopupWindow(anchorView: View) {
         val listPopupWindow = ListPopupWindow(anchorView.context)
         listPopupWindow.anchorView = anchorView
         listPopupWindow.width = 500
         val listPopupWindowAdapter = ListPopupWindowAdapter(
             categoryViewModel.allCategories, activity,
             callback = { position ->
-                taskViewModel.setNewTaskCategoryId(position)
+                // position from 0 but category_id from 1
+                taskViewModel.setNewTaskCategoryId(position + 1)
                 taskViewModel.newTaskCategoryId.observe(viewLifecycleOwner) { id ->
-                    binding.categoryTextView.text = categoryViewModel.allCategories.value?.get(id)?.title
+                    // category_id from 1 but allCategories index from 0
+                    binding.categoryTextView.text = categoryViewModel.allCategories.value?.get(id - 1)?.title
                 }
                 listPopupWindow.dismiss()
             }

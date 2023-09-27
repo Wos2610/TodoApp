@@ -4,14 +4,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTodayTaskBinding
 import com.example.todoapp.model.Task
+import com.example.todoapp.model.TaskWithCategoryTitle
+import com.example.todoapp.viewModel.CategoryViewModel
 
-class TodayTaskAdapter(val update : (Task) -> Unit) : RecyclerView.Adapter<TodayTaskViewHolder>() {
+class TodayTaskAdapter(val view : (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<TodayTaskViewHolder>() {
     private lateinit var itemBinding : ItemTodayTaskBinding
-    var tasks: List<Task> = listOf()
+    var tasks: List<TaskWithCategoryTitle> = listOf()
         get() {
             return field
         }
@@ -33,10 +36,11 @@ class TodayTaskAdapter(val update : (Task) -> Unit) : RecyclerView.Adapter<Today
     override fun onBindViewHolder(holder: TodayTaskViewHolder, position: Int) {
         itemBinding = ItemTodayTaskBinding.bind(holder.itemView)
         val currentTask = tasks[position]
+
         holder.bind(currentTask)
 
         holder.itemView.setOnClickListener{
-            update(currentTask)
+            view(currentTask)
         }
     }
 }
