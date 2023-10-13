@@ -72,6 +72,18 @@ class CategoryWithListTasksFragment : Fragment() {
         lifecycleScope.launch {
             categoryViewModel.getCategoryWithListTasksById(categoryViewModel.viewCategory.category.id).collect{
                 taskAdapter.tasks = it.tasks
+                if(taskAdapter.tasks.isEmpty()){
+                    binding.apply {
+                        noTaskTextView.visibility = View.VISIBLE
+                        taskListRecyclerView.visibility = View.GONE
+                    }
+                }
+                else{
+                    binding.apply {
+                        noTaskTextView.visibility = View.GONE
+                        taskListRecyclerView.visibility = View.VISIBLE
+                    }
+                }
             }
         }
 

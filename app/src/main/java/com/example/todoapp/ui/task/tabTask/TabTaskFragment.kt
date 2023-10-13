@@ -80,7 +80,21 @@ abstract class TabTaskFragment(private val status : Int) : Fragment() {
         taskViewModel.apply {
             setListTasksByStatus(status)
             listTasksByStatus.observe(viewLifecycleOwner) { tasks ->
-                tasks.let { taskAdapter.tasks = it }
+                tasks.let {
+                    taskAdapter.tasks = it
+                    if(taskAdapter.tasks.isEmpty()){
+                        taskBinding.apply {
+                            noTaskTextView.visibility = View.VISIBLE
+                            taskListRecyclerView.visibility = View.GONE
+                        }
+                    }
+                    else{
+                        taskBinding.apply {
+                            noTaskTextView.visibility = View.GONE
+                            taskListRecyclerView.visibility = View.VISIBLE
+                        }
+                    }
+                }
             }
         }
 

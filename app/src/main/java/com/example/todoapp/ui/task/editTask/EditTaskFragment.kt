@@ -125,7 +125,7 @@ class EditTaskFragment : Fragment() {
                 timePickerDialog.show()
             })
 
-            categoryTextView.setOnClickListener {
+            categoryLayout.setOnClickListener {
                 showListPopupWindow(it)
             }
 //            categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.category?.title.toString()

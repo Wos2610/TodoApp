@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.HomeFragment"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="24dp">
+    tools:context=".ui.home.HomeFragment">
+<!--    android:layout_marginStart="16dp"-->
+<!--    android:layout_marginEnd="24dp">-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
         <View
             android:layout_width="match_parent"
             android:layout_height="72dp"/>
@@ -50,7 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="horizontal"
-            tools:listitem="@layout/item_category"/>
+            tools:listitem="@layout/item_category"
+            android:paddingEnd="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,12 +84,18 @@
                 android:layout_marginEnd="8dp"/>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/noTaskTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/no_task"
+            android:layout_marginTop="16dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/today_task_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_today_task"
-            android:layout_marginEnd="0dp"/>
+            tools:listitem="@layout/item_today_task"/>
     </LinearLayout>
 
     <com.arlib.floatingsearchview.FloatingSearchView
@@ -97,7 +106,9 @@
         app:floatingSearch_searchHint="@string/find_your_task"
         app:floatingSearch_showSearchKey="true"
         app:floatingSearch_close_search_on_keyboard_dismiss="true"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:paddingStart="16dp"
+        android:paddingEnd="24dp">
     </com.arlib.floatingsearchview.FloatingSearchView>
 
 <!--    <com.google.android.material.appbar.AppBarLayout-->

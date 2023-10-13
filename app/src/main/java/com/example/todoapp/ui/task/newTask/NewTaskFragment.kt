@@ -113,7 +113,7 @@ class NewTaskFragment : Fragment() {
                 timePickerDialog.show()
             })
 
-            categoryTextView.setOnClickListener {
+            categoryLayout.setOnClickListener {
                 showListPopupWindow(it)
             }
 

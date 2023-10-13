@@ -46,7 +46,7 @@ class EditCategoryFragment : Fragment() {
             backButton.setOnClickListener {
                 parentFragmentManager.popBackStack()
             }
-            chooseImageButton.setOnClickListener {
+            imageLayout.setOnClickListener {
                 galleryActivityLauncher.launch(arrayOf("image/*"))
             }
 

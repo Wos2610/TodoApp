@@ -12,7 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:padding="8dp"
+        android:paddingEnd="16dp"
         android:src="@drawable/filter" />
+
+    <TextView
+        android:id="@+id/noTaskTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/no_task"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/task_list_recycler_view"

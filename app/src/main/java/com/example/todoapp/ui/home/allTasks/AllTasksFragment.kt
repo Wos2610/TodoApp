@@ -70,7 +70,21 @@ class AllTasksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         taskViewModel.apply {
             allTasks.observe(viewLifecycleOwner) { tasks ->
-                tasks.let { allTasksAdapter.tasks = it }
+                tasks.let {
+                    allTasksAdapter.tasks = it
+                    if(allTasksAdapter.tasks.isEmpty()){
+                        taskBinding.apply {
+                            noTaskTextView.visibility = View.VISIBLE
+                            taskListRecyclerView.visibility = View.GONE
+                        }
+                    }
+                    else{
+                        taskBinding.apply {
+                            noTaskTextView.visibility = View.GONE
+                            taskListRecyclerView.visibility = View.VISIBLE
+                        }
+                    }
+                }
             }
         }
 

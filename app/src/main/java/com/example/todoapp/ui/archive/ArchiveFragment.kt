@@ -61,7 +61,21 @@ class ArchiveFragment : Fragment() {
         taskViewModel.apply {
             setArchiveListTasks()
             archiveListTasks.observe(viewLifecycleOwner) { tasks ->
-                tasks.let { adapter.tasks = it }
+                tasks.let {
+                    adapter.tasks = it
+                    if(adapter.tasks.isEmpty()){
+                        binding.apply {
+                            noTaskTextView.visibility = View.VISIBLE
+                            archiveTaskListRecyclerView.visibility = View.GONE
+                        }
+                    }
+                    else{
+                        binding.apply {
+                            noTaskTextView.visibility = View.GONE
+                            archiveTaskListRecyclerView.visibility = View.VISIBLE
+                        }
+                    }
+                }
             }
         }
     }

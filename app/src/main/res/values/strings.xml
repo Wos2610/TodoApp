@@ -36,4 +36,6 @@
     <string name="category_name_error">Please enter category name</string>
     <string name="archive">Archive</string>
     <string name="calendar">Calendar</string>
+    <string name="all_task">All Tasks</string>
+    <string name="no_task">No Task To Display &#128531;</string>
 </resources>

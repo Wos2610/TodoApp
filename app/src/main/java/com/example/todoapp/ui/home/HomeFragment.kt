@@ -99,7 +99,21 @@ class HomeFragment : Fragment() {
         taskViewModel.apply {
             setTodayListTasks(dateFormat.format(Calendar.getInstance().time))
             todayListTasks.observe(viewLifecycleOwner) { tasks ->
-                tasks.let { todayTaskAdapter.tasks = it }
+                tasks.let {
+                    todayTaskAdapter.tasks = it
+                    if(todayTaskAdapter.tasks.isEmpty()){
+                        binding.apply {
+                            noTaskTextView.visibility = View.VISIBLE
+                            todayTaskListRecyclerView.visibility = View.GONE
+                        }
+                    }
+                    else{
+                        binding.apply {
+                            noTaskTextView.visibility = View.GONE
+                            todayTaskListRecyclerView.visibility = View.VISIBLE
+                        }
+                    }
+                }
             }
         }
 
