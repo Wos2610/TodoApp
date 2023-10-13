@@ -56,6 +56,24 @@
         android:label="fragment_all_categories"
         tools:layout="@layout/fragment_all_categories" />
 
+    <fragment
+        android:id="@+id/newCategoryFragment"
+        android:name="com.example.todoapp.ui.home.category.NewCategoryFragment"
+        android:label="fragment_new_category"
+        tools:layout="@layout/fragment_new_category" />
+
+    <fragment
+        android:id="@+id/editCategoryFragment"
+        android:name="com.example.todoapp.ui.home.category.EditCategoryFragment"
+        android:label="fragment_edit_category"
+        tools:layout="@layout/fragment_edit_category" />
+
+    <fragment
+        android:id="@+id/categoryWithListTasksFragment"
+        android:name="com.example.todoapp.ui.home.category.CategoryWithListTasksFragment"
+        android:label="fragment_category_with_list_tasks"
+        tools:layout="@layout/fragment_category_with_list_tasks" />
+
     <action
         android:id="@+id/action_taskFragment_to_newTaskFragment"
         app:destination="@id/newTaskFragment" />
@@ -83,5 +101,18 @@
     <action
         android:id="@+id/action_homeFragment_to_allCategoriesFragment"
         app:destination="@id/allCategoriesFragment" />
+
+    <action
+        android:id="@+id/action_allCategoriesFragment_to_newCategoryFragment"
+        app:destination="@id/newCategoryFragment" />
+
+    <action
+        android:id="@+id/action_allCategoriesFragment_to_editCategoryFragment"
+        app:destination="@id/editCategoryFragment" />
+
+    <action
+        android:id="@+id/action_allCategoriesFragment_to_categoryWithListTasksFragment"
+        app:destination="@id/categoryWithListTasksFragment" />
+
 
 </navigation>

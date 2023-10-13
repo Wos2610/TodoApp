@@ -62,7 +62,26 @@ class HomeFragment : Fragment() {
             },
         )
 
-        categoryAdapter = CategoryAdapter()
+        categoryAdapter = CategoryAdapter(requireContext(),
+            delete = { category ->
+                categoryViewModel.apply {
+                    val newCategory = category.category
+                    delete(newCategory)
+                }
+            },
+            edit = { category ->
+                categoryViewModel.apply {
+                    setEditCategory(category)
+//                    val newCategory = category.category
+//                    update(newCategory)
+                }
+                findNavController().navigate(R.id.action_allCategoriesFragment_to_editCategoryFragment)
+            },
+            view = { category ->
+                categoryViewModel.setViewCategory(category)
+                findNavController().navigate(R.id.action_allCategoriesFragment_to_categoryWithListTasksFragment)
+            }
+        )
 
         binding.apply {
             todayTaskListRecyclerView.adapter = todayTaskAdapter

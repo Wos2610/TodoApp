@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TodoApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="task_name">Task Name</string>
     <string name="date">Date</string>
@@ -26,4 +25,15 @@
     <string name="task">Task</string>
     <string name="edit_task">Edit Task</string>
     <string name="view_all">View All</string>
+    <string name="tasks">Tasks</string>
+    <string name="new_category">New Category</string>
+    <string name="category_name">Category Name</string>
+    <string name="add_image">Add image</string>
+    <string name="image">Image</string>
+    <string name="edit_category">Edit Category</string>
+    <string name="task_name_error">Please enter task name</string>
+    <string name="task_date_error">Please choose task date</string>
+    <string name="category_name_error">Please enter category name</string>
+    <string name="archive">Archive</string>
+    <string name="calendar">Calendar</string>
 </resources>

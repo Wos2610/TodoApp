@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zerobranch.layout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+app:cardCornerRadius="8dp"
+app:cardElevation="4dp"
+android:layout_marginHorizontal="16dp"
+android:layout_marginVertical="8dp"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<com.zerobranch.layout.SwipeLayout
     android:id="@+id/swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:draggedItem="@id/drag_item"
     app:rightItem="@id/deleteButton"
     app:leftItem="@id/restoreButton"
-    app:swipeDirection="left|right"
-    android:layout_marginVertical="16dp"
-    android:layout_marginHorizontal="8dp">
+    app:swipeDirection="left|right">
 
     <ImageView
         android:id="@+id/deleteButton"
         android:layout_width="80dp"
-        android:layout_height="144dp"
+        android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@color/red"
         android:gravity="center"
-        android:layout_marginEnd="8dp"
         android:src="@drawable/baseline_delete_24"/>
 
     <ImageView
         android:id="@+id/restoreButton"
         android:layout_width="80dp"
-        android:layout_height="144dp"
+        android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/purple"
         android:gravity="center"
-        android:layout_marginEnd="8dp"
         android:src="@drawable/baseline_undo_24" />
 
     <androidx.cardview.widget.CardView
@@ -36,9 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp">
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,3 +80,6 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </com.zerobranch.layout.SwipeLayout>
+
+</androidx.cardview.widget.CardView>
+

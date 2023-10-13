@@ -16,11 +16,19 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/shadow_gradient"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="72dp"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:itemActiveIndicatorStyle="@color/transparent"
+        app:itemIconSize="30dp"
+        app:menu="@menu/bottom_nav_menu"
+        android:background="@color/white"
+        app:labelVisibilityMode="unlabeled" />
 
 </LinearLayout>

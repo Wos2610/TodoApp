@@ -61,7 +61,7 @@ class TaskFragment : Fragment() {
                     task.timeStart,
                     task.timeEnd,
                     task.categoryId,
-                    categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.category?.title.toString(),
+                    categoryViewModel.getCategoryById(task.categoryId).toString(),
                     task.status,
                     task.priority,
                     task.description,
@@ -81,4 +81,9 @@ class TaskFragment : Fragment() {
             tab.text = StatusType.values()[position + 1].description
         }.attach()
     }
+
+//    override fun onDestroyView() {
+//        categoryViewModel.responseState.removeObservers(parentFragment.viewLifecycleOwner)
+//        super.onDestroyView()
+//    }
 }

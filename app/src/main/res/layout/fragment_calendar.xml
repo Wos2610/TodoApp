@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.calendar.CalendarFragment">
+    tools:context=".ui.calendar.CalendarFragment"
+    android:layout_marginTop="8dp"
+    android:layout_marginHorizontal="16dp"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/category_title_text_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Calendar"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:text="@string/calendar"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
 
-</FrameLayout>
+</LinearLayout>

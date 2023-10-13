@@ -52,6 +52,8 @@ class ViewTaskFragment : Fragment() {
                 setEditTask(task)
                 setNewTaskStatus(task.status)
                 setNewTaskPriority(task.priority)
+                setNewTaskCategoryId(task.categoryId)
+                // Why use updateTaskCallback: Because updatedTask is changed in EditTaskFragment
                 setUpdateTaskCallback { task ->
                     taskViewModel.updateTask(task)
                 }

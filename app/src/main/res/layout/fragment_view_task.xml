@@ -228,11 +228,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/edit"
-        android:layout_gravity="center"
-        android:background="@color/deep_blue"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/white"
-        android:gravity="center"/>
+        style="@style/button"/>
 </LinearLayout>

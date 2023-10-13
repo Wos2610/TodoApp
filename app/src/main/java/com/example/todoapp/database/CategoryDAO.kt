@@ -9,6 +9,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.example.todoapp.model.Category
 import com.example.todoapp.model.CategoryWithTasks
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CategoryDAO {
@@ -23,8 +24,16 @@ interface CategoryDAO {
     suspend fun deleteCategory(category : Category)
 
     @Query("SELECT * FROM CATEGORY_TABLE WHERE category_id = :id")
-    fun getCategoryById(id : Int) : LiveData<CategoryWithTasks>
+    fun getCategoryById(id : Int) : Flow<Category>
+
+    @Query("SELECT * FROM CATEGORY_TABLE WHERE category_id = :id")
+    fun getCategoryWithListTasksById(id : Int) : Flow<CategoryWithTasks>
+
+    @Query("SELECT category_id FROM CATEGORY_TABLE WHERE categoryTitle = :name")
+    fun getCategoryIdByTitle(name : String) : Int?
 
     @Query("SELECT categoryTitle FROM CATEGORY_TABLE INNER JOIN TASK_TABLE ON categoryId = categoryId WHERE taskId = :taskId")
     suspend fun getCategoryTitleByTaskId(taskId: Int): String?
+
+
 }

@@ -12,6 +12,8 @@ import android.widget.ListPopupWindow
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentEditTaskBinding
 import com.example.todoapp.model.Category
@@ -20,6 +22,7 @@ import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.tabTask.ListPopupWindowAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -46,21 +49,17 @@ class EditTaskFragment : Fragment() {
                 parentFragmentManager.popBackStack()
             }
 
-            taskViewModel.editTask?.let {
-                nameEditText.setText(it.taskTitle)
-                dateTextView.text = it.dueDate
-                startTimeTextView.text = it.timeStart
-                endTimeTextView.text = it.timeEnd
-                categoryViewModel.getCategoryById(it.categoryId).observe(viewLifecycleOwner) { category ->
-                    if (category != null) {
-                        // Handle the category data here
-                        categoryTextView.text = category.category.title
-                    } else {
-                        // Handle the case where the category is null (not found)
-                        categoryTextView.text = "Category Not Found"
+            taskViewModel.editTask?.let { task ->
+                nameEditText.setText(task.taskTitle)
+                dateTextView.text = task.dueDate
+                startTimeTextView.text = task.timeStart
+                endTimeTextView.text = task.timeEnd
+                lifecycleScope.launch {
+                    categoryViewModel.getCategoryById(task.categoryId).collect{
+                        binding.categoryTextView.text = it.title
                     }
                 }
-                descriptionEditText.setText(it.description)
+                descriptionEditText.setText(task.description)
             }
 
             dateTextView.setOnClickListener(View.OnClickListener {
@@ -129,8 +128,22 @@ class EditTaskFragment : Fragment() {
             categoryTextView.setOnClickListener {
                 showListPopupWindow(it)
             }
-
+//            categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.category?.title.toString()
             changeButton.setOnClickListener {
+                if(nameEditText.text.toString() == ""){
+                    nameEditText.error = getString(R.string.task_name_error)
+                    return@setOnClickListener
+                }
+                else{
+                    nameEditText.error = null
+                }
+                if(dateTextView.text.toString() == ""){
+                    dateTextView.error = getString(R.string.task_date_error)
+                    return@setOnClickListener
+                }
+                else{
+                    dateTextView.error = null
+                }
                 val newTask = TaskWithCategoryTitle(
                     taskViewModel.editTask.taskId,
                     nameEditText.text.toString(),
@@ -139,15 +152,21 @@ class EditTaskFragment : Fragment() {
                     endTimeTextView.text.toString(),
                     taskViewModel.newTaskCategoryId.value!!,
                     //category_id from 1 but index (allCategories) from 0
-                    categoryViewModel.allCategories.value?.get(taskViewModel.newTaskCategoryId.value!!.minus(1))?.category?.title.toString(),
+                    categoryTextView.text.toString(),
                     taskViewModel.newTaskStatus.value!!,
                     taskViewModel.newTaskPriority.value!!,
                     descriptionEditText.text.toString(),
                     false,
                 )
 
+//                val newLiveTask = MutableLiveData(newTask)
+
                 taskViewModel.setEditTask(newTask)
                 taskViewModel.setViewTask(newTask)
+                // When updateTask, truyen vao phai la Task chu khong phai LiveData<Task>
+//                taskViewModel.editTask.observe(viewLifecycleOwner) { task ->
+//                    taskViewModel.updateTask(task)
+//                }
                 taskViewModel.updateTaskCallback.observe(viewLifecycleOwner) { callback ->
                     val task = Task(
                         taskViewModel.editTask.taskId,
@@ -343,9 +362,21 @@ class EditTaskFragment : Fragment() {
         val listPopupWindowAdapter = ListPopupWindowAdapter(
             categoryViewModel.allCategories, activity,
             callback = { position ->
-                taskViewModel.setNewTaskCategoryId(position + 1)
+                // position from 0 but category_id from 1
+                val categoryId = categoryViewModel.allCategories.value?.get(position)?.category?.id
+//                Log.d("zxr", categoryViewModel.getCategoryByName(categoryName!!).value)
+//                taskViewModel.setNewTaskCategoryId(categoryViewModel.getCategoryIdByTitle(categoryName!!)!!)
+//                taskViewModel.setNewTaskCategoryId(position + 1)
+                Log.d("hihi", categoryId.toString())
+                taskViewModel.setNewTaskCategoryId(categoryId!!)
+
                 taskViewModel.newTaskCategoryId.observe(viewLifecycleOwner) { id ->
-                    binding.categoryTextView.text = categoryViewModel.allCategories.value?.get(id - 1)?.category?.title.toString()
+                    // categoryViewModel.getCategoryById(id) return Flow<Category>
+                    lifecycleScope.launch {
+                        categoryViewModel.getCategoryById(id).collect{
+                            binding.categoryTextView.text = it.title
+                        }
+                    }
                 }
                 listPopupWindow.dismiss()
             }

@@ -137,19 +137,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/task_element">
         <TextView
             android:id="@+id/categoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/choose_category"
-            style="@style/task_element"/>
+            android:hint="@string/choose_category"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_24"/>
+            android:src="@drawable/baseline_add_24"
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <TextView
@@ -227,11 +228,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create"
-        android:layout_gravity="center"
-        android:background="@color/deep_blue"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/white"
-        android:gravity="center"/>
+        style="@style/button"/>
 </LinearLayout>

@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.allCategories.AllCategoriesFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    android:layout_marginHorizontal="16dp">
 
     <ImageView
         android:id="@+id/back_button"
@@ -27,7 +29,7 @@
             android:layout_weight="1"/>
 
         <ImageView
-            android:id="@+id/add_task_button"
+            android:id="@+id/add_category_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"

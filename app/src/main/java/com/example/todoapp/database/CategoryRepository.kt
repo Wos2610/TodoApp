@@ -5,6 +5,7 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.todoapp.model.Category
 import com.example.todoapp.model.CategoryWithTasks
+import kotlinx.coroutines.flow.Flow
 
 class CategoryRepository(context: Application) {
     companion object {
@@ -34,7 +35,14 @@ class CategoryRepository(context: Application) {
     @WorkerThread
     suspend fun deleteCategory(category: Category) = categoryDAO.deleteCategory(category)
 
-    fun getCategoryById(id : Int) = categoryDAO.getCategoryById(id)
+    fun getCategoryById(id: Int): Flow<Category> {
+       return categoryDAO.getCategoryById(id)
+    }
+    fun getCategoryWithListTasksById(id: Int): Flow<CategoryWithTasks> {
+        return categoryDAO.getCategoryWithListTasksById(id)
+    }
+    fun getCategoryIdByTitle(name : String) = categoryDAO.getCategoryIdByTitle(name)
 
     suspend fun getCategoryTitleByTaskId(taskId: Int) = categoryDAO.getCategoryTitleByTaskId(taskId)
+
 }
