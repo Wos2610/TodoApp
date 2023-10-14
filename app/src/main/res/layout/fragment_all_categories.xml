@@ -43,7 +43,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:paddingTop="8dp"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -51,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="horizontal"
-            tools:listitem="@layout/item_category" />
+            tools:listitem="@layout/item_category"
+            android:layout_gravity="center"/>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

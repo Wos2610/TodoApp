@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -60,6 +61,14 @@ class HomeFragment : Fragment() {
                 taskViewModel.setViewTask(task)
                 findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
             },
+            scaleUpAnimation = { view ->
+                val scaleUpAnim = AnimationUtils.loadAnimation(context, R.anim.scale_up)
+                view.startAnimation(scaleUpAnim)
+            },
+            scaleDownAnimation = { view ->
+                val scaleDownAnim = AnimationUtils.loadAnimation(context, R.anim.scale_down)
+                view.startAnimation(scaleDownAnim)
+            }
         )
 
         categoryAdapter = CategoryAdapter(requireContext(),
@@ -96,6 +105,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         taskViewModel.apply {
             setTodayListTasks(dateFormat.format(Calendar.getInstance().time))
             todayListTasks.observe(viewLifecycleOwner) { tasks ->

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -63,6 +64,14 @@ abstract class TabTaskFragment(private val status : Int) : Fragment() {
                     updateTask(newTask)
                 }
             },
+            scaleUpAnimation = { view ->
+                val scaleUpAnim = AnimationUtils.loadAnimation(context, R.anim.scale_up)
+                view.startAnimation(scaleUpAnim)
+            },
+            scaleDownAnimation = { view ->
+                val scaleDownAnim = AnimationUtils.loadAnimation(context, R.anim.scale_down)
+                view.startAnimation(scaleDownAnim)
+            }
         )
 
         taskBinding.apply {

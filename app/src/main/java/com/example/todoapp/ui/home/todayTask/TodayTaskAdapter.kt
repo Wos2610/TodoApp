@@ -1,9 +1,13 @@
 package com.example.todoapp.ui.home.todayTask
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
@@ -12,7 +16,9 @@ import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.viewModel.CategoryViewModel
 
-class TodayTaskAdapter(val view : (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<TodayTaskViewHolder>() {
+class TodayTaskAdapter(private val scaleUpAnimation : (View) -> Unit,
+                       private val scaleDownAnimation : (View) -> Unit,
+                       private val view : (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<TodayTaskViewHolder>() {
     private lateinit var itemBinding : ItemTodayTaskBinding
     var tasks: List<TaskWithCategoryTitle> = listOf()
         get() {
@@ -39,7 +45,20 @@ class TodayTaskAdapter(val view : (TaskWithCategoryTitle) -> Unit) : RecyclerVie
 
         holder.bind(currentTask)
 
+        holder.itemView.setOnTouchListener{v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_UP -> {
+                    scaleUpAnimation(v)
+                }
+                MotionEvent.ACTION_DOWN -> {
+                    scaleDownAnimation(v)
+                }
+            }
+            false
+
+        }
         holder.itemView.setOnClickListener{
+
             view(currentTask)
         }
     }

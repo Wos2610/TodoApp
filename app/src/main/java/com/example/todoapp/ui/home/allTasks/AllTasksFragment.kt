@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,6 +59,14 @@ class AllTasksFragment : Fragment() {
                     updateTask(newTask)
                 }
             },
+            scaleUpAnimation = { view ->
+                val scaleUpAnim = AnimationUtils.loadAnimation(context, R.anim.scale_up)
+                view.startAnimation(scaleUpAnim)
+            },
+            scaleDownAnimation = { view ->
+                val scaleDownAnim = AnimationUtils.loadAnimation(context, R.anim.scale_down)
+                view.startAnimation(scaleDownAnim)
+            }
         )
 
         taskBinding.apply {

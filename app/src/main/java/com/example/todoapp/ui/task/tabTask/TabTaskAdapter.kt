@@ -2,6 +2,7 @@ package com.example.todoapp.ui.task.tabTask
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -12,7 +13,10 @@ import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.viewModel.CategoryViewModel
 
-class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit, private val archive: (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<TabTaskViewHolder>() {
+class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit,
+                     private val archive: (TaskWithCategoryTitle) -> Unit,
+                     private val scaleUpAnimation : (View) -> Unit,
+                     private val scaleDownAnimation : (View) -> Unit) : RecyclerView.Adapter<TabTaskViewHolder>() {
     private lateinit var itemBinding: ItemTaskBinding
     var tasks: List<TaskWithCategoryTitle> = listOf()
         get() {
@@ -40,6 +44,18 @@ class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit, privat
         val currentTask = tasks[position]
 
         holder.bind(currentTask)
+        holder.itemView.setOnTouchListener{v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_UP -> {
+                    scaleUpAnimation(v)
+                }
+                MotionEvent.ACTION_DOWN -> {
+                    scaleDownAnimation(v)
+                }
+            }
+            false
+
+        }
         itemBinding.dragItem.setOnClickListener{
             update(currentTask)
         }
