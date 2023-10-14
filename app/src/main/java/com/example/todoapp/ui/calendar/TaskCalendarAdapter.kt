@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemCalendarTaskBinding
-import com.example.todoapp.databinding.ItemTodayTaskBinding
 import com.example.todoapp.model.TaskWithCategoryTitle
-import com.example.todoapp.ui.home.todayTask.TodayTaskViewHolder
 
 class TaskCalendarAdapter(val view : (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<TaskCalendarViewHolder>() {
     private lateinit var itemBinding : ItemCalendarTaskBinding

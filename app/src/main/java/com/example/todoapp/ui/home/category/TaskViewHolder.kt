@@ -4,9 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.ItemTodayTaskBinding
 import com.example.todoapp.model.Task
-import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.enums.StatusType
-import java.util.Locale
 
 class TaskViewHolder(view : View) : RecyclerView.ViewHolder(view){
     private val binding = ItemTodayTaskBinding.bind(view)

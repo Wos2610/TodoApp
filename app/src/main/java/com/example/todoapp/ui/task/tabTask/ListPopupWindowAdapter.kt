@@ -1,23 +1,18 @@
 package com.example.todoapp.ui.task.tabTask
 
 import android.app.Activity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.lifecycle.LiveData
-import com.example.todoapp.databinding.ItemCategoryBinding
 import com.example.todoapp.databinding.ItemCategoryListPopupWindowBinding
-import com.example.todoapp.model.Category
 import com.example.todoapp.model.CategoryWithTasks
-import com.example.todoapp.viewModel.CategoryViewModel
 
 
 class ListPopupWindowAdapter(private val categories : LiveData<List<CategoryWithTasks>>, activity: Activity?, private val callback : (Int) -> Unit) : BaseAdapter() {
     private var mActivity: Activity? = null
-    private var mDataSource: List<String> = ArrayList()
     private var layoutInflater: LayoutInflater? = null
     //    private var clickDeleteButtonListener: OnClickDeleteButtonListener? = null
     private lateinit var binding : ItemCategoryListPopupWindowBinding

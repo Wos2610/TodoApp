@@ -1,7 +1,6 @@
 package com.example.todoapp.ui.calendar
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +21,8 @@ import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.daysOfWeek
+import com.kizitonwose.calendar.core.nextMonth
+import com.kizitonwose.calendar.core.previousMonth
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
@@ -38,14 +39,11 @@ class CalendarFragment : Fragment() {
     private val today = LocalDate.now()
 
     private val events: MutableMap<LocalDate, List<TaskWithCategoryTitle>> = mutableMapOf()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentCalendarBinding.inflate(inflater, container, false)
         taskCalendarAdapter = TaskCalendarAdapter(
@@ -75,8 +73,20 @@ class CalendarFragment : Fragment() {
         }
 
         binding.calendarView.monthScrollListener = {
-            // Select the first day of the visible month.
+            binding.exFiveMonthYearText.text = it.yearMonth.month.toString()
             selectDate(it.yearMonth.atDay(1))
+        }
+
+        binding.exFiveNextMonthImage.setOnClickListener {
+            binding.calendarView.findFirstVisibleMonth()?.let {
+                binding.calendarView.smoothScrollToMonth(it.yearMonth.nextMonth)
+            }
+        }
+
+        binding.exFivePreviousMonthImage.setOnClickListener {
+            binding.calendarView.findFirstVisibleMonth()?.let {
+                binding.calendarView.smoothScrollToMonth(it.yearMonth.previousMonth)
+            }
         }
 
         val daysOfWeek = daysOfWeek()

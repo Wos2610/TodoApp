@@ -2,6 +2,7 @@ package com.example.todoapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -17,6 +18,21 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.newTaskFragment
+                || destination.id == R.id.editTaskFragment
+                || destination.id == R.id.viewTaskFragment
+                || destination.id == R.id.editCategoryFragment
+                || destination.id == R.id.newCategoryFragment
+                || destination.id == R.id.allCategoriesFragment
+                || destination.id == R.id.allTasksFragment
+                || destination.id == R.id.categoryWithListTasksFragment) {
+
+               binding.bottomNavigationBarView.visibility = View.GONE
+            } else {
+                binding.bottomNavigationBarView.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onStart() {

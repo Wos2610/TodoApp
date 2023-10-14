@@ -22,15 +22,12 @@ class TaskRepository(context : Application){
     private val taskDAO = taskDatabase.taskDAO()
     val allTask = taskDAO.getAllTasks()
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertTask(task: Task) = taskDAO.insertTask(task)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun updateTask(task: Task) = taskDAO.updateTask(task)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun deleteTask(task: Task) = taskDAO.deleteTask(task)
     fun getTasksByStatus(status: Int): LiveData<List<TaskWithCategoryTitle>> =

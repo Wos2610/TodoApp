@@ -60,12 +60,14 @@
         android:id="@+id/dateTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorIconDrawable="@drawable/baseline_error_24">
+        app:errorIconDrawable="@drawable/baseline_error_24"
+        style="@style/task_element">
         <TextView
             android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/task_element"/>
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"/>
     </com.google.android.material.textfield.TextInputLayout>>
 
     <LinearLayout
@@ -97,12 +99,14 @@
             android:layout_height="wrap_content"
             app:errorIconDrawable="@drawable/baseline_error_24"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            style="@style/task_element">
             <TextView
                 android:id="@+id/startTimeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/task_element"/>
+                android:layout_marginStart="8dp"
+                android:textSize="16sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -111,12 +115,14 @@
             android:layout_height="wrap_content"
             app:errorIconDrawable="@drawable/baseline_error_24"
             android:layout_weight="1"
+            style="@style/task_element"
             android:layout_marginStart="8dp">
             <TextView
                 android:id="@+id/endTimeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/task_element"/>
+                android:layout_marginStart="8dp"
+                android:textSize="16sp"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -148,19 +154,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        style="@style/task_element"
-        android:gravity="center_vertical">
+        style="@style/task_element">
         <TextView
             android:id="@+id/categoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/choose_category" />
+            android:hint="@string/choose_category"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_24"/>
+            android:src="@drawable/baseline_add_24"
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <TextView

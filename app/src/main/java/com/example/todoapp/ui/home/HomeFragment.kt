@@ -3,33 +3,25 @@ package com.example.todoapp.ui.home
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arlib.floatingsearchview.FloatingSearchView
-import com.arlib.floatingsearchview.FloatingSearchView.OnQueryChangeListener
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentHomeBinding
-import com.example.todoapp.model.Task
 import com.example.todoapp.ui.home.category.CategoryAdapter
 import com.example.todoapp.ui.home.todayTask.TodayTaskAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
-import com.google.android.material.search.SearchView
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import androidx.appcompat.widget.SearchView.OnQueryTextListener
-import com.example.todoapp.model.Category
-import com.example.todoapp.model.CategoryWithTasks
-import com.example.todoapp.model.TaskWithCategoryTitle
-
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -38,14 +30,11 @@ class HomeFragment : Fragment() {
     private lateinit var todayTaskAdapter: TodayTaskAdapter
     private val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
     private lateinit var categoryAdapter: CategoryAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
         todayTaskAdapter = TodayTaskAdapter(
@@ -170,7 +159,20 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun onSearchAction(currentQuery: String?) {
-
+                    var isHaveTask = false
+                    taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
+                        tasks.forEach {
+                            if (it.taskTitle.contains(currentQuery.toString(), true)) {
+                                taskViewModel.setViewTask(it)
+                                isHaveTask = true
+                                findNavController().navigate(R.id.action_homeFragment_to_viewTaskFragment)
+                            }
+                        }
+                        if(!isHaveTask){
+                            Toast.makeText(context, "No task found", Toast.LENGTH_SHORT).show()
+                            binding.floatingSearchView.clearFocus()
+                        }
+                    }
                 }
             })
         }

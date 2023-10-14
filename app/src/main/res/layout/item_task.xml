@@ -27,7 +27,7 @@
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:layout_marginStart="6dp"
-            android:src="@drawable/garbage_unactive" />
+            android:src="@drawable/archive" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/drag_item"

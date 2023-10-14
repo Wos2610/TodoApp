@@ -1,20 +1,14 @@
 package com.example.todoapp.ui.home.todayTask
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTodayTaskBinding
-import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
-import com.example.todoapp.viewModel.CategoryViewModel
 
 class TodayTaskAdapter(private val scaleUpAnimation : (View) -> Unit,
                        private val scaleDownAnimation : (View) -> Unit,

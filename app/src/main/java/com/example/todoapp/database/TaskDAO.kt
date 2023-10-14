@@ -7,7 +7,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.example.todoapp.model.CategoryWithTasks
 import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
 

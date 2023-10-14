@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentArchiveBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.ui.archive.ArchiveTask.ArchiveTaskAdapter
@@ -17,14 +16,11 @@ class ArchiveFragment : Fragment() {
     private lateinit var binding: FragmentArchiveBinding
     private lateinit var adapter: ArchiveTaskAdapter
     private val taskViewModel: TaskViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentArchiveBinding.inflate(inflater, container, false)
         adapter = ArchiveTaskAdapter(
             delete = { task ->

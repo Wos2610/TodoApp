@@ -2,12 +2,10 @@ package com.example.todoapp.ui.home.category
 
 import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,14 +18,11 @@ import com.example.todoapp.viewModel.CategoryViewModel
 class NewCategoryFragment : Fragment() {
     private lateinit var binding: FragmentNewCategoryBinding
     private val categoryViewModel: CategoryViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentNewCategoryBinding.inflate(inflater, container, false)
         return binding.root
     }

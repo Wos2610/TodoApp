@@ -3,9 +3,7 @@ package com.example.todoapp.ui.calendar
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.ItemCalendarTaskBinding
-import com.example.todoapp.databinding.ItemTodayTaskBinding
 import com.example.todoapp.model.TaskWithCategoryTitle
-import com.example.todoapp.ui.task.enums.StatusType
 
 class TaskCalendarViewHolder(view : View) : RecyclerView.ViewHolder(view){
     private val binding = ItemCalendarTaskBinding.bind(view)
@@ -17,7 +15,7 @@ class TaskCalendarViewHolder(view : View) : RecyclerView.ViewHolder(view){
 //                ) else char.toString()
 //            } }
             taskTitle.text = task.taskTitle
-            taskTime.text = task.timeStart + " - " + task.timeEnd
+            taskTime.text = "${task.timeStart} - ${task.timeEnd}"
         }
     }
 }

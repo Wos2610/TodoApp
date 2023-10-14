@@ -23,15 +23,12 @@ class CategoryRepository(context: Application) {
     private val categoryDAO = taskDatabase.categoryDAO()
     val allCategory : LiveData<List<CategoryWithTasks>> = categoryDAO.getAllCategories()
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertCategory(category: Category) = categoryDAO.insertCategory(category)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun updateCategory(category: Category) = categoryDAO.updateCategory(category)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun deleteCategory(category: Category) = categoryDAO.deleteCategory(category)
 

@@ -15,14 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.example.todoapp.model.Task
-import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.tabTask.ListPopupWindowAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -30,9 +27,6 @@ class NewTaskFragment : Fragment() {
     private lateinit var binding: FragmentAddTaskBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
     private val categoryViewModel: CategoryViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,11 +50,6 @@ class NewTaskFragment : Fragment() {
                 val month: Int = calendar.get(Calendar.MONTH)
                 val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
-                val monthNames = arrayOf(
-                    "January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"
-                )
-
                 val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
@@ -79,7 +68,7 @@ class NewTaskFragment : Fragment() {
 
             startTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
-                val minute: Int = calendar.get(Calendar.MINUTE)
+                val minu: Int = calendar.get(Calendar.MINUTE)
                 val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
 
                 val timePickerDialog = TimePickerDialog(
@@ -88,7 +77,7 @@ class NewTaskFragment : Fragment() {
                         startTimeTextView.text = String.format("%02d:%02d", hourOfDay, minute)
                     },
                     hour,
-                    minute,
+                    minu,
                     true
                 )
                 timePickerDialog.setTitle("Select Start Time")
@@ -97,7 +86,7 @@ class NewTaskFragment : Fragment() {
 
             endTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
-                val minute: Int = calendar.get(Calendar.MINUTE)
+                val minu : Int = calendar.get(Calendar.MINUTE)
                 val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
 
                 val timePickerDialog = TimePickerDialog(
@@ -106,7 +95,7 @@ class NewTaskFragment : Fragment() {
                         endTimeTextView.text = String.format("%02d:%02d", hourOfDay, minute)
                     },
                     hour,
-                    minute,
+                    minu,
                     true
                 )
                 timePickerDialog.setTitle("Select End Time")
@@ -131,6 +120,13 @@ class NewTaskFragment : Fragment() {
                 }
                 else{
                     dateTextView.error = null
+                }
+                if(categoryTextView.text.toString() == ""){
+                    categoryTextView.error = getString(R.string.category_name_error)
+                    return@setOnClickListener
+                }
+                else{
+                    categoryTextView.error = null
                 }
                 taskViewModel.insertTaskCallback.observe(viewLifecycleOwner) { callback ->
                     callback.invoke(
@@ -346,7 +342,7 @@ class NewTaskFragment : Fragment() {
         )
 
         listPopupWindow.setAdapter(listPopupWindowAdapter)
-        categoryViewModel.allCategories.observe(viewLifecycleOwner) { categories ->
+        categoryViewModel.allCategories.observe(viewLifecycleOwner) {
             // Update the adapter's data when LiveData changes
             listPopupWindowAdapter.notifyDataSetChanged()
         }

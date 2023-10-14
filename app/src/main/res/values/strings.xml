@@ -33,9 +33,10 @@
     <string name="edit_category">Edit Category</string>
     <string name="task_name_error">Please enter task name</string>
     <string name="task_date_error">Please choose task date</string>
-    <string name="category_name_error">Please enter category name</string>
+    <string name="category_name_error">Please choose category</string>
     <string name="archive">Archive</string>
     <string name="calendar">Calendar</string>
     <string name="all_task">All Tasks</string>
     <string name="no_task">No Task To Display &#128531;</string>
+    <string name="no_category">No Category To Display &#128531;</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.todoapp.ui.task.tabTask
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentDetailTabBinding
 import com.example.todoapp.model.Task
-import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 
 abstract class TabTaskFragment(private val status : Int) : Fragment() {
     private lateinit var taskBinding: FragmentDetailTabBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
-    private val categoryViewModel: CategoryViewModel by activityViewModels()
     private lateinit var taskAdapter: TabTaskAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

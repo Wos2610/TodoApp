@@ -4,21 +4,16 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTaskBinding
-import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
-import com.example.todoapp.ui.task.enums.StatusType
 import com.example.todoapp.ui.task.enums.PriorityType
-import java.util.Locale
-
 
 class TabTaskViewHolder(view : View) : RecyclerView.ViewHolder(view){
     private val itemBinding : ItemTaskBinding = ItemTaskBinding.bind(view)
     fun bind(task : TaskWithCategoryTitle){
         itemBinding.apply {
 //            itemTitle.text = task.title.split(' ').joinToString(" ") { it.replaceFirstChar {char ->
-//                if (char.isLowerCase()) char.titlecase(
+//                if (char.isLowerCase()) char.title-case(
 //                    Locale.getDefault()
 //                ) else char.toString()
 //            } }

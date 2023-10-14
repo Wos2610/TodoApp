@@ -12,21 +12,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAllTasksBinding
 import com.example.todoapp.model.Task
+import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.tabTask.TabTaskAdapter
+import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 
 class AllTasksFragment : Fragment() {
     private lateinit var taskBinding: FragmentAllTasksBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
+    private val categoryViewModel: CategoryViewModel by activityViewModels()
     private lateinit var allTasksAdapter: TabTaskAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         taskBinding = FragmentAllTasksBinding.inflate(inflater, container, false)
         allTasksAdapter = TabTaskAdapter(
             update = { task ->
@@ -95,6 +95,30 @@ class AllTasksFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        taskBinding.addTaskButton.setOnClickListener {
+            // default : status = 1, priority = 1
+            taskViewModel.setNewTaskStatus(1)
+            taskViewModel.setNewTaskPriority(1)
+            taskViewModel.setInsertTaskCallback {task : Task ->
+                taskViewModel.insertTask(task)
+                val newTask = TaskWithCategoryTitle(
+                    task.id,
+                    task.title,
+                    task.dueDate,
+                    task.timeStart,
+                    task.timeEnd,
+                    task.categoryId,
+                    categoryViewModel.getCategoryById(task.categoryId).toString(),
+                    task.status,
+                    task.priority,
+                    task.description,
+                    task.isArchive
+                )
+                taskViewModel.setViewTask(newTask)
+            }
+            findNavController().navigate(R.id.action_taskFragment_to_newTaskFragment)
         }
 
         taskBinding.backButton.setOnClickListener{

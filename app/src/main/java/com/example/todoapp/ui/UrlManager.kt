@@ -1,8 +1,6 @@
 package com.example.todoapp.ui
 
 import android.content.Context
-import android.widget.ImageView
-import coil.load
 import org.json.JSONArray
 import java.io.IOException
 import java.io.InputStream

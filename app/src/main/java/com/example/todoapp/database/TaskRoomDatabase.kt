@@ -7,11 +7,9 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.todoapp.model.Category
 import com.example.todoapp.model.Task
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Database(entities = [Task::class, Category::class], version = 2, exportSchema = false)
-public abstract class TaskRoomDatabase : RoomDatabase(){
+abstract class TaskRoomDatabase : RoomDatabase(){
     abstract fun taskDAO() : TaskDAO
     abstract fun categoryDAO() : CategoryDAO
     companion object{

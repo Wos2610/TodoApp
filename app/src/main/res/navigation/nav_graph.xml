@@ -114,5 +114,9 @@
         android:id="@+id/action_allCategoriesFragment_to_categoryWithListTasksFragment"
         app:destination="@id/categoryWithListTasksFragment" />
 
+    <action
+        android:id="@+id/action_allTasksFragment_to_NewTaskFragment"
+        app:destination="@id/newTaskFragment" />
+
 
 </navigation>

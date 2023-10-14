@@ -1,6 +1,6 @@
 package com.example.todoapp.ui.task
-import DoneTabTaskFragment
-import OnProgressTabTaskFragment
+import com.example.todoapp.ui.task.tabTask.DoneTabTaskFragment
+import com.example.todoapp.ui.task.tabTask.OnProgressTabTaskFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter

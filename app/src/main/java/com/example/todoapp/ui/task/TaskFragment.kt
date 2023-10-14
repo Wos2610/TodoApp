@@ -13,7 +13,6 @@ import com.example.todoapp.databinding.FragmentTaskBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.enums.StatusType
-import com.example.todoapp.ui.task.tabTask.TabTaskFragment
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 import com.google.android.material.tabs.TabLayout
@@ -27,14 +26,10 @@ class TaskFragment : Fragment() {
     private val taskViewModel: TaskViewModel by activityViewModels()
     private val categoryViewModel: CategoryViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         taskBinding = FragmentTaskBinding.inflate(inflater, container, false)
         return taskBinding.root

@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentCategoryWithListTasksBinding
 import com.example.todoapp.model.TaskWithCategoryTitle
-import com.example.todoapp.ui.home.todayTask.TodayTaskAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CategoryWithListTasksFragment : Fragment() {
@@ -23,14 +21,11 @@ class CategoryWithListTasksFragment : Fragment() {
     private lateinit var taskAdapter : TaskAdapter
     private val categoryViewModel : CategoryViewModel by activityViewModels()
     private val taskViewModel : TaskViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding  = FragmentCategoryWithListTasksBinding.inflate(inflater, container, false)
         taskAdapter = TaskAdapter(

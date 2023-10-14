@@ -11,24 +11,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentViewTaskBinding
-import com.example.todoapp.model.Task
-import com.example.todoapp.model.CategoryWithTasks
-import com.example.todoapp.model.TaskWithCategoryTitle
-import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 
 class ViewTaskFragment : Fragment() {
     private lateinit var binding : FragmentViewTaskBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
-    private val categoryViewModel: CategoryViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentViewTaskBinding.inflate(inflater, container, false)
         return binding.root
     }

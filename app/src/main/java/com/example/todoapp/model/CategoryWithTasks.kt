@@ -1,6 +1,5 @@
 package com.example.todoapp.model
 
-import android.net.Uri
 import androidx.room.Embedded
 import androidx.room.Relation
 

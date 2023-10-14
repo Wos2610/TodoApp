@@ -5,13 +5,10 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTaskBinding
-import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
-import com.example.todoapp.viewModel.CategoryViewModel
 
 class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit,
                      private val archive: (TaskWithCategoryTitle) -> Unit,

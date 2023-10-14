@@ -10,9 +10,7 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemCategoryBinding
-import com.example.todoapp.model.Category
 import com.example.todoapp.model.CategoryWithTasks
-import com.example.todoapp.viewModel.CategoryViewModel
 
 class CategoryAdapter(private val context: Context,
                       private val delete : (CategoryWithTasks) -> Unit,

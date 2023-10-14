@@ -11,18 +11,16 @@ import android.view.ViewGroup
 import android.widget.ListPopupWindow
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentEditTaskBinding
-import com.example.todoapp.model.Category
 import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.tabTask.ListPopupWindowAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
 import kotlinx.coroutines.launch
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -30,14 +28,11 @@ class EditTaskFragment : Fragment() {
     private lateinit var binding: FragmentEditTaskBinding
     private val taskViewModel: TaskViewModel by activityViewModels()
     private val categoryViewModel: CategoryViewModel by activityViewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEditTaskBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,7 +44,7 @@ class EditTaskFragment : Fragment() {
                 parentFragmentManager.popBackStack()
             }
 
-            taskViewModel.editTask?.let { task ->
+            taskViewModel.editTask.let { task ->
                 nameEditText.setText(task.taskTitle)
                 dateTextView.text = task.dueDate
                 startTimeTextView.text = task.timeStart
@@ -64,16 +59,21 @@ class EditTaskFragment : Fragment() {
 
             dateTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
+                val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
+
+                try {
+                    // Parse the date from dateTextView to initialize the DatePickerDialog
+                    val initialDate = dateFormat.parse(dateTextView.text.toString())
+                    calendar.time = initialDate
+                } catch (e: ParseException) {
+                    // Handle the parse exception if the dateTextView doesn't contain a valid date
+                    e.printStackTrace()
+                }
+
                 val year: Int = calendar.get(Calendar.YEAR)
                 val month: Int = calendar.get(Calendar.MONTH)
                 val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
-                val monthNames = arrayOf(
-                    "January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"
-                )
-
-                val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
                     { _, selectedYear, selectedMonth, selectedDay->
@@ -91,16 +91,31 @@ class EditTaskFragment : Fragment() {
 
             startTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
-                val minute: Int = calendar.get(Calendar.MINUTE)
-                val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
+                val formatter = SimpleDateFormat("HH:mm")
+                var minu: Int
+                var hour: Int
+
+                try {
+                    // Parse the time from startTimeTextView to initialize the TimePickerDialog
+                    val initialTime = formatter.parse(startTimeTextView.text.toString())
+                    calendar.time = initialTime!!
+                    hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    minu = calendar.get(Calendar.MINUTE)
+                } catch (e: ParseException) {
+                    // Handle the parse exception if the startTimeTextView doesn't contain a valid time
+                    val currentTime = Calendar.getInstance()
+                    hour = currentTime.get(Calendar.HOUR_OF_DAY)
+                    minu = currentTime.get(Calendar.MINUTE)
+                    e.printStackTrace()
+                }
 
                 val timePickerDialog = TimePickerDialog(
                     context,
                     { _, hourOfDay, minute ->
-                        startTimeTextView.setText(String.format("%02d:%02d", hourOfDay, minute))
+                        startTimeTextView.text = String.format("%02d:%02d", hourOfDay, minute)
                     },
                     hour,
-                    minute,
+                    minu,
                     true
                 )
                 timePickerDialog.setTitle("Select Start Time")
@@ -109,16 +124,31 @@ class EditTaskFragment : Fragment() {
 
             endTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
-                val minute: Int = calendar.get(Calendar.MINUTE)
-                val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
+                val formatter = SimpleDateFormat("HH:mm")
+                var minu: Int
+                var hour: Int
+
+                try {
+                    // Parse the time from startTimeTextView to initialize the TimePickerDialog
+                    val initialTime = formatter.parse(endTimeTextView.text.toString())
+                    calendar.time = initialTime!!
+                    hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    minu = calendar.get(Calendar.MINUTE)
+                } catch (e: ParseException) {
+                    // Handle the parse exception if the startTimeTextView doesn't contain a valid time
+                    val currentTime = Calendar.getInstance()
+                    hour = currentTime.get(Calendar.HOUR_OF_DAY)
+                    minu = currentTime.get(Calendar.MINUTE)
+                    e.printStackTrace()
+                }
 
                 val timePickerDialog = TimePickerDialog(
                     context,
                     { _, hourOfDay, minute ->
-                        endTimeTextView.setText(String.format("%02d:%02d", hourOfDay, minute))
+                        endTimeTextView.text = String.format("%02d:%02d", hourOfDay, minute)
                     },
                     hour,
-                    minute,
+                    minu,
                     true
                 )
                 timePickerDialog.setTitle("Select End Time")
@@ -383,7 +413,7 @@ class EditTaskFragment : Fragment() {
         )
 
         listPopupWindow.setAdapter(listPopupWindowAdapter)
-        categoryViewModel.allCategories.observe(viewLifecycleOwner) { categories ->
+        categoryViewModel.allCategories.observe(viewLifecycleOwner) {
             // Update the adapter's data when LiveData changes
             listPopupWindowAdapter.notifyDataSetChanged()
         }

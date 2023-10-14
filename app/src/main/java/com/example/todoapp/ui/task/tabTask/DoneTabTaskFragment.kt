@@ -1,4 +1,3 @@
-import com.example.todoapp.ui.task.tabTask.TabTaskFragment
+package com.example.todoapp.ui.task.tabTask
 
-class DoneTabTaskFragment : TabTaskFragment(3) {
-}
+class DoneTabTaskFragment : TabTaskFragment(3)
