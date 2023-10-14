@@ -5,7 +5,7 @@
     android:weightSum="7"
     android:orientation="horizontal">
 
-    <include layout = "@layout/calendar_day_title_text"/>
+    <include layout="@layout/calendar_day_title_text"/>
 
     <include layout="@layout/calendar_day_title_text" />
 
