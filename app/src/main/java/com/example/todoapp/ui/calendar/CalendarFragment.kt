@@ -1,6 +1,7 @@
 package com.example.todoapp.ui.calendar
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +55,8 @@ class CalendarFragment : Fragment() {
         )
 
         binding.apply {
-            taskListRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            taskListRecyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             taskListRecyclerView.adapter = taskCalendarAdapter
         }
         return binding.root
@@ -63,13 +65,21 @@ class CalendarFragment : Fragment() {
     //    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
-            if(selectedDate == null) {
+            if (selectedDate == null) {
                 selectedDate = today
             }
 
-            taskCalendarAdapter.tasks = tasks.filter { task ->
+            val filteredTasks = tasks.filter { task ->
                 task.dueDate == selectedDate!!.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"))
             }
+
+            Log.d("Debug", "Filtered tasks before sorting: $filteredTasks")
+            val sortedTasks = filteredTasks.sortedBy { it.timeStart }
+            Log.d("Debug", "Sorted tasks: $sortedTasks")
+
+            // Set sorted tasks in the adapter.
+            taskCalendarAdapter.tasks = sortedTasks
+            taskCalendarAdapter.notifyDataSetChanged()
         }
 
         binding.calendarView.monthScrollListener = {
@@ -118,9 +128,17 @@ class CalendarFragment : Fragment() {
     private fun updateAdapterForDate(date: LocalDate) {
         taskViewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
             tasks.let {
-                taskCalendarAdapter.tasks = it.filter { task ->
-                    task.dueDate == date.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"))
+                val filteredTasks = tasks.filter { task ->
+                    task.dueDate == selectedDate!!.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"))
                 }
+
+                Log.d("Debug", "Filtered tasks before sorting: $filteredTasks")
+                val sortedTasks = filteredTasks.sortedBy { it.timeStart }
+                Log.d("Debug", "Sorted tasks: $sortedTasks")
+
+                // Set sorted tasks in the adapter.
+                taskCalendarAdapter.tasks = sortedTasks
+                taskCalendarAdapter.notifyDataSetChanged()
                 events.clear()
                 events[date] = taskCalendarAdapter.tasks
 
@@ -145,6 +163,7 @@ class CalendarFragment : Fragment() {
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
             val dayBinding = CalendarDayLayoutBinding.bind(view)
+
             init {
                 view.setOnClickListener {
                     if (day.position == DayPosition.MonthDate) {
@@ -196,10 +215,9 @@ class CalendarFragment : Fragment() {
                                 )
                             )
                             textView.background = null
-                            if(events.containsKey(data.date)) {
+                            if (events.containsKey(data.date)) {
                                 dotView.visibility = View.VISIBLE
-                            }
-                            else {
+                            } else {
                                 dotView.visibility = View.INVISIBLE
                             }
                         }

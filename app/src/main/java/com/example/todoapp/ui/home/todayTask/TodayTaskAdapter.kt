@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTodayTaskBinding
 import com.example.todoapp.model.TaskWithCategoryTitle
+import com.example.todoapp.viewModel.CategoryViewModel
 
 class TodayTaskAdapter(private val scaleUpAnimation : (View) -> Unit,
                        private val scaleDownAnimation : (View) -> Unit,
@@ -39,18 +40,18 @@ class TodayTaskAdapter(private val scaleUpAnimation : (View) -> Unit,
 
         holder.bind(currentTask)
 
-        holder.itemView.setOnTouchListener{v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_UP -> {
-                    scaleUpAnimation(v)
-                }
-                MotionEvent.ACTION_DOWN -> {
-                    scaleDownAnimation(v)
-                }
-            }
-            false
-
-        }
+//        holder.itemView.setOnTouchListener{v, event ->
+//            when (event.action) {
+//                MotionEvent.ACTION_UP -> {
+//                    scaleUpAnimation(v)
+//                }
+//                MotionEvent.ACTION_DOWN -> {
+//                    scaleDownAnimation(v)
+//                }
+//            }
+//            false
+//
+//        }
         holder.itemView.setOnClickListener{
 
             view(currentTask)

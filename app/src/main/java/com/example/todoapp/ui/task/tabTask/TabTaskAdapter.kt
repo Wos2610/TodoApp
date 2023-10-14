@@ -41,18 +41,18 @@ class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit,
         val currentTask = tasks[position]
 
         holder.bind(currentTask)
-        holder.itemView.setOnTouchListener{v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_UP -> {
-                    scaleUpAnimation(v)
-                }
-                MotionEvent.ACTION_DOWN -> {
-                    scaleDownAnimation(v)
-                }
-            }
-            false
-
-        }
+//        holder.itemView.setOnTouchListener{v, event ->
+//            when (event.action) {
+//                MotionEvent.ACTION_UP -> {
+//                    scaleUpAnimation(v)
+//                }
+//                MotionEvent.ACTION_DOWN -> {
+//                    scaleDownAnimation(v)
+//                }
+//            }
+//            false
+//
+//        }
         itemBinding.dragItem.setOnClickListener{
             update(currentTask)
         }
