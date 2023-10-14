@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.calendar.CalendarFragment">
 
     <com.kizitonwose.calendar.view.CalendarView
@@ -13,9 +14,25 @@
         app:cv_dayViewResource="@layout/calendar_day_layout"
         app:cv_monthHeaderResource="@layout/calendar_day_titles_container" />
 
-    <com.kizitonwose.calendar.view.WeekCalendarView
-        android:id="@+id/weekCalendarView"
+    <TextView
+        android:id="@+id/exThreeSelectedDateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cv_dayViewResource="@layout/calendar_day_layout" />
-</FrameLayout>
+        android:layout_marginTop="8dp"
+        android:background="#EEEEEE"
+        android:fontFamily="sans-serif-medium"
+        android:paddingStart="20dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        tools:text="7 Jan, 2019" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/task_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false" />
+</LinearLayout>
