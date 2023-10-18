@@ -39,4 +39,7 @@
     <string name="all_task">All Tasks</string>
     <string name="no_task">No Task To Display &#128531;</string>
     <string name="no_category">No Category To Display &#128531;</string>
+    <string name="error_time">Please choose end time > start time</string>
+    <string name="start_time_error">Please choose start time</string>
+    <string name="end_time_error">Please choose end time</string>
 </resources>

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentCategoryWithListTasksBinding
+import com.example.todoapp.model.Task
 import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
@@ -87,6 +88,33 @@ class CategoryWithListTasksFragment : Fragment() {
                 parentFragmentManager.popBackStack()
             }
             categoryTitleTextView.text = categoryViewModel.viewCategory.category.title.uppercase()
+
+            addTaskButton.setOnClickListener {
+                // default : status = 1, priority = 1
+                taskViewModel.setNewTaskStatus(1)
+                taskViewModel.setNewTaskPriority(1)
+                // create new task in this category -> default category
+                taskViewModel.setNewTaskCategoryId(categoryViewModel.viewCategory.category.id)
+                taskViewModel.setIsCertainCategory(true)
+                taskViewModel.setInsertTaskCallback {task : Task ->
+                    taskViewModel.insertTask(task)
+                    val newTask = TaskWithCategoryTitle(
+                        task.id,
+                        task.title,
+                        task.dueDate,
+                        task.timeStart,
+                        task.timeEnd,
+                        task.categoryId,
+                        categoryViewModel.getCategoryById(task.categoryId).toString(),
+                        task.status,
+                        task.priority,
+                        task.description,
+                        task.isArchive
+                    )
+                    taskViewModel.setViewTask(newTask)
+                }
+                findNavController().navigate(R.id.action_taskFragment_to_newTaskFragment)
+            }
         }
     }
 

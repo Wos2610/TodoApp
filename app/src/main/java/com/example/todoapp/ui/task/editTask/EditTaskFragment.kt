@@ -22,7 +22,11 @@ import com.example.todoapp.viewModel.TaskViewModel
 import kotlinx.coroutines.launch
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.Locale
 
 class EditTaskFragment : Fragment() {
     private lateinit var binding: FragmentEditTaskBinding
@@ -174,6 +178,43 @@ class EditTaskFragment : Fragment() {
                 else{
                     dateTextView.error = null
                 }
+
+                val formatter = DateTimeFormatter.ofPattern("HH:mm")
+                if(startTimeTextView.text.toString() == ""){
+                    startTimeTextView.error = getString(R.string.start_time_error)
+                    return@setOnClickListener
+                }
+                else{
+                    startTimeTextView.error = null
+                }
+                if(endTimeTextView.text.toString() == ""){
+                    endTimeTextView.error = getString(R.string.end_time_error)
+                    return@setOnClickListener
+                }
+                else{
+                    endTimeTextView.error = null
+                }
+
+                try {
+                    val startTime = LocalTime.parse(startTimeTextView.text.toString(), formatter)
+                    val endTime = LocalTime.parse(endTimeTextView.text.toString(), formatter)
+                    if(startTime.isAfter(endTime)){
+                        startTimeTextView.error = getString(R.string.error_time)
+                        endTimeTextView.error = getString(R.string.error_time)
+                        return@setOnClickListener
+                    }
+                    else{
+                        startTimeTextView.error = null
+                        endTimeTextView.error = null
+                    }
+                }
+                catch (e: Exception){
+                    startTimeTextView.error = getString(R.string.error_time)
+                    endTimeTextView.error = getString(R.string.error_time)
+                    return@setOnClickListener
+                    e.printStackTrace()
+                }
+
                 val newTask = TaskWithCategoryTitle(
                     taskViewModel.editTask.taskId,
                     nameEditText.text.toString(),

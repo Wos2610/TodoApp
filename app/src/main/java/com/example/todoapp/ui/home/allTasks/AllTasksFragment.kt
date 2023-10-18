@@ -101,6 +101,7 @@ class AllTasksFragment : Fragment() {
             // default : status = 1, priority = 1
             taskViewModel.setNewTaskStatus(1)
             taskViewModel.setNewTaskPriority(1)
+            taskViewModel.setIsCertainCategory(false)
             taskViewModel.setInsertTaskCallback {task : Task ->
                 taskViewModel.insertTask(task)
                 val newTask = TaskWithCategoryTitle(

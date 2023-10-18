@@ -34,7 +34,10 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            app:tabTextAppearance="@style/tab_layout">
+            app:tabTextAppearance="@style/tab_layout"
+            app:tabTextColor="@drawable/tab_layout_text_color_selector"
+            app:tabBackground="@drawable/tab_layout_color_selector"
+            app:tabIndicatorColor="@color/deep_blue">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

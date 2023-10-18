@@ -48,6 +48,7 @@
     <style name="tab_layout" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/deep_blue</item>
     </style>
 
 </resources>

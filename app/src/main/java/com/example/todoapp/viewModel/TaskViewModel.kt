@@ -35,6 +35,7 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     private var _newTaskPriority : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskCategoryId : MutableLiveData<Int> = MutableLiveData(1)
     private var _newTaskIsArchive : MutableLiveData<Boolean> = MutableLiveData(false)
+    private var _isCertainCategory : MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun setListTasksByStatus(status: Int) {
         listTasksByStatus = taskRepository.getTasksByStatus(status)
@@ -114,7 +115,12 @@ class TaskViewModel(context : Application) : AndroidViewModel(context){
     fun setNewTaskIsArchive(isArchive : Boolean){
         _newTaskIsArchive.value = isArchive
     }
+    val isCertainCategory : LiveData<Boolean>
+        get() = _isCertainCategory
 
+    fun setIsCertainCategory(isArchive : Boolean){
+        _isCertainCategory.value = isArchive
+    }
 
     init{
         taskRepository = TaskRepository.getInstance(context)

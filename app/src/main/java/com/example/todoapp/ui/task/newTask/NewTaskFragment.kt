@@ -21,6 +21,10 @@ import com.example.todoapp.viewModel.TaskViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import kotlinx.coroutines.launch
+import java.text.ParseException
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 class NewTaskFragment : Fragment() {
@@ -46,14 +50,24 @@ class NewTaskFragment : Fragment() {
             }
             dateTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
+                val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
+
+                try {
+                    // Parse the date from dateTextView to initialize the DatePickerDialog
+                    val initialDate = dateFormat.parse(dateTextView.text.toString())
+                    calendar.time = initialDate
+                } catch (e: ParseException) {
+                    // Handle the parse exception if the dateTextView doesn't contain a valid date
+                    e.printStackTrace()
+                }
+
                 val year: Int = calendar.get(Calendar.YEAR)
                 val month: Int = calendar.get(Calendar.MONTH)
                 val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
-                val dateFormat = SimpleDateFormat("MMM-dd-yyyy")
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
-                    { _, selectedYear, selectedMonth, selectedDay ->
+                    { _, selectedYear, selectedMonth, selectedDay->
                         val selectedDate = Calendar.getInstance()
                         selectedDate.set(selectedYear, selectedMonth, selectedDay)
                         dateTextView.text = dateFormat.format(selectedDate.time)
@@ -68,8 +82,23 @@ class NewTaskFragment : Fragment() {
 
             startTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
-                val minu: Int = calendar.get(Calendar.MINUTE)
-                val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
+                val formatter = SimpleDateFormat("HH:mm")
+                var minu: Int
+                var hour: Int
+
+                try {
+                    // Parse the time from startTimeTextView to initialize the TimePickerDialog
+                    val initialTime = formatter.parse(startTimeTextView.text.toString())
+                    calendar.time = initialTime!!
+                    hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    minu = calendar.get(Calendar.MINUTE)
+                } catch (e: ParseException) {
+                    // Handle the parse exception if the startTimeTextView doesn't contain a valid time
+                    val currentTime = Calendar.getInstance()
+                    hour = currentTime.get(Calendar.HOUR_OF_DAY)
+                    minu = currentTime.get(Calendar.MINUTE)
+                    e.printStackTrace()
+                }
 
                 val timePickerDialog = TimePickerDialog(
                     context,
@@ -86,8 +115,23 @@ class NewTaskFragment : Fragment() {
 
             endTimeTextView.setOnClickListener(View.OnClickListener {
                 val calendar: Calendar = Calendar.getInstance()
-                val minu : Int = calendar.get(Calendar.MINUTE)
-                val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
+                val formatter = SimpleDateFormat("HH:mm")
+                var minu: Int
+                var hour: Int
+
+                try {
+                    // Parse the time from startTimeTextView to initialize the TimePickerDialog
+                    val initialTime = formatter.parse(endTimeTextView.text.toString())
+                    calendar.time = initialTime!!
+                    hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    minu = calendar.get(Calendar.MINUTE)
+                } catch (e: ParseException) {
+                    // Handle the parse exception if the startTimeTextView doesn't contain a valid time
+                    val currentTime = Calendar.getInstance()
+                    hour = currentTime.get(Calendar.HOUR_OF_DAY)
+                    minu = currentTime.get(Calendar.MINUTE)
+                    e.printStackTrace()
+                }
 
                 val timePickerDialog = TimePickerDialog(
                     context,
@@ -106,6 +150,19 @@ class NewTaskFragment : Fragment() {
                 showListPopupWindow(it)
             }
 
+            taskViewModel.isCertainCategory.observe(viewLifecycleOwner) { isCertainCategory ->
+                if(isCertainCategory){
+                    taskViewModel.newTaskCategoryId.observe(viewLifecycleOwner) { id ->
+                        // categoryViewModel.getCategoryById(id) return Flow<Category>
+                        lifecycleScope.launch {
+                            categoryViewModel.getCategoryById(id).collect{
+                                binding.categoryTextView.text = it.title
+                            }
+                        }
+                    }
+                }
+            }
+
             createButton.setOnClickListener {
                 if(nameEditText.text.toString() == ""){
                     nameEditText.error = getString(R.string.task_name_error)
@@ -121,6 +178,43 @@ class NewTaskFragment : Fragment() {
                 else{
                     dateTextView.error = null
                 }
+
+                val formatter = DateTimeFormatter.ofPattern("HH:mm")
+                if(startTimeTextView.text.toString() == ""){
+                    startTimeTextView.error = getString(R.string.start_time_error)
+                    return@setOnClickListener
+                }
+                else{
+                    startTimeTextView.error = null
+                }
+                if(endTimeTextView.text.toString() == ""){
+                    endTimeTextView.error = getString(R.string.end_time_error)
+                    return@setOnClickListener
+                }
+                else{
+                    endTimeTextView.error = null
+                }
+
+                try {
+                    val startTime = LocalTime.parse(startTimeTextView.text.toString(), formatter)
+                    val endTime = LocalTime.parse(endTimeTextView.text.toString(), formatter)
+                    if(startTime.isAfter(endTime)){
+                        startTimeTextView.error = getString(R.string.error_time)
+                        endTimeTextView.error = getString(R.string.error_time)
+                        return@setOnClickListener
+                    }
+                    else{
+                        startTimeTextView.error = null
+                        endTimeTextView.error = null
+                    }
+                }
+                catch (e: Exception){
+                    startTimeTextView.error = getString(R.string.error_time)
+                    endTimeTextView.error = getString(R.string.error_time)
+                    return@setOnClickListener
+                    e.printStackTrace()
+                }
+
                 if(categoryTextView.text.toString() == ""){
                     categoryTextView.error = getString(R.string.category_name_error)
                     return@setOnClickListener
@@ -128,6 +222,7 @@ class NewTaskFragment : Fragment() {
                 else{
                     categoryTextView.error = null
                 }
+
                 taskViewModel.insertTaskCallback.observe(viewLifecycleOwner) { callback ->
                     callback.invoke(
                         Task(
