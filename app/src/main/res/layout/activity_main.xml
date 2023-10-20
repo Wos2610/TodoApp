@@ -28,7 +28,7 @@
         app:itemActiveIndicatorStyle="@color/transparent"
         app:itemIconSize="24dp"
         app:menu="@menu/bottom_nav_menu"
-        android:background="@color/white"
+        android:background="?attr/customBottomNavigationColor"
         app:labelVisibilityMode="unlabeled" />
 
 </LinearLayout>

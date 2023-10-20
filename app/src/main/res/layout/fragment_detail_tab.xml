@@ -13,7 +13,7 @@
         android:layout_gravity="right"
         android:padding="8dp"
         android:paddingEnd="16dp"
-        android:src="@drawable/filter" />
+        android:src="@drawable/filter"/>
 
     <TextView
         android:id="@+id/noTaskTextView"

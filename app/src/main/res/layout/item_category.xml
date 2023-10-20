@@ -9,7 +9,7 @@
     android:layout_marginEnd="16dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="24dp"
-    android:backgroundTint="@color/white"
+    android:backgroundTint="?attr/customBottomNavigationColor"
     app:strokeWidth="0dp">
 
     <LinearLayout
@@ -37,33 +37,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="8dp">
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="4dp">
             <TextView
                 android:id="@+id/category_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="?attr/textColor"/>
 
             <TextView
                 android:id="@+id/task_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:textColor="?attr/textColor"/>
 
             <TextView
                 android:id="@+id/completed_percentage_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:textColor="?attr/textColor"/>
 
             <ProgressBar
                 android:id="@+id/completed_percentage_progress_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:progressDrawable="@drawable/category_background_image"
-                style="?android:attr/progressBarStyleHorizontal"/>
+                style="?android:attr/progressBarStyleHorizontal"
+                android:backgroundTint="?attr/textColor"/>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

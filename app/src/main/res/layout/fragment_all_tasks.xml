@@ -16,7 +16,7 @@
         android:layout_gravity="bottom|end|right"
         android:src="@drawable/baseline_add_24"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/lighter_blue"
+        android:backgroundTint="?attr/colorTertiary"
         app:shapeAppearanceOverlay="@style/fab_rounded"/>
 
     <LinearLayout
@@ -32,7 +32,8 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/back_button"
                 android:layout_gravity="center_vertical"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                app:tint="?attr/textColor"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,7 +44,8 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textSize="30sp"
-                android:paddingTop="8dp"/>
+                android:paddingTop="8dp"
+                android:textColor="?attr/textColor"/>
         </LinearLayout>
 
         <TextView

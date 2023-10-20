@@ -2,6 +2,7 @@ package com.example.todoapp.ui.calendar
 
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -173,6 +174,14 @@ class CalendarFragment : Fragment() {
             }
         }
 
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(R.attr.textColor, typedValue, true)
+        val textColor = typedValue.resourceId
+
+        val typedValue2 = TypedValue()
+        requireContext().theme.resolveAttribute(R.attr.customColorBackground, typedValue2, true)
+        val bgColor = typedValue2.resourceId
+
         binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, data: CalendarDay) {
@@ -189,7 +198,7 @@ class CalendarFragment : Fragment() {
                             textView.setTextColor(
                                 ContextCompat.getColor(
                                     requireContext(),
-                                    R.color.white
+                                    bgColor
                                 )
                             )
                             textView.setBackgroundResource(R.drawable.background_today)
@@ -211,7 +220,7 @@ class CalendarFragment : Fragment() {
                             textView.setTextColor(
                                 ContextCompat.getColor(
                                     requireContext(),
-                                    R.color.black
+                                    textColor
                                 )
                             )
                             textView.background = null
@@ -245,7 +254,7 @@ class CalendarFragment : Fragment() {
                                 tv.setTextColor(
                                     ContextCompat.getColor(
                                         requireContext(),
-                                        R.color.black
+                                        textColor
                                     )
                                 )
                             }

@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:text="@string/start_time"
             android:gravity="center_vertical"
-            android:textColor="@color/dark_gray"
+            android:textColor="?attr/customSecondaryTextColor"
             android:textStyle="bold"
             android:textSize="16sp"/>
     </LinearLayout>

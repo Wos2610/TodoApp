@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Other values-->
+    <attr name="customSecondaryTextColor" format="reference" />
+    <attr name="customThirdTextColor" format="reference" />
+    <attr name="customColorBackground" format="reference" />
+    <attr name="customBottomNavigationColor" format="reference" />
+    <attr name="textColor" format="reference" />
+
+</resources>

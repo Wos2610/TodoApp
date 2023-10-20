@@ -2,6 +2,7 @@ package com.example.todoapp.ui.task.viewTask
 
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -59,6 +60,9 @@ class ViewTaskFragment : Fragment() {
     }
 
     private fun changeStatusAndPriority(status : Int, priority : Int){
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(R.attr.textColor, typedValue, true)
+        val color = typedValue.resourceId
         when(status){
             1 -> {
                 binding.todoTextView.setTextColor(
@@ -70,13 +74,13 @@ class ViewTaskFragment : Fragment() {
                 binding.onProgressTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
                 binding.doneTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
             }
@@ -85,7 +89,7 @@ class ViewTaskFragment : Fragment() {
                 binding.todoTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
                 binding.onProgressTextView.setTextColor(
@@ -97,7 +101,7 @@ class ViewTaskFragment : Fragment() {
                 binding.doneTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
             }
@@ -106,13 +110,13 @@ class ViewTaskFragment : Fragment() {
                 binding.todoTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
                 binding.onProgressTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
                 binding.doneTextView.setTextColor(
@@ -135,13 +139,13 @@ class ViewTaskFragment : Fragment() {
                 binding.midTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
                 binding.highTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
             }
@@ -150,7 +154,7 @@ class ViewTaskFragment : Fragment() {
                 binding.lowTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
                 binding.midTextView.setTextColor(
@@ -162,7 +166,7 @@ class ViewTaskFragment : Fragment() {
                 binding.highTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
             }
@@ -171,13 +175,13 @@ class ViewTaskFragment : Fragment() {
                 binding.lowTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
                 binding.midTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.black
+                        color
                     )
                 )
                 binding.highTextView.setTextColor(

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -261,6 +262,9 @@ class EditTaskFragment : Fragment() {
     }
 
     private fun changeStatusAndPriority(){
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(R.attr.textColor, typedValue, true)
+        val color = typedValue.resourceId
         taskViewModel.newTaskStatus.observe(viewLifecycleOwner){ status ->
 //            binding.statusTextView.text = status.toString()
 
@@ -275,13 +279,13 @@ class EditTaskFragment : Fragment() {
                     binding.onProgressTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.doneTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                 }
@@ -290,7 +294,7 @@ class EditTaskFragment : Fragment() {
                     binding.todoTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.onProgressTextView.setTextColor(
@@ -302,7 +306,7 @@ class EditTaskFragment : Fragment() {
                     binding.doneTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                 }
@@ -311,13 +315,13 @@ class EditTaskFragment : Fragment() {
                     binding.todoTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.onProgressTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.doneTextView.setTextColor(
@@ -344,13 +348,13 @@ class EditTaskFragment : Fragment() {
                     binding.midTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.highTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                 }
@@ -359,7 +363,7 @@ class EditTaskFragment : Fragment() {
                     binding.lowTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.midTextView.setTextColor(
@@ -371,7 +375,7 @@ class EditTaskFragment : Fragment() {
                     binding.highTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                 }
@@ -380,13 +384,13 @@ class EditTaskFragment : Fragment() {
                     binding.lowTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.midTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.highTextView.setTextColor(

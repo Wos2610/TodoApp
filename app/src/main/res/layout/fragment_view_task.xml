@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:src="@drawable/back_button"
             android:layout_gravity="center_vertical"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:tint="?attr/textColor"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +30,8 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="30sp"
-            android:paddingTop="8dp"/>
+            android:paddingTop="8dp"
+            android:textColor="?attr/textColor"/>
     </LinearLayout>
 
     <TextView
@@ -155,12 +157,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/choose_category"
-            android:textSize="16sp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_add_24"/>
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"/>
     </LinearLayout>
 
     <TextView

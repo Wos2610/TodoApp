@@ -16,6 +16,7 @@
         android:layout_gravity="center_vertical"
         android:textStyle="bold"
         android:textSize="30sp"
+        android:textColor="?attr/textColor"
         />
 
     <TextView

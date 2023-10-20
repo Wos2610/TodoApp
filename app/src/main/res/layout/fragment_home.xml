@@ -16,7 +16,8 @@
         android:layout_marginEnd="16dp">
         <View
             android:layout_width="match_parent"
-            android:layout_height="72dp"/>
+            android:layout_height="72dp"
+            android:backgroundTint="?attr/customBottomNavigationColor"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +31,8 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="8dp"
                 android:textStyle="bold"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                android:textColor="?attr/textColor"/>
             <TextView
                 android:id="@+id/category_number"
                 android:layout_width="wrap_content"
@@ -38,13 +40,13 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
-                android:textColor="@color/dark_gray"/>
+                android:textColor="?attr/customSecondaryTextColor"/>
             <TextView
                 android:id="@+id/category_view_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/view_all"
-                android:textColor="@color/light_blue"/>
+                android:textColor="?attr/colorSecondary"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -66,7 +68,8 @@
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:layout_marginStart="4dp"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp"
+                android:textColor="?attr/textColor"/>
             <TextView
                 android:id="@+id/task_number"
                 android:layout_width="wrap_content"
@@ -74,13 +77,13 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
-                android:textColor="@color/dark_gray"/>
+                android:textColor="?attr/customSecondaryTextColor"/>
             <TextView
                 android:id="@+id/task_view_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/view_all"
-                android:textColor="@color/light_blue"
+                android:textColor="?attr/colorSecondary"
                 android:layout_marginEnd="8dp"/>
         </LinearLayout>
 
@@ -108,7 +111,8 @@
         app:floatingSearch_close_search_on_keyboard_dismiss="true"
         android:visibility="visible"
         android:paddingStart="16dp"
-        android:paddingEnd="24dp">
+        android:paddingEnd="24dp"
+        style="@style/searchView">
     </com.arlib.floatingsearchview.FloatingSearchView>
 
 <!--    <com.google.android.material.appbar.AppBarLayout-->

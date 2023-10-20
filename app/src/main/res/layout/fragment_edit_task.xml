@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:src="@drawable/back_button"
             android:layout_gravity="center_vertical"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:tint="?attr/textColor"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +30,8 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="30sp"
-            android:paddingTop="8dp"/>
+            android:paddingTop="8dp"
+            android:textColor="?attr/textColor"/>
     </LinearLayout>
 
     <TextView
@@ -67,7 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"/>
     </com.google.android.material.textfield.TextInputLayout>>
 
     <LinearLayout
@@ -106,7 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="?attr/textColor"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -122,7 +126,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="?attr/textColor"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -162,12 +167,14 @@
             android:layout_weight="1"
             android:hint="@string/choose_category"
             android:layout_marginStart="8dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textColor="?attr/textColor"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_add_24"
+            app:tint="?attr/textColor"
             android:layout_gravity="center" />
     </LinearLayout>
 

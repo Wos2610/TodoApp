@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -245,6 +246,9 @@ class NewTaskFragment : Fragment() {
     }
 
     private fun changeStatusAndPriority() {
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(R.attr.textColor, typedValue, true)
+        val color = typedValue.resourceId
         taskViewModel.newTaskStatus.observe(viewLifecycleOwner) { status ->
             //binding.statusTextView.text = status.toString()
 
@@ -259,13 +263,14 @@ class NewTaskFragment : Fragment() {
                     binding.onProgressTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
+
                         )
                     )
                     binding.doneTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                 }
@@ -274,7 +279,7 @@ class NewTaskFragment : Fragment() {
                     binding.todoTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.onProgressTextView.setTextColor(
@@ -286,7 +291,7 @@ class NewTaskFragment : Fragment() {
                     binding.doneTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                 }
@@ -295,13 +300,13 @@ class NewTaskFragment : Fragment() {
                     binding.todoTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.onProgressTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.doneTextView.setTextColor(
@@ -327,13 +332,13 @@ class NewTaskFragment : Fragment() {
                     binding.midTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.highTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                 }
@@ -342,7 +347,7 @@ class NewTaskFragment : Fragment() {
                     binding.lowTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.midTextView.setTextColor(
@@ -354,7 +359,7 @@ class NewTaskFragment : Fragment() {
                     binding.highTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                 }
@@ -363,13 +368,13 @@ class NewTaskFragment : Fragment() {
                     binding.lowTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.midTextView.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.black
+                            color
                         )
                     )
                     binding.highTextView.setTextColor(
