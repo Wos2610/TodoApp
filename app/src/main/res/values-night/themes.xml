@@ -10,14 +10,12 @@
         <item name="colorTertiary">@color/lighter_blue</item>
         <item name="customSecondaryTextColor">@color/dark_gray</item>
         <item name="customThirdTextColor">@color/gray</item>
-        <item name="android:colorBackground">@color/black</item>
-        <item name="android:textColorPrimary">@color/white</item>
         <item name="customColorBackground">@color/black</item>
         <item name="customBottomNavigationColor">@color/darker_gray</item>
         <item name="textColor">@color/white</item>
+        <item name="floatingSearch_backgroundColor">@color/black</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
-
 
 </resources>

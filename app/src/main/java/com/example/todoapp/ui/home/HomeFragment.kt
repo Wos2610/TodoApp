@@ -89,6 +89,7 @@ class HomeFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
+
 //        binding.searchView.setupWithSearchBar(binding.searchBar)
         return binding.root
     }

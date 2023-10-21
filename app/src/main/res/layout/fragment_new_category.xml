@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/add_image"
+            android:textColor="?attr/textColor"
             android:layout_gravity="center_vertical"/>
 
         <ImageView

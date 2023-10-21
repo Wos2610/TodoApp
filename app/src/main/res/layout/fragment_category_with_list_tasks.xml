@@ -16,7 +16,7 @@
         android:layout_gravity="bottom|end|right"
         android:src="@drawable/baseline_add_24"
         android:layout_margin="8dp"
-        android:backgroundTint="?attr/colorTertiary"
+        android:backgroundTint="@color/light_blue"
         app:shapeAppearanceOverlay="@style/fab_rounded"/>
 
     <LinearLayout
