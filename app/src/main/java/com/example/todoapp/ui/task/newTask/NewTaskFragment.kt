@@ -19,12 +19,12 @@ import com.example.todoapp.model.Task
 import com.example.todoapp.ui.task.tabTask.ListPopupWindowAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import kotlinx.coroutines.launch
 import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import java.util.Locale
 
 
@@ -46,6 +46,12 @@ class NewTaskFragment : Fragment() {
         changeStatusAndPriority()
 
         binding.apply {
+            val currentCalendar = Calendar.getInstance()
+            dateTextView.text = SimpleDateFormat("MMM-dd-yyyy", Locale.getDefault()).format(currentCalendar.time)
+            startTimeTextView.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentCalendar.time)
+            currentCalendar.add(Calendar.HOUR_OF_DAY, 1)
+            endTimeTextView.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentCalendar.time)
+
             backButton.setOnClickListener{
                 parentFragmentManager.popBackStack()
             }
@@ -264,7 +270,6 @@ class NewTaskFragment : Fragment() {
                         ContextCompat.getColor(
                             requireContext(),
                             color
-
                         )
                     )
                     binding.doneTextView.setTextColor(

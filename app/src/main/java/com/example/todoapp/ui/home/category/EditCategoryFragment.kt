@@ -42,6 +42,7 @@ class EditCategoryFragment : Fragment() {
             }
             imageLayout.setOnClickListener {
                 galleryActivityLauncher.launch(arrayOf("image/*"))
+
             }
 
             nameEditText.setText(categoryViewModel.editCategory.category.title)
