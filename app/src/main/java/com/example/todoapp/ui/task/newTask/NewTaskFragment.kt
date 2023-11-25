@@ -423,6 +423,7 @@ class NewTaskFragment : Fragment() {
         val listPopupWindow = ListPopupWindow(anchorView.context)
         listPopupWindow.anchorView = anchorView
         listPopupWindow.width = 500
+
         val listPopupWindowAdapter = ListPopupWindowAdapter(
             categoryViewModel.allCategories, activity,
             callback = { position ->
@@ -431,7 +432,6 @@ class NewTaskFragment : Fragment() {
 //                Log.d("zxr", categoryViewModel.getCategoryByName(categoryName!!).value)
 //                taskViewModel.setNewTaskCategoryId(categoryViewModel.getCategoryIdByTitle(categoryName!!)!!)
 //                taskViewModel.setNewTaskCategoryId(position + 1)
-                Log.d("hihi", categoryId.toString())
                 taskViewModel.setNewTaskCategoryId(categoryId!!)
 
                 taskViewModel.newTaskCategoryId.observe(viewLifecycleOwner) { id ->
