@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
         todayTaskAdapter = TodayTaskAdapter(
-            view = { task ->
+            edit = { task ->
                 // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
 //            taskViewModel.setEditTask(task)
 //            taskViewModel.setNewTaskStatus(task.status)
@@ -47,8 +47,19 @@ class HomeFragment : Fragment() {
 //                taskViewModel.updateTask(task)
 //            }
 //            findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
-                taskViewModel.setViewTask(task)
-                findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
+//                taskViewModel.setViewTask(task)
+//                findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
+                taskViewModel.apply {
+                    setEditTask(task)
+                    setNewTaskStatus(task.status)
+                    setNewTaskPriority(task.priority)
+                    setNewTaskCategoryId(task.categoryId)
+                    // Why use updateTaskCallback: Because updatedTask is changed in EditTaskFragment
+                    setUpdateTaskCallback { task ->
+                        taskViewModel.updateTask(task)
+                    }
+                }
+                findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
             },
             scaleUpAnimation = { view ->
                 val scaleUpAnim = AnimationUtils.loadAnimation(context, R.anim.scale_up)

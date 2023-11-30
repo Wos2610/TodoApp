@@ -13,7 +13,7 @@ import com.example.todoapp.viewModel.CategoryViewModel
 
 class TodayTaskAdapter(private val scaleUpAnimation : (View) -> Unit,
                        private val scaleDownAnimation : (View) -> Unit,
-                       private val view : (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<TodayTaskViewHolder>() {
+                       private val edit : (TaskWithCategoryTitle) -> Unit) : RecyclerView.Adapter<TodayTaskViewHolder>() {
     private lateinit var itemBinding : ItemTodayTaskBinding
     var tasks: List<TaskWithCategoryTitle> = listOf()
         get() {
@@ -53,8 +53,7 @@ class TodayTaskAdapter(private val scaleUpAnimation : (View) -> Unit,
 //
 //        }
         holder.itemView.setOnClickListener{
-
-            view(currentTask)
+            edit(currentTask)
         }
     }
 }

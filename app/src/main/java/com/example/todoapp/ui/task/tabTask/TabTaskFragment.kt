@@ -14,6 +14,7 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentDetailTabBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.viewModel.TaskViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class TabTaskFragment(private val status : Int) : Fragment() {
     private lateinit var taskBinding: FragmentDetailTabBinding
@@ -27,35 +28,48 @@ abstract class TabTaskFragment(private val status : Int) : Fragment() {
         // Inflate the layout for this fragment
         taskBinding = FragmentDetailTabBinding.inflate(inflater, container, false)
         taskAdapter = TabTaskAdapter(
-            update = { task ->
+            edit = { task ->
                 // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
-//                taskViewModel.apply {
-//                    setEditTask(task)
-//                    setNewTaskStatus(task.status)
-//                    setNewTaskPriority(task.priority)
-//                    setUpdateTaskCallback { task ->
-//                        taskViewModel.updateTask(task)
-//                    }
-//                }
-                taskViewModel.setViewTask(task)
-                findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
+                taskViewModel.apply {
+                    setEditTask(task)
+                    setNewTaskStatus(task.status)
+                    setNewTaskPriority(task.priority)
+                    setNewTaskCategoryId(task.categoryId)
+                    // Why use updateTaskCallback: Because updatedTask is changed in EditTaskFragment
+                    setUpdateTaskCallback { task ->
+                        taskViewModel.updateTask(task)
+                    }
+                }
+                findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
+//                taskViewModel.setViewTask(task)
+//                findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
             },
             archive = { task ->
-                taskViewModel.apply {
-                    val newTask = Task(
-                        task.taskId,
-                        task.taskTitle,
-                        task.dueDate,
-                        task.timeStart,
-                        task.timeEnd,
-                        task.categoryId,
-                        task.status,
-                        task.priority,
-                        task.description,
-                        true
-                    )
-                    updateTask(newTask)
-                }
+                val builder = MaterialAlertDialogBuilder(requireContext())
+                builder.setTitle(getString(R.string.confirm))
+                    .setMessage(getString(R.string.archive_button_message))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                        taskViewModel.apply {
+                            taskViewModel.apply {
+                                val newTask = Task(
+                                    task.taskId,
+                                    task.taskTitle,
+                                    task.dueDate,
+                                    task.timeStart,
+                                    task.timeEnd,
+                                    task.categoryId,
+                                    task.status,
+                                    task.priority,
+                                    task.description,
+                                    true
+                                )
+                                updateTask(newTask)
+                            }
+                        }
+                    }
+                    .setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.show()
             },
             scaleUpAnimation = { view ->
                 val scaleUpAnim = AnimationUtils.loadAnimation(context, R.anim.scale_up)

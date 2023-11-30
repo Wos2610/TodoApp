@@ -1,5 +1,6 @@
 package com.example.todoapp.ui.home.category
 
+import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentEditCategoryBinding
 import com.example.todoapp.viewModel.CategoryViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class EditCategoryFragment : Fragment() {
     private lateinit var binding: FragmentEditCategoryBinding
@@ -38,7 +40,15 @@ class EditCategoryFragment : Fragment() {
 
         binding.apply {
             backButton.setOnClickListener {
-                parentFragmentManager.popBackStack()
+                val builder = MaterialAlertDialogBuilder(requireContext())
+                builder.setTitle(getString(R.string.confirm))
+                    .setMessage(getString(R.string.back_button_message))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                        parentFragmentManager.popBackStack()
+                    }
+                    .setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.show()
             }
             imageLayout.setOnClickListener {
                 galleryActivityLauncher.launch(arrayOf("image/*"))

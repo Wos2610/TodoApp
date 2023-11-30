@@ -52,8 +52,18 @@ class CategoryWithListTasksFragment : Fragment() {
                     task.description,
                     task.isArchive
                 )
-                taskViewModel.setViewTask(newTask)
-                findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
+                taskViewModel.apply {
+                    setEditTask(newTask)
+                    setNewTaskStatus(newTask.status)
+                    setNewTaskPriority(newTask.priority)
+                    setNewTaskCategoryId(newTask.categoryId)
+                    // Why use updateTaskCallback: Because updatedTask is changed in EditTaskFragment
+                    setUpdateTaskCallback { task ->
+                        taskViewModel.updateTask(task)
+                    }
+                }
+//                taskViewModel.setViewTask(newTask)
+                findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
             },
             categoryTitle = categoryViewModel.viewCategory.category.title,
         )

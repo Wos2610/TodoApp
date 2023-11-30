@@ -1,5 +1,6 @@
 package com.example.todoapp.ui.task.editTask
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -20,6 +21,7 @@ import com.example.todoapp.model.TaskWithCategoryTitle
 import com.example.todoapp.ui.task.tabTask.ListPopupWindowAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.example.todoapp.viewModel.TaskViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -46,7 +48,15 @@ class EditTaskFragment : Fragment() {
         changeStatusAndPriority()
         binding.apply {
             backButton.setOnClickListener{
-                parentFragmentManager.popBackStack()
+                val builder = MaterialAlertDialogBuilder(requireContext())
+                builder.setTitle(getString(R.string.confirm))
+                    .setMessage(getString(R.string.back_button_message))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                        parentFragmentManager.popBackStack()
+                    }
+                    .setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.show()
             }
 
             taskViewModel.editTask.let { task ->

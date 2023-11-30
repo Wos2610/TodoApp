@@ -1,5 +1,6 @@
 package com.example.todoapp.ui.home.allCategories
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAllCategoriesBinding
 import com.example.todoapp.ui.home.category.CategoryAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AllCategoriesFragment : Fragment() {
     private lateinit var binding : FragmentAllCategoriesBinding

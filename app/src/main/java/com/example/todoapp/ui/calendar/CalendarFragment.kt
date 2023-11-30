@@ -131,8 +131,9 @@ class CalendarFragment : Fragment() {
                         month + 1
                     )
                 )
-                chosenDate = LocalDate.of(year, month + 1, dayOfMonth)
+
             }
+            chosenDate = LocalDate.of(year, month + 1, dayOfMonth)
         }
 
         binding.exFiveMonthYearText.setOnClickListener {

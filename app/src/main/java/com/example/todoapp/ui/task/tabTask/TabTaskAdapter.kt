@@ -10,7 +10,7 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemTaskBinding
 import com.example.todoapp.model.TaskWithCategoryTitle
 
-class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit,
+class TabTaskAdapter(private val edit: (TaskWithCategoryTitle) -> Unit,
                      private val archive: (TaskWithCategoryTitle) -> Unit,
                      private val scaleUpAnimation : (View) -> Unit,
                      private val scaleDownAnimation : (View) -> Unit) : RecyclerView.Adapter<TabTaskViewHolder>() {
@@ -54,7 +54,7 @@ class TabTaskAdapter(private val update: (TaskWithCategoryTitle) -> Unit,
 //
 //        }
         itemBinding.dragItem.setOnClickListener{
-            update(currentTask)
+            edit(currentTask)
         }
         itemBinding.archiveButton.setOnClickListener{
             archive(currentTask)

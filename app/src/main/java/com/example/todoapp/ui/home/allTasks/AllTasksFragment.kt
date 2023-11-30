@@ -29,18 +29,22 @@ class AllTasksFragment : Fragment() {
     ): View {
         taskBinding = FragmentAllTasksBinding.inflate(inflater, container, false)
         allTasksAdapter = TabTaskAdapter(
-            update = { task ->
+            edit = { task ->
                 // De thong tin trong EditTaskFragment duoc truyen vao tu tasks[position]
-//                taskViewModel.apply {
-//                    setEditTask(task)
-//                    setNewTaskStatus(task.status)
-//                    setNewTaskPriority(task.priority)
-//                    setUpdateTaskCallback { task ->
-//                        taskViewModel.updateTask(task)
-//                    }
-//                }
-                taskViewModel.setViewTask(task)
-                findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
+                taskViewModel.apply {
+                    setEditTask(task)
+                    setNewTaskStatus(task.status)
+                    setNewTaskPriority(task.priority)
+                    setNewTaskCategoryId(task.categoryId)
+                    // Why use updateTaskCallback: Because updatedTask is changed in EditTaskFragment
+                    setUpdateTaskCallback { task ->
+                        taskViewModel.updateTask(task)
+                    }
+                }
+                findNavController().navigate(R.id.action_taskFragment_to_editTaskFragment)
+
+//                taskViewModel.setViewTask(task)
+//                findNavController().navigate(R.id.action_taskFragment_to_viewTaskFragment)
             },
             archive = { task ->
                 taskViewModel.apply {
