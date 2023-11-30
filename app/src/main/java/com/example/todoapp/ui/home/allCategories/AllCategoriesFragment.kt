@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAllCategoriesBinding
+import com.example.todoapp.model.Task
 import com.example.todoapp.ui.home.category.CategoryAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -27,10 +28,18 @@ class AllCategoriesFragment : Fragment() {
         binding = FragmentAllCategoriesBinding.inflate(inflater, container, false)
         allCategoriesAdapter = CategoryAdapter(requireContext(),
             delete = { category ->
-                categoryViewModel.apply {
-                    val newCategory = category.category
-                    delete(newCategory)
-                }
+                val builder = MaterialAlertDialogBuilder(requireContext())
+                builder.setTitle(getString(R.string.confirm))
+                    .setMessage(getString(R.string.archive_button_message))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                        categoryViewModel.apply {
+                            val newCategory = category.category
+                            delete(newCategory)
+                        }
+                    }
+                    .setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.show()
             },
             edit = { category ->
                 categoryViewModel.update(category.category)
