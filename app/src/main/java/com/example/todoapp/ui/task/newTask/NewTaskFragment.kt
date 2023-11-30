@@ -3,12 +3,14 @@ package com.example.todoapp.ui.task.newTask
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.ListPopupWindow
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,6 +18,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
+import com.example.todoapp.databinding.ItemCategoryListPopupWindowBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.ui.task.tabTask.ListPopupWindowAdapter
 import com.example.todoapp.viewModel.CategoryViewModel
@@ -428,6 +431,7 @@ class NewTaskFragment : Fragment() {
             }
         }
     }
+//
 
     private fun showListPopupWindow(anchorView: View) {
         val listPopupWindow = ListPopupWindow(anchorView.context)
