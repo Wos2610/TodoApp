@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentArchiveBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.ui.archive.ArchiveTask.ArchiveTaskAdapter
 import com.example.todoapp.viewModel.TaskViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ArchiveFragment : Fragment() {
     private lateinit var binding: FragmentArchiveBinding
@@ -24,9 +26,17 @@ class ArchiveFragment : Fragment() {
         binding = FragmentArchiveBinding.inflate(inflater, container, false)
         adapter = ArchiveTaskAdapter(
             delete = { task ->
-                taskViewModel.apply {
-                    deleteTask(task)
-                }
+                val builder = MaterialAlertDialogBuilder(requireContext())
+                builder.setTitle(getString(R.string.confirm))
+                    .setMessage(getString(R.string.delete_button_message))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                        taskViewModel.apply {
+                            deleteTask(task)
+                        }
+                    }
+                    .setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.show()
             },
             restore = { task ->
                 taskViewModel.apply {
