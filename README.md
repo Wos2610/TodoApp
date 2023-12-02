@@ -47,7 +47,6 @@
 <img src="https://github.com/Wos2610/TodoApp/assets/101249227/14a0d204-e94a-47e7-8c00-0b897a65a565/choose_category_new_task.jpg" width="200" />
 
 - Archive task
-<img src="https://github.com/Wos2610/TodoApp/assets/101249227/4e4d3cf8-ccf0-4a47-8a12-3a745abff602/no_archive_task.jpg" width="200" />
 <img src="https://github.com/Wos2610/TodoApp/assets/101249227/7e365a88-7d4c-4fe8-a524-09c3f4fcc9c7/archive_tab_task.jpg" width="200" />
 <img src="https://github.com/Wos2610/TodoApp/assets/101249227/f17237ff-29c1-47c1-b959-1096aee61fd5/confirm_dialog_archive_task.jpg" width="200" />
 <img src="(https://github.com/Wos2610/TodoApp/assets/101249227/0d6ff897-c86e-4748-bf1f-6c780c6bd22f/restore_archive_task.jpg" width="200" />
@@ -67,5 +66,8 @@
 
 ### d. Archive
 - Task khi trong Archive thì có thể delete vĩnh viễn hoặc là restore lại.
+<img src="https://github.com/Wos2610/TodoApp/assets/101249227/4e4d3cf8-ccf0-4a47-8a12-3a745abff602/no_archive_task.jpg" width="200" />
 <img src="https://github.com/Wos2610/TodoApp/assets/101249227/26dcaec1-4f3a-4054-8298-4c3bd92eb56b/archive.jpg" width="200" />
 <img src="https://github.com/Wos2610/TodoApp/assets/101249227/4a1663ff-ff57-4fa5-9e6b-c1e5e5d57a98/delete_archive_task.jpg" width="200" />
+<img src="https://github.com/Wos2610/TodoApp/assets/101249227/f2747db5-62cf-4f84-b349-5733e593fd72/restore_archive_task.jpg" width="200" />
+
