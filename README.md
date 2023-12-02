@@ -8,7 +8,7 @@
 - Ngôn ngữ: Kotlin
 - Room Database
 - Mô hình MVVM
-- LiveData
+- ViewModel, LiveData
 - Navigation Component
 - TabLayout, ViewPager2
 ## 3. Demo App
