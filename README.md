@@ -1,16 +1,22 @@
 # TodoApp
-## 1. Giới thiệu về TodoApp
+## 1. Introduction 
 - TodoApp là sản phẩm dùng để quản lý task hiệu quả cho cá nhân.
 - Cung cấp các tính năng: insert, edit, delete, search, sort, filter, group các tasks.
 - Các task có thể chia vào các category có sẵn: Default, Work, Study; hoặc user có thể tự tạo ra các category cho riêng mình.
 - Hiển thị các task theo ngày giúp user thuận tiện hơn trong việc quản lý thời gian của bản thân.
-## 2. App sử dụng
+## 2. Công nghệ sử dụng
 - Ngôn ngữ: Kotlin
 - Room Database
 - Mô hình MVVM
 - ViewModel, LiveData, ViewBiding
 - Navigation Component
 - TabLayout, ViewPager2
+## 3. Libraries & Dependencies
+- [Support libraries](https://developer.android.com/jetpack/androidx): AppCompat / RecyclerView / ConstraintLayout / ViewPager2 / CardView
+- [Material Design 3](https://m3.material.io/components): TextInputLayout / TabLayout /  / FloatingActionButton / DatePickers / TimePickers / Dialogs / NavigationBar
+- [Glide](https://github.com/bumptech/glide): An image loading and caching library for Android focused on smooth scrolling
+- [FloatingSearchView](https://github.com/arimorty/floatingsearchview): Cute library to implement SearchView in a Material Design Approach
+- [Calendar](https://github.com/kizitonwose/Calendar): A highly customizable calendar library for Android
 ## 3. Demo App
 ### a. Home 
 - Màn hình **Home** sẽ bao gồm: search bar, category list, today task list
