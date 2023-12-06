@@ -5,7 +5,7 @@
 - Displaying tasks based on dates enhances user convenience in managing their time effectively.
 ## 2. Technologies
 - Language: Kotlin
-- Room Database
+- Room Database, Flow
 - MVVM Architecture
 - ViewModel, LiveData, ViewBinding
 - Navigation Component
